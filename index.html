@@ -210,6 +210,27 @@ a.sq:hover { border-color: var(--accent); }
 footer { border-top: 1px solid var(--line); padding-block: 18px 28px; color: var(--muted); font-size: 13px; }
 @media (prefers-reduced-motion: no-preference) { .tabs a, .seg button { transition: color .15s, background-color .15s, border-color .15s; } }
 [hidden] { display: none !important; }
+.conf-h { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 14px; }
+.conf-h select { font: inherit; font-size: 15px; color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 9px 12px; max-width: 100%; }
+.dich { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; }
+.dich-h { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.dich-h img { flex: none; }
+.dich-h b { display: block; line-height: 1.2; }
+.dich-h small { color: var(--muted); font-size: 12.5px; }
+.dich p { margin: 0 0 .7em; line-height: 1.5; overflow-wrap: anywhere; }
+.dich h4 { margin: 0 0 6px; font-size: 16px; }
+.tag a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.sa-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 14px; }
+.sa-nav select { font: inherit; font-size: 15px; color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 9px 12px; }
+.sa-nav button { font: 600 14px/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; padding: 10px 14px; border: 1px solid var(--line); border-radius: 8px; background: transparent; color: var(--fg); cursor: pointer; }
+.sa-nav button:disabled { opacity: .35; cursor: default; }
+.sa-m { display: grid; grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr); gap: 6px; padding: 11px 14px; align-items: center; }
+.sa-m + .sa-m { border-top: 1px solid var(--line); }
+.sa-m span:first-child { text-align: right; font-weight: 600; }
+.sa-m span:last-child { font-weight: 600; }
+.sa-m i { text-align: center; color: var(--muted); font-style: normal; }
+.sa-lega { margin-top: 12px; color: var(--muted); font-size: 14px; }
+.sa-lega a { color: var(--accent); }
 .cerca { position: relative; margin-bottom: 16px; }
 .cerca input { width: 100%; box-sizing: border-box; font: inherit; font-size: 16px; color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 11px 14px; }
 .cerca input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
@@ -264,7 +285,7 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;'
 const num = n => n.toLocaleString('it-IT', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
 const logo = id => `img/${id}.webp`;
 const SECTIONS = [['home', 'Home'], ['squadre', 'Squadre'], ['calendario', 'Calendario'], ['classifica', 'Classifica'], ['commenti', 'Commenti']];
-const S = { q: '', cal: 'campionato', cla: 'campionato', vista: (typeof matchMedia === 'function' && matchMedia('(max-width: 560px)').matches) ? 'compatta' : 'dettaglio' };
+const S = { sa: null, ancora: null, gio: null, q: '', cal: 'campionato', cla: 'campionato', vista: (typeof matchMedia === 'function' && matchMedia('(max-width: 560px)').matches) ? 'compatta' : 'dettaglio' };
 const RUOLI = { P: 'Portieri', D: 'Difensori', C: 'Centrocampisti', A: 'Attaccanti' };
 const CELLA = 48; // le figurine di ogni squadra sono in un'unica immagine 5x5, nell'ordine della rosa
 const faccia = (id, i) => `background-image:url(img/rosa-${id}.webp);background-size:${5 * CELLA}px ${5 * CELLA}px;background-position:-${(i % 5) * CELLA}px -${Math.floor(i / 5) * CELLA}px`;
@@ -296,7 +317,7 @@ function giornataHtml(g) {
   const chip = st === 'giocata' ? '<span class="state done">Giocata</span>'
     : isNext ? '<span class="state next">Prossima</span>'
     : st === 'attesa' ? '<span class="state">In arrivo</span>' : '<span class="state">Da giocare</span>';
-  const tags = [g.serieA ? `${g.serieA}ª di Serie A` : '', g.fase || ''].filter(Boolean).map(t => `<span class="tag">${esc(t)}</span>`).join('');
+  const tags = [g.serieA ? `<a href="#seriea-${g.serieA}" title="Vedi la giornata di Serie A">${g.serieA}ª di Serie A</a>` : '', g.fase ? esc(g.fase) : ''].filter(Boolean).map(t => `<span class="tag">${t}</span>`).join('');
   let corpo;
   if (!g.partite.length) {
     corpo = `<div class="nota">${esc(g.nota || 'Calendario in arrivo.')}</div>`;
@@ -306,7 +327,7 @@ function giornataHtml(g) {
       ? gironi.map(k => `<div class="girone">Gruppo ${esc(k)}</div>${g.partite.filter(m => m.g === k).map(matchHtml).join('')}`).join('')
       : g.partite.map(matchHtml).join('');
   }
-  return `<section class="gio"><div class="gio-h"><h3>${g.n}ª di Lega</h3>${tags}${chip}</div>${corpo}</section>`;
+  return `<section class="gio" id="g-${g.comp}-${g.n}"><div class="gio-h"><h3>${g.n}ª di Lega</h3>${tags}${chip}</div>${corpo}</section>`;
 }
 
 function tabellaHtml(righe) {
@@ -337,6 +358,94 @@ function seg(act, cur, opzioni, etichetta) {
   const o = opzioni || ['campionato', 'coppa'].map(k => [k, D.competizioni[k].nome]);
   return `<div class="seg" role="group" aria-label="${etichetta || 'Competizione'}">${o.map(([k, l]) =>
     `<button type="button" data-act="${act}" data-v="${k}" aria-pressed="${cur === k}">${esc(l)}</button>`).join('')}</div>`;
+}
+
+// --- Conferenza stampa: ogni squadra scrive da un proprio modulo; il foglio Google pubblicato (CSV) è letto qui.
+function parseCsv(t) {
+  const righe = []; let r = [], c = '', q = false;
+  for (let i = 0; i < t.length; i++) {
+    const ch = t[i];
+    if (q) { if (ch === '"') { if (t[i + 1] === '"') { c += '"'; i++; } else q = false; } else c += ch; }
+    else if (ch === '"') q = true;
+    else if (ch === ',') { r.push(c); c = ''; }
+    else if (ch === '\n' || ch === '\r') { if (ch === '\r' && t[i + 1] === '\n') i++; r.push(c); c = ''; righe.push(r); r = []; }
+    else c += ch;
+  }
+  if (c || r.length) { r.push(c); righe.push(r); }
+  return righe.filter(x => x.some(v => v.trim()));
+}
+// Orario del foglio (fuso Italia) letto come "ora di parete": giorno/mese/anno ore:minuti:secondi, oppure ISO.
+function leggiOra(v) {
+  let m = String(v).trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:[ ,]+(\d{1,2}):(\d{2})(?::(\d{2}))?)?/);
+  if (m) return Date.UTC(+m[3], +m[2] - 1, +m[1], +(m[4] || 0), +m[5] || 0, +(m[6] || 0));
+  m = String(v).trim().match(/^(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2})(?::(\d{2}))?)?/);
+  return m ? Date.UTC(+m[1], +m[2] - 1, +m[3], +(m[4] || 0), +(m[5] || 0), +(m[6] || 0)) : NaN;
+}
+// Finestre: la giornata di Lega comincia quando finisce la precedente e si chiude oreChiusura ore dopo il lunedì della sua partita (96 = venerdì 00:00, quindi i commenti di martedì-giovedì restano sulla giornata appena giocata), ma mai oltre il giorno in cui parte la giornata successiva.
+function finestre() {
+  const gs = D.giornate.filter(g => g.comp === 'campionato' && g.data).sort((a, b) => a.n - b.n);
+  const h = (D.lega.oreChiusura ?? 96) * 3600000, g0 = x => { const [y, m, d] = x.split('-').map(Number); return Date.UTC(y, m - 1, d); };
+  return gs.map((g, i) => ({ g, fine: Math.min(g0(g.data) + 86400000 + h, i + 1 < gs.length ? g0(gs[i + 1].data) : Infinity) }))
+    .map((w, i, a) => ({ ...w, inizio: i ? a[i - 1].fine : -Infinity }));
+}
+function giornataDi(ts, fin) {
+  return (fin.find(w => ts >= w.inizio && ts < w.fine) || fin[fin.length - 1]).g;
+}
+function giornataCorrente(fin) { const ora = new Date(), t = Date.UTC(ora.getFullYear(), ora.getMonth(), ora.getDate(), ora.getHours(), ora.getMinutes()); return giornataDi(t, fin); }
+async function caricaDichiarazioni(squadre) {
+  const fin = finestre();
+  const tutte = await Promise.all(squadre.filter(s => s.csv).map(async s => {
+    try {
+      const r = await fetch(s.csv, { cache: 'no-cache' });
+      if (!r.ok) return [];
+      const righe = parseCsv(await r.text());
+      const h = (righe.shift() || []).map(x => x.toLowerCase());
+      const col = (re, def) => { const i = h.findIndex(x => re.test(x)); return i < 0 ? def : i; };
+      const iT = 0, iTxt = col(/commento|dichiaraz|testo|messaggio/, 1), iV = col(/video|youtube/, -1), iTit = col(/titolo/, -1);
+      return righe.map(x => ({ sq: s.id, ts: leggiOra(x[iT]), testo: (x[iTxt] || '').trim(), video: iV < 0 ? '' : (x[iV] || '').trim(), titolo: iTit < 0 ? '' : (x[iTit] || '').trim() }))
+        .filter(x => x.testo && !isNaN(x.ts)).map(x => ({ ...x, n: giornataDi(x.ts, fin).n }));
+    } catch (e) { return []; }
+  }));
+  return tutte.flat().sort((a, b) => b.ts - a.ts);
+}
+function dichHtml(x) {
+  const t = new Date(x.ts), quando = t.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', timeZone: 'UTC' }) + ' · ' + t.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' });
+  const yt = /^https:\/\//.test(x.video) ? ytId(x.video) : '';
+  return `<article class="dich"><div class="dich-h"><img src="${logo(x.sq)}" alt="" width="36" height="36"><div><b>${esc(T[x.sq].nome)}</b><small>${esc(quando)}</small></div></div>
+    ${x.titolo ? `<h4>${esc(x.titolo)}</h4>` : ''}
+    ${x.testo.split(/\n{2,}/).filter(v => v.trim()).map(v => `<p>${inline(v.trim()).replace(/\n/g, '<br>')}</p>`).join('')}
+    ${yt && incorpora() ? `<div class="yt"><iframe src="https://www.youtube-nocookie.com/embed/${yt}" title="Video ${esc(T[x.sq].nome)}" loading="lazy" allowfullscreen></iframe></div>` : ''}
+    ${/^https:\/\//.test(x.video) ? `<a class="video" href="${esc(x.video)}" target="_blank" rel="noopener">Apri il video su YouTube</a>` : ''}</article>`;
+}
+function conferenzaHtml() {
+  const fin = finestre();
+  if (!fin.length) return '';
+  const cur = giornataCorrente(fin).n;
+  if (S.gio == null) S.gio = cur;
+  const ha = D.dichiarazioni.length;
+  const opz = fin.map(w => w.g).filter(g => g.n <= cur || D.dichiarazioni.some(x => x.n === g.n)).reverse();
+  const lista = D.dichiarazioni.filter(x => x.n === S.gio);
+  const g = fin.find(w => w.g.n === S.gio)?.g;
+  return `<section><div class="sec-h"><h2>Conferenza stampa</h2><p>Le squadre commentano la giornata</p></div>
+    <div class="conf-h"><select id="gio" aria-label="Giornata">${opz.map(o => `<option value="${o.n}"${o.n === S.gio ? ' selected' : ''}>${o.n}ª di Lega${o.n === cur ? ' · in corso' : ''}</option>`).join('')}</select>
+      ${g ? `<span class="tag">${g.serieA}ª di Serie A · ${new Date(g.data + 'T12:00:00').toLocaleDateString('it-IT', { day: 'numeric', month: 'long' })}</span>` : ''}</div>
+    ${lista.length ? lista.map(dichHtml).join('') : `<div class="vuoto"><strong>${ha || D.squadre.some(s => s.csv) ? 'Ancora nessuna dichiarazione per questa giornata' : 'La conferenza stampa apre presto'}</strong>Ogni squadra scrive dal proprio modulo: il comunicato compare qui entro pochi minuti.</div>`}</section>`;
+}
+
+function serieAHtml() {
+  const cal = D.calendarioSerieA || [];
+  if (!cal.length) return '';
+  if (S.sa == null) { const oggi = new Date().toLocaleDateString('sv-SE'); S.sa = (cal.find(x => x.data >= oggi) || cal[cal.length - 1]).n; }
+  const n = +S.sa, r = cal.find(x => x.n === n) || cal[0];
+  const data = new Date(r.data + 'T12:00:00').toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const lega = D.giornate.filter(g => g.serieA === r.n);
+  return `<div class="sa-nav"><button type="button" data-act="sa" data-v="${r.n - 1}"${r.n <= 1 ? ' disabled' : ''} aria-label="Giornata precedente">←</button>
+      <select id="sa" aria-label="Giornata di Serie A">${cal.map(x => `<option value="${x.n}"${x.n === r.n ? ' selected' : ''}>${x.n}ª giornata · ${new Date(x.data + 'T12:00:00').toLocaleDateString('it-IT', { day: 'numeric', month: 'short' })}</option>`).join('')}</select>
+      <button type="button" data-act="sa" data-v="${r.n + 1}"${r.n >= cal.length ? ' disabled' : ''} aria-label="Giornata successiva">→</button></div>
+    <section class="gio"><div class="gio-h"><h3>${r.n}ª di Serie A</h3><span class="tag">${esc(data)}</span></div>
+      ${r.partite.map(([a, b]) => `<div class="sa-m"><span>${esc(a)}</span><i>–</i><span>${esc(b)}</span></div>`).join('')}</section>
+    <p class="sa-lega">${lega.length ? 'Nella nostra lega: ' + lega.map(g => `<a href="#lega-${g.comp}-${g.n}">${g.n}ª di Lega · ${g.comp === 'coppa' ? 'Coppa' : 'Campionato'}</a>`).join(' · ') : 'Questa giornata non è in programma nella nostra lega.'}</p>
+    <p class="fonte">Calendario ufficiale Serie A Enilive 2026/27. Le date sono quelle indicate per ogni giornata; gli orari delle singole partite possono variare.</p>`;
 }
 
 const norm = x => String(x).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -418,7 +527,9 @@ const VIEWS = {
   },
   calendario() {
     const gs = D.giornate.filter(g => g.comp === S.cal);
-    return `<section><div class="sec-h"><h2>Calendario</h2>${seg('cal', S.cal)}</div>
+    const opz = ['campionato', 'coppa'].map(k => [k, D.competizioni[k].nome]).concat(D.calendarioSerieA ? [['seriea', 'Serie A']] : []);
+    if (S.cal === 'seriea') return `<section><div class="sec-h"><h2>Calendario</h2>${seg('cal', S.cal, opz)}</div>${serieAHtml()}</section>`;
+    return `<section><div class="sec-h"><h2>Calendario</h2>${seg('cal', S.cal, opz)}</div>
       ${gs.length ? gs.map(giornataHtml).join('') : `<div class="vuoto"><strong>Calendario non ancora inserito</strong>Le giornate del ${esc(D.competizioni[S.cal].nome)} compaiono qui appena disponibili.</div>`}</section>`;
   },
   classifica() {
@@ -432,7 +543,7 @@ const VIEWS = {
     return `<section><div class="sec-h"><h2>Classifica</h2><div class="ctrl">${seg('cla', S.cla)}${vista}</div></div>${corpo}${leg}</section>`;
   },
   commenti() {
-    return `<section><div class="sec-h"><h2>Commenti di giornata</h2><p>Articoli e video</p></div>
+    return `${conferenzaHtml()}<section><div class="sec-h"><h2>Commenti di giornata</h2><p>Articoli e video</p></div>
       ${D.commenti.length ? D.commenti.map(postHtml).join('') : '<div class="vuoto"><strong>Il primo commento arriva dopo la 1ª giornata</strong>Qui trovi il resoconto scritto e il video di ogni turno.</div>'}</section>`;
   }
 };
@@ -484,8 +595,15 @@ function postHtml(p) {
     ${/^https:\/\//.test(p.video) ? `<a class="video" href="${esc(p.video)}" target="_blank" rel="noopener">Apri il video su YouTube</a>` : ''}</article>`;
 }
 
+function applicaHash() {
+  const t = location.hash.slice(1); let m;
+  S.ancora = null;
+  if ((m = t.match(/^seriea-(\d+)$/))) { S.cal = 'seriea'; S.sa = +m[1]; }
+  else if ((m = t.match(/^lega-(campionato|coppa)-(\d+)$/))) { S.cal = m[1]; S.ancora = `g-${m[1]}-${m[2]}`; }
+}
 function current() {
   const t = location.hash.slice(1);
+  if (/^(seriea-\d+|lega-(campionato|coppa)-\d+)$/.test(t)) return 'calendario';
   if (t.startsWith('squadra-') && T[t.slice(8)]) return t;
   return SECTIONS.some(s => s[0] === t) ? t : 'home';
 }
@@ -494,7 +612,10 @@ function render() {
   const voce = cur.startsWith('squadra-') ? 'squadre' : cur;
   document.getElementById('tabs').innerHTML = SECTIONS.map(([k, l]) => `<a href="#${k}"${k === voce ? ' aria-current="page"' : ''}>${l}</a>`).join('');
   document.getElementById('app').innerHTML = cur.startsWith('squadra-') ? VIEWS.squadra(cur.slice(8)) : VIEWS[cur]();
+  if (S.ancora) { const el = document.getElementById(S.ancora); S.ancora = null; if (el) el.scrollIntoView(); }
 }
+document.addEventListener('change', e => { if (e.target.id === 'sa') { S.sa = +e.target.value; render(); } });
+document.addEventListener('change', e => { if (e.target.id === 'gio') { S.gio = +e.target.value; render(); } });
 document.addEventListener('input', e => {
   if (e.target.id !== 'cerca') return;
   S.q = e.target.value;
@@ -504,16 +625,18 @@ document.addEventListener('input', e => {
 document.addEventListener('click', e => {
   const b = e.target.closest('button[data-act]');
   if (!b) return;
-  S[b.dataset.act] = b.dataset.v;
+  S[b.dataset.act] = b.dataset.act === 'sa' ? +b.dataset.v : b.dataset.v;
   render();
 });
-window.addEventListener('hashchange', () => { render(); window.scrollTo(0, 0); });
+window.addEventListener('hashchange', () => { applicaHash(); const anc = S.ancora; render(); if (!anc) window.scrollTo(0, 0); });
 async function avvio() {
   try {
     const r = await fetch('dati/lega.json', { cache: 'no-cache' });
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const dati = await r.json();
     dati.commenti = await caricaCommenti();
+    D = dati; // le finestre per giornata servono a leggere le dichiarazioni
+    dati.dichiarazioni = await caricaDichiarazioni(dati.squadre);
     D = dati;
     T = Object.fromEntries(D.squadre.map(s => [s.id, s]));
   } catch (e) {
@@ -521,6 +644,7 @@ async function avvio() {
     return;
   }
   document.getElementById('foot').innerHTML = `Dati dalla lega su ${D.lega.fonte} · aggiornato al ${new Date(D.aggiornato + 'T12:00:00').toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })}<br>Sito ideato e curato da <a href="https://pinellus.github.io/fantasms2026" target="_blank" rel="noopener">Pinellus</a>`;
+  applicaHash();
   render();
 }
 avvio();

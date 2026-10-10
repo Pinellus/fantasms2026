@@ -1,419 +1,5121 @@
 {
-  "aggiornato": "2026-10-10",
-  "lega": { "nome": "Fanta SMS Engineering", "stagione": "2026/27", "fonte": "fantacalcio.it" },
-  "criteri": ["pt", "dr", "gf", "ptt"],
-  "squadre": [
-    { "id": "vesuviani", "nome": "I Vesuviani", "partecipanti": "Bancunar e Pinellus & pinellus", "crediti": 4, "rosa": [
-      ["P","Gollini","Roma",1,1,1],
-      ["P","Svilar","Roma",19,95,100],
-      ["P","Tornqvist","Monza",3,8,6],
-      ["D","Calvani","Frosinone",8,15,1],
-      ["D","Chalobah T.","Como",9,25,30],
-      ["D","Di Lorenzo","Napoli",12,33,30],
-      ["D","Mancini","Roma",15,54,36],
-      ["D","Miranda J.","Bologna",10,22,9],
-      ["D","Obert","Cagliari",8,15,1],
-      ["D","Provstgaard","Lazio",5,12,1],
-      ["D","Sutalo J.","Lazio",7,15,1],
-      ["C","Barella","Inter",18,81,38],
-      ["C","Conceicao","Juventus",14,77,31],
-      ["C","Coulibaly L.","Lecce",10,17,2],
-      ["C","Elmas","Atalanta",6,17,1],
-      ["C","Kessiè","Atalanta",11,30,30],
-      ["C","Mora","Roma",20,60,55],
-      ["C","Moreira","Milan",15,60,51],
-      ["C","Vlasic","Torino",11,57,20],
-      ["A","Lang","Napoli",4,12,1],
-      ["A","Martinez L.","Inter",36,418,501],
-      ["A","Raimondo","Frosinone",12,60,34],
-      ["A","Romero D.","Parma",13,44,10],
-      ["A","Stulic","Lecce",6,11,2],
-      ["A","Tourè E.","Parma",10,31,4] ] },
-    { "id": "zonaflegrea", "nome": "A.C. Zona Flegrea", "partecipanti": "Roby", "crediti": 52, "rosa": [
-      ["P","Martinez Jo.","Inter",14,60,93],
-      ["P","Provedel","Inter",1,5,8],
-      ["P","Stankovic F.","Venezia",5,8,1],
-      ["D","Bastoni","Inter",13,39,41],
-      ["D","Bernasconi","Atalanta",5,14,1],
-      ["D","Favasuli","Napoli",6,16,6],
-      ["D","Gallo","Lecce",6,12,1],
-      ["D","Kaiki","Como",9,18,1],
-      ["D","Rrahmani","Napoli",15,52,16],
-      ["D","Spence","Inter",10,14,1],
-      ["D","Tavares N.","Lazio",9,50,12],
-      ["C","Bernardeschi","Bologna",12,35,1],
-      ["C","Ederson D.S.","Atalanta",13,43,1],
-      ["C","Goncalves P.","Fiorentina",11,35,1],
-      ["C","Isaksen","Lazio",8,21,1],
-      ["C","Milla","Como",7,25,4],
-      ["C","Saelemaekers","Milan",11,20,22],
-      ["C","Volpato","Sassuolo",9,21,2],
-      ["C","Zalewski","Atalanta",6,11,1],
-      ["A","Bowie","Sassuolo",12,33,1],
-      ["A","Castro S.","Roma",13,33,1],
-      ["A","Ghedjemis","Frosinone",11,30,1],
-      ["A","Malen","Roma",37,437,498],
-      ["A","Osmajic","Genoa",10,40,37],
-      ["A","Ramos G.","Milan",25,230,196] ] },
-    { "id": "backend", "nome": "Backend United", "partecipanti": "Raffaele & Pepsi", "crediti": 104, "rosa": [
-      ["P","Carnesecchi","Atalanta",16,56,103],
-      ["P","Palmisani","Frosinone",9,22,4],
-      ["P","Skorupski","Bologna",9,21,6],
-      ["D","Balerdi","Roma",8,20,1],
-      ["D","Bremer","Juventus",17,79,61],
-      ["D","Celik","Juventus",8,17,10],
-      ["D","Couto","Como",8,27,1],
-      ["D","Kolasinac","Atalanta",6,12,2],
-      ["D","N'Dicka","Roma",11,30,30],
-      ["D","Solet","Udinese",12,32,26],
-      ["D","Vojvoda","Udinese",8,18,1],
-      ["C","Alajbegovic","Juventus",11,40,7],
-      ["C","Bakola","Sassuolo",8,17,1],
-      ["C","Baturina","Como",21,191,138],
-      ["C","Calò","Frosinone",11,37,12],
-      ["C","Frattesi","Lazio",12,115,105],
-      ["C","Gonzalez N.","Juventus",13,47,5],
-      ["C","Perrone","Como",11,30,1],
-      ["C","Pisilli","Roma",9,27,1],
-      ["A","Adams A.","Venezia",12,30,10],
-      ["A","Maldini","Cagliari",11,50,37],
-      ["A","Mendy P.","Cagliari",8,20,1],
-      ["A","Noslin","Lazio",10,35,10],
-      ["A","Thuram","Inter",31,260,320],
-      ["A","Yeboah J.","Venezia",8,26,3] ] },
-    { "id": "dns", "nome": "DNS - Domenica Non Segno", "partecipanti": "Sergio Fiorentino & Elpagans", "crediti": 166, "rosa": [
-      ["P","Neto","Juventus",1,1,4],
-      ["P","Perri","Torino",9,15,5],
-      ["P","Vicario","Juventus",16,65,80],
-      ["D","Bracaglia","Frosinone",9,17,6],
-      ["D","Doig","Sassuolo",8,12,1],
-      ["D","Dragusin","Fiorentina",8,19,2],
-      ["D","Jimenez A.","Fiorentina",10,35,4],
-      ["D","Kamara H.","Udinese",10,15,2],
-      ["D","Marin R.","Napoli",2,13,11],
-      ["D","Tiago Gabriel","Lecce",9,21,10],
-      ["D","Wesley","Roma",18,91,50],
-      ["C","Adzic","Sassuolo",11,40,4],
-      ["C","Cristante","Roma",11,31,1],
-      ["C","De Bruyne","Napoli",17,80,50],
-      ["C","Fagioli","Fiorentina",8,21,1],
-      ["C","Konè M.","Roma",14,50,61],
-      ["C","Lobotka","Napoli",11,26,1],
-      ["C","Pulisic","Milan",25,155,180],
-      ["C","Samardzic","Atalanta",14,36,1],
-      ["A","Berardi","Sassuolo",18,100,86],
-      ["A","Hojlund","Napoli",27,233,140],
-      ["A","Krstovic","Atalanta",16,75,30],
-      ["A","Neres","Napoli",5,14,1],
-      ["A","Pinamonti","Lazio",10,36,11],
-      ["A","Scamacca","Atalanta",19,91,92] ] },
-    { "id": "futuro", "nome": "Futuro Nazionale", "partecipanti": "Roberto Vannacci", "crediti": 23, "rosa": [
-      ["P","Caprile","Cagliari",13,32,62],
-      ["P","Maignan","Milan",15,54,95],
-      ["P","Okoye","Udinese",8,25,49],
-      ["D","Akanji","Inter",14,40,32],
-      ["D","Coco","Torino",8,14,2],
-      ["D","De Winter","Milan",6,25,22],
-      ["D","Diego Carlos","Parma",8,15,2],
-      ["D","Ehizibue","Genoa",4,10,1],
-      ["D","Lucumì","Juventus",8,18,1],
-      ["D","Mina","Cagliari",9,16,13],
-      ["D","Siebert","Lecce",4,12,1],
-      ["C","Atta","Fiorentina",14,61,30],
-      ["C","Cissè A.","Milan",6,33,1],
-      ["C","Fitz-Jim","Torino",6,18,1],
-      ["C","Folorunsho","Monza",3,15,1],
-      ["C","McKennie","Juventus",15,61,71],
-      ["C","Njie","Fiorentina",7,33,5],
-      ["C","Paz N.","Como",29,235,188],
-      ["C","Rowe","Atalanta",9,35,4],
-      ["A","Beto","Fiorentina",13,49,15],
-      ["A","Davis K.","Udinese",19,111,90],
-      ["A","Kean","Como",23,130,100],
-      ["A","Laurientè","Sassuolo",16,71,98],
-      ["A","Santos A.","Napoli",13,36,12],
-      ["A","Varela G.","Monza",10,69,81] ] },
-    { "id": "orsonaldo", "nome": "Orsonaldo", "partecipanti": "Ciro & CM13", "crediti": 63, "rosa": [
-      ["P","Butez","Como",13,41,75],
-      ["P","Corvi","Parma",4,10,1],
-      ["P","Sanchez Ro.","Como",8,12,2],
-      ["D","Alaba","Udinese",10,24,11],
-      ["D","Doekhi","Lazio",8,13,9],
-      ["D","Hermoso","Roma",12,40,30],
-      ["D","Kalulu","Juventus",13,41,40],
-      ["D","Mangas","Monza",10,25,9],
-      ["D","Ramon","Como",12,34,22],
-      ["D","Ranieri L.","Fiorentina",3,13,2],
-      ["D","Zortea","Bologna",6,19,1],
-      ["C","Calhanoglu","Inter",27,214,205],
-      ["C","Cambiaghi","Bologna",8,23,26],
-      ["C","Chukwueze","Milan",10,24,31],
-      ["C","Jones C.","Inter",12,32,8],
-      ["C","Keita M.","Parma",6,15,11],
-      ["C","Orsolini","Bologna",23,138,80],
-      ["C","Politano","Napoli",11,41,2],
-      ["C","Vergara","Napoli",9,22,2],
-      ["A","De Ketelaere","Atalanta",15,64,65],
-      ["A","Diao","Como",14,68,71],
-      ["A","Dovbyk","Bologna",15,30,15],
-      ["A","Dybala","Roma",17,120,140],
-      ["A","Kvernadze","Frosinone",11,54,58],
-      ["A","Simeone","Torino",13,55,21] ] },
-    { "id": "scarsenal", "nome": "SCARSENAL", "partecipanti": "Pocho & Petrux", "crediti": 144, "rosa": [
-      ["P","De Gea","Fiorentina",10,26,30],
-      ["P","Mandas","Lazio",13,41,48],
-      ["P","Motta","Lazio",1,1,1],
-      ["D","Bellanova","Atalanta",5,16,14],
-      ["D","Bisseck","Inter",13,37,23],
-      ["D","Carlos Augusto","Inter",10,27,3],
-      ["D","Gila","Milan",13,30,41],
-      ["D","Molina N.","Roma",17,62,41],
-      ["D","Ostigard","Genoa",10,23,15],
-      ["D","Scalvini","Atalanta",10,23,9],
-      ["D","Zappacosta","Atalanta",7,12,12],
-      ["C","Bernabè","Parma",6,25,1],
-      ["C","Ekkelenkamp","Udinese",14,64,22],
-      ["C","Mandragora","Torino",12,40,14],
-      ["C","Mastantuono","Fiorentina",14,76,66],
-      ["C","Modric","Milan",12,40,2],
-      ["C","Rabiot","Milan",24,145,55],
-      ["C","Schmid","Frosinone",11,40,1],
-      ["C","Thorstvedt","Sassuolo",9,31,1],
-      ["A","Douvikas","Como",22,134,190],
-      ["A","Pellegrino M.","Fiorentina",16,50,28],
-      ["A","Piccoli","Bologna",9,40,115],
-      ["A","Raspadori","Atalanta",14,25,54],
-      ["A","Soulè","Roma",16,67,35],
-      ["A","Woltemade","Juventus",22,62,35] ] },
-    { "id": "veeam", "nome": "VEEAM FATT A QUAGL FC", "partecipanti": "Wasaberto & Veeamcenzo", "crediti": 7, "rosa": [
-      ["P","Falcone","Lecce",7,23,5],
-      ["P","Meret","Napoli",9,40,41],
-      ["P","Milinkovic-Savic V.","Napoli",7,13,20],
-      ["D","Birindelli","Monza",7,13,1],
-      ["D","Delprato","Parma",8,22,1],
-      ["D","Dimarco","Inter",29,210,106],
-      ["D","Pavlovic","Milan",13,50,32],
-      ["D","Spinazzola","Napoli",8,21,1],
-      ["D","Valeri","Parma",9,24,1],
-      ["D","Valle","Como",8,19,3],
-      ["D","Vasquez","Genoa",9,26,3],
-      ["C","Da Cunha","Como",17,60,41],
-      ["C","Diouf","Inter",11,64,36],
-      ["C","Gudmundsson","Lazio",13,30,1],
-      ["C","McTominay","Napoli",24,112,101],
-      ["C","Taylor K.","Lazio",13,42,1],
-      ["C","Zaccagni","Lazio",18,124,51],
-      ["C","Zaniolo","Udinese",16,54,11],
-      ["C","Zielinski","Inter",13,41,10],
-      ["A","Colombo","Genoa",10,43,13],
-      ["A","Esposito F.P.","Inter",18,116,312],
-      ["A","Esposito Se.","Sassuolo",14,42,21],
-      ["A","Kolo Muani","Juventus",23,122,101],
-      ["A","Lontani","Parma",6,16,1],
-      ["A","Yildiz","Juventus",20,70,79] ] }
-  ],
-  "competizioni": {
-    "coppa": { "nome": "Coppa", "fase": "Fase a gruppi", "gironi": { "A": ["scarsenal", "backend", "zonaflegrea", "veeam"], "B": ["vesuviani", "dns", "futuro", "orsonaldo"] } },
-    "campionato": { "nome": "Campionato", "squadre": ["orsonaldo", "backend", "scarsenal", "vesuviani", "dns", "futuro", "zonaflegrea", "veeam"] }
+ "aggiornato": "2026-10-10",
+ "lega": {
+  "nome": "Fanta SMS Engineering",
+  "stagione": "2026/27",
+  "fonte": "fantacalcio.it",
+  "oreChiusura": 96
+ },
+ "criteri": [
+  "pt",
+  "dr",
+  "gf",
+  "ptt"
+ ],
+ "squadre": [
+  {
+   "id": "vesuviani",
+   "nome": "I Vesuviani",
+   "partecipanti": "Bancunar e Pinellus & pinellus",
+   "crediti": 4,
+   "rosa": [
+    [
+     "P",
+     "Gollini",
+     "Roma",
+     1,
+     1,
+     1
+    ],
+    [
+     "P",
+     "Svilar",
+     "Roma",
+     19,
+     95,
+     100
+    ],
+    [
+     "P",
+     "Tornqvist",
+     "Monza",
+     3,
+     8,
+     6
+    ],
+    [
+     "D",
+     "Calvani",
+     "Frosinone",
+     8,
+     15,
+     1
+    ],
+    [
+     "D",
+     "Chalobah T.",
+     "Como",
+     9,
+     25,
+     30
+    ],
+    [
+     "D",
+     "Di Lorenzo",
+     "Napoli",
+     12,
+     33,
+     30
+    ],
+    [
+     "D",
+     "Mancini",
+     "Roma",
+     15,
+     54,
+     36
+    ],
+    [
+     "D",
+     "Miranda J.",
+     "Bologna",
+     10,
+     22,
+     9
+    ],
+    [
+     "D",
+     "Obert",
+     "Cagliari",
+     8,
+     15,
+     1
+    ],
+    [
+     "D",
+     "Provstgaard",
+     "Lazio",
+     5,
+     12,
+     1
+    ],
+    [
+     "D",
+     "Sutalo J.",
+     "Lazio",
+     7,
+     15,
+     1
+    ],
+    [
+     "C",
+     "Barella",
+     "Inter",
+     18,
+     81,
+     38
+    ],
+    [
+     "C",
+     "Conceicao",
+     "Juventus",
+     14,
+     77,
+     31
+    ],
+    [
+     "C",
+     "Coulibaly L.",
+     "Lecce",
+     10,
+     17,
+     2
+    ],
+    [
+     "C",
+     "Elmas",
+     "Atalanta",
+     6,
+     17,
+     1
+    ],
+    [
+     "C",
+     "Kessiè",
+     "Atalanta",
+     11,
+     30,
+     30
+    ],
+    [
+     "C",
+     "Mora",
+     "Roma",
+     20,
+     60,
+     55
+    ],
+    [
+     "C",
+     "Moreira",
+     "Milan",
+     15,
+     60,
+     51
+    ],
+    [
+     "C",
+     "Vlasic",
+     "Torino",
+     11,
+     57,
+     20
+    ],
+    [
+     "A",
+     "Lang",
+     "Napoli",
+     4,
+     12,
+     1
+    ],
+    [
+     "A",
+     "Martinez L.",
+     "Inter",
+     36,
+     418,
+     501
+    ],
+    [
+     "A",
+     "Raimondo",
+     "Frosinone",
+     12,
+     60,
+     34
+    ],
+    [
+     "A",
+     "Romero D.",
+     "Parma",
+     13,
+     44,
+     10
+    ],
+    [
+     "A",
+     "Stulic",
+     "Lecce",
+     6,
+     11,
+     2
+    ],
+    [
+     "A",
+     "Tourè E.",
+     "Parma",
+     10,
+     31,
+     4
+    ]
+   ],
+   "csv": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRowXlxaNIJnn-2aMYdnMqXVtA8z76_EaAWSC8dUgUb_gvOY_9guMAYSGao2absTjufha101Z3W7HQJ/pub?gid=2113009531&single=true&output=csv"
   },
-  "giornate": [
-    { "comp": "campionato", "n": 1, "serieA": 6, "fase": null, "partite": [
-      { "casa": "zonaflegrea", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "scarsenal", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "veeam", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "dns", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 2, "serieA": 7, "fase": null, "partite": [
-      { "casa": "vesuviani", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "futuro", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "backend", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "orsonaldo", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 3, "serieA": 8, "fase": null, "partite": [
-      { "casa": "veeam", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "dns", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "zonaflegrea", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "backend", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 4, "serieA": 9, "fase": null, "partite": [
-      { "casa": "vesuviani", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "scarsenal", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "futuro", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "orsonaldo", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 5, "serieA": 10, "fase": null, "partite": [
-      { "casa": "vesuviani", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "veeam", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "dns", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "backend", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 6, "serieA": 11, "fase": null, "partite": [
-      { "casa": "futuro", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "scarsenal", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "dns", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "zonaflegrea", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 7, "serieA": 12, "fase": null, "partite": [
-      { "casa": "vesuviani", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "veeam", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "backend", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "orsonaldo", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 8, "serieA": 13, "fase": null, "partite": [
-      { "casa": "vesuviani", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "futuro", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "orsonaldo", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "backend", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 9, "serieA": 14, "fase": null, "partite": [
-      { "casa": "dns", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "zonaflegrea", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "veeam", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "scarsenal", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 10, "serieA": 15, "fase": null, "partite": [
-      { "casa": "vesuviani", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "futuro", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "scarsenal", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "orsonaldo", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 11, "serieA": 16, "fase": null, "partite": [
-      { "casa": "backend", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "dns", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "veeam", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "zonaflegrea", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 12, "serieA": 17, "fase": null, "partite": [
-      { "casa": "orsonaldo", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "scarsenal", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "zonaflegrea", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "futuro", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 13, "serieA": 18, "fase": null, "partite": [
-      { "casa": "vesuviani", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "backend", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "orsonaldo", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "veeam", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 14, "serieA": 19, "fase": null, "partite": [
-      { "casa": "scarsenal", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "dns", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "zonaflegrea", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "futuro", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 15, "serieA": 20, "fase": null, "partite": [
-      { "casa": "zonaflegrea", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "scarsenal", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "veeam", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "dns", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 16, "serieA": 21, "fase": null, "partite": [
-      { "casa": "vesuviani", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "futuro", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "backend", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "orsonaldo", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 17, "serieA": 22, "fase": null, "partite": [
-      { "casa": "veeam", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "dns", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "zonaflegrea", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "backend", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 18, "serieA": 23, "fase": null, "partite": [
-      { "casa": "vesuviani", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "scarsenal", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "futuro", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "orsonaldo", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 19, "serieA": 24, "fase": null, "partite": [
-      { "casa": "vesuviani", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "veeam", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "dns", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "backend", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 20, "serieA": 25, "fase": null, "partite": [
-      { "casa": "futuro", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "scarsenal", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "dns", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "zonaflegrea", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 21, "serieA": 26, "fase": null, "partite": [
-      { "casa": "vesuviani", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "veeam", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "backend", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "orsonaldo", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 22, "serieA": 27, "fase": null, "partite": [
-      { "casa": "vesuviani", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "futuro", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "orsonaldo", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "backend", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 23, "serieA": 28, "fase": null, "partite": [
-      { "casa": "dns", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "zonaflegrea", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "veeam", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "scarsenal", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 24, "serieA": 29, "fase": null, "partite": [
-      { "casa": "vesuviani", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "futuro", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "scarsenal", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "orsonaldo", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 25, "serieA": 30, "fase": null, "partite": [
-      { "casa": "backend", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "dns", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "veeam", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "zonaflegrea", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 26, "serieA": 31, "fase": null, "partite": [
-      { "casa": "orsonaldo", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "scarsenal", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "zonaflegrea", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "futuro", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 27, "serieA": 32, "fase": null, "partite": [
-      { "casa": "vesuviani", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "backend", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "orsonaldo", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "veeam", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 28, "serieA": 33, "fase": null, "partite": [
-      { "casa": "scarsenal", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "dns", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "zonaflegrea", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "futuro", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 29, "serieA": 34, "fase": null, "partite": [
-      { "casa": "zonaflegrea", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "scarsenal", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "veeam", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "dns", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 30, "serieA": 35, "fase": null, "partite": [
-      { "casa": "vesuviani", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "futuro", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "backend", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "orsonaldo", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 31, "serieA": 36, "fase": null, "partite": [
-      { "casa": "veeam", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "dns", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "zonaflegrea", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "backend", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 32, "serieA": 37, "fase": null, "partite": [
-      { "casa": "vesuviani", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "scarsenal", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "futuro", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "orsonaldo", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "campionato", "n": 33, "serieA": 38, "fase": null, "partite": [
-      { "casa": "vesuviani", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "veeam", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "dns", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "casa": "backend", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "coppa", "n": 1, "serieA": 27, "fase": "Fase a gruppi", "partite": [
-      { "g": "A", "casa": "veeam", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "g": "A", "casa": "scarsenal", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "g": "B", "casa": "dns", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "g": "B", "casa": "futuro", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "coppa", "n": 2, "serieA": 28, "fase": "Fase a gruppi", "partite": [
-      { "g": "A", "casa": "backend", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "g": "A", "casa": "zonaflegrea", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "g": "B", "casa": "vesuviani", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "g": "B", "casa": "orsonaldo", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "coppa", "n": 3, "serieA": 29, "fase": "Fase a gruppi", "partite": [
-      { "g": "A", "casa": "backend", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "g": "A", "casa": "scarsenal", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "g": "B", "casa": "orsonaldo", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "g": "B", "casa": "futuro", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "coppa", "n": 4, "serieA": 30, "fase": "Fase a gruppi", "partite": [
-      { "g": "A", "casa": "zonaflegrea", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "g": "A", "casa": "backend", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "g": "B", "casa": "vesuviani", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "g": "B", "casa": "orsonaldo", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "coppa", "n": 5, "serieA": 31, "fase": "Fase a gruppi", "partite": [
-      { "g": "A", "casa": "veeam", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "g": "A", "casa": "scarsenal", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "g": "B", "casa": "futuro", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "g": "B", "casa": "dns", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "coppa", "n": 6, "serieA": 32, "fase": "Fase a gruppi", "partite": [
-      { "g": "A", "casa": "zonaflegrea", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "g": "A", "casa": "veeam", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "g": "B", "casa": "vesuviani", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null },
-      { "g": "B", "casa": "dns", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null } ] },
-    { "comp": "coppa", "n": 7, "serieA": null, "fase": null, "partite": [], "nota": "Il calendario di questa giornata sarà disponibile quando la fase precedente della competizione sarà conclusa." },
-    { "comp": "coppa", "n": 8, "serieA": null, "fase": null, "partite": [], "nota": "Il calendario di questa giornata sarà disponibile quando la fase precedente della competizione sarà conclusa." },
-    { "comp": "coppa", "n": 9, "serieA": null, "fase": null, "partite": [], "nota": "Il calendario di questa giornata sarà disponibile quando la fase precedente della competizione sarà conclusa." }
-  ]
+  {
+   "id": "zonaflegrea",
+   "nome": "A.C. Zona Flegrea",
+   "partecipanti": "Roby",
+   "crediti": 52,
+   "rosa": [
+    [
+     "P",
+     "Martinez Jo.",
+     "Inter",
+     14,
+     60,
+     93
+    ],
+    [
+     "P",
+     "Provedel",
+     "Inter",
+     1,
+     5,
+     8
+    ],
+    [
+     "P",
+     "Stankovic F.",
+     "Venezia",
+     5,
+     8,
+     1
+    ],
+    [
+     "D",
+     "Bastoni",
+     "Inter",
+     13,
+     39,
+     41
+    ],
+    [
+     "D",
+     "Bernasconi",
+     "Atalanta",
+     5,
+     14,
+     1
+    ],
+    [
+     "D",
+     "Favasuli",
+     "Napoli",
+     6,
+     16,
+     6
+    ],
+    [
+     "D",
+     "Gallo",
+     "Lecce",
+     6,
+     12,
+     1
+    ],
+    [
+     "D",
+     "Kaiki",
+     "Como",
+     9,
+     18,
+     1
+    ],
+    [
+     "D",
+     "Rrahmani",
+     "Napoli",
+     15,
+     52,
+     16
+    ],
+    [
+     "D",
+     "Spence",
+     "Inter",
+     10,
+     14,
+     1
+    ],
+    [
+     "D",
+     "Tavares N.",
+     "Lazio",
+     9,
+     50,
+     12
+    ],
+    [
+     "C",
+     "Bernardeschi",
+     "Bologna",
+     12,
+     35,
+     1
+    ],
+    [
+     "C",
+     "Ederson D.S.",
+     "Atalanta",
+     13,
+     43,
+     1
+    ],
+    [
+     "C",
+     "Goncalves P.",
+     "Fiorentina",
+     11,
+     35,
+     1
+    ],
+    [
+     "C",
+     "Isaksen",
+     "Lazio",
+     8,
+     21,
+     1
+    ],
+    [
+     "C",
+     "Milla",
+     "Como",
+     7,
+     25,
+     4
+    ],
+    [
+     "C",
+     "Saelemaekers",
+     "Milan",
+     11,
+     20,
+     22
+    ],
+    [
+     "C",
+     "Volpato",
+     "Sassuolo",
+     9,
+     21,
+     2
+    ],
+    [
+     "C",
+     "Zalewski",
+     "Atalanta",
+     6,
+     11,
+     1
+    ],
+    [
+     "A",
+     "Bowie",
+     "Sassuolo",
+     12,
+     33,
+     1
+    ],
+    [
+     "A",
+     "Castro S.",
+     "Roma",
+     13,
+     33,
+     1
+    ],
+    [
+     "A",
+     "Ghedjemis",
+     "Frosinone",
+     11,
+     30,
+     1
+    ],
+    [
+     "A",
+     "Malen",
+     "Roma",
+     37,
+     437,
+     498
+    ],
+    [
+     "A",
+     "Osmajic",
+     "Genoa",
+     10,
+     40,
+     37
+    ],
+    [
+     "A",
+     "Ramos G.",
+     "Milan",
+     25,
+     230,
+     196
+    ]
+   ],
+   "csv": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRowXlxaNIJnn-2aMYdnMqXVtA8z76_EaAWSC8dUgUb_gvOY_9guMAYSGao2absTjufha101Z3W7HQJ/pub?gid=965485745&single=true&output=csv"
+  },
+  {
+   "id": "backend",
+   "nome": "Backend United",
+   "partecipanti": "Raffaele & Pepsi",
+   "crediti": 104,
+   "rosa": [
+    [
+     "P",
+     "Carnesecchi",
+     "Atalanta",
+     16,
+     56,
+     103
+    ],
+    [
+     "P",
+     "Palmisani",
+     "Frosinone",
+     9,
+     22,
+     4
+    ],
+    [
+     "P",
+     "Skorupski",
+     "Bologna",
+     9,
+     21,
+     6
+    ],
+    [
+     "D",
+     "Balerdi",
+     "Roma",
+     8,
+     20,
+     1
+    ],
+    [
+     "D",
+     "Bremer",
+     "Juventus",
+     17,
+     79,
+     61
+    ],
+    [
+     "D",
+     "Celik",
+     "Juventus",
+     8,
+     17,
+     10
+    ],
+    [
+     "D",
+     "Couto",
+     "Como",
+     8,
+     27,
+     1
+    ],
+    [
+     "D",
+     "Kolasinac",
+     "Atalanta",
+     6,
+     12,
+     2
+    ],
+    [
+     "D",
+     "N'Dicka",
+     "Roma",
+     11,
+     30,
+     30
+    ],
+    [
+     "D",
+     "Solet",
+     "Udinese",
+     12,
+     32,
+     26
+    ],
+    [
+     "D",
+     "Vojvoda",
+     "Udinese",
+     8,
+     18,
+     1
+    ],
+    [
+     "C",
+     "Alajbegovic",
+     "Juventus",
+     11,
+     40,
+     7
+    ],
+    [
+     "C",
+     "Bakola",
+     "Sassuolo",
+     8,
+     17,
+     1
+    ],
+    [
+     "C",
+     "Baturina",
+     "Como",
+     21,
+     191,
+     138
+    ],
+    [
+     "C",
+     "Calò",
+     "Frosinone",
+     11,
+     37,
+     12
+    ],
+    [
+     "C",
+     "Frattesi",
+     "Lazio",
+     12,
+     115,
+     105
+    ],
+    [
+     "C",
+     "Gonzalez N.",
+     "Juventus",
+     13,
+     47,
+     5
+    ],
+    [
+     "C",
+     "Perrone",
+     "Como",
+     11,
+     30,
+     1
+    ],
+    [
+     "C",
+     "Pisilli",
+     "Roma",
+     9,
+     27,
+     1
+    ],
+    [
+     "A",
+     "Adams A.",
+     "Venezia",
+     12,
+     30,
+     10
+    ],
+    [
+     "A",
+     "Maldini",
+     "Cagliari",
+     11,
+     50,
+     37
+    ],
+    [
+     "A",
+     "Mendy P.",
+     "Cagliari",
+     8,
+     20,
+     1
+    ],
+    [
+     "A",
+     "Noslin",
+     "Lazio",
+     10,
+     35,
+     10
+    ],
+    [
+     "A",
+     "Thuram",
+     "Inter",
+     31,
+     260,
+     320
+    ],
+    [
+     "A",
+     "Yeboah J.",
+     "Venezia",
+     8,
+     26,
+     3
+    ]
+   ],
+   "csv": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRowXlxaNIJnn-2aMYdnMqXVtA8z76_EaAWSC8dUgUb_gvOY_9guMAYSGao2absTjufha101Z3W7HQJ/pub?gid=1151733553&single=true&output=csv"
+  },
+  {
+   "id": "dns",
+   "nome": "DNS - Domenica Non Segno",
+   "partecipanti": "Sergio Fiorentino & Elpagans",
+   "crediti": 166,
+   "rosa": [
+    [
+     "P",
+     "Neto",
+     "Juventus",
+     1,
+     1,
+     4
+    ],
+    [
+     "P",
+     "Perri",
+     "Torino",
+     9,
+     15,
+     5
+    ],
+    [
+     "P",
+     "Vicario",
+     "Juventus",
+     16,
+     65,
+     80
+    ],
+    [
+     "D",
+     "Bracaglia",
+     "Frosinone",
+     9,
+     17,
+     6
+    ],
+    [
+     "D",
+     "Doig",
+     "Sassuolo",
+     8,
+     12,
+     1
+    ],
+    [
+     "D",
+     "Dragusin",
+     "Fiorentina",
+     8,
+     19,
+     2
+    ],
+    [
+     "D",
+     "Jimenez A.",
+     "Fiorentina",
+     10,
+     35,
+     4
+    ],
+    [
+     "D",
+     "Kamara H.",
+     "Udinese",
+     10,
+     15,
+     2
+    ],
+    [
+     "D",
+     "Marin R.",
+     "Napoli",
+     2,
+     13,
+     11
+    ],
+    [
+     "D",
+     "Tiago Gabriel",
+     "Lecce",
+     9,
+     21,
+     10
+    ],
+    [
+     "D",
+     "Wesley",
+     "Roma",
+     18,
+     91,
+     50
+    ],
+    [
+     "C",
+     "Adzic",
+     "Sassuolo",
+     11,
+     40,
+     4
+    ],
+    [
+     "C",
+     "Cristante",
+     "Roma",
+     11,
+     31,
+     1
+    ],
+    [
+     "C",
+     "De Bruyne",
+     "Napoli",
+     17,
+     80,
+     50
+    ],
+    [
+     "C",
+     "Fagioli",
+     "Fiorentina",
+     8,
+     21,
+     1
+    ],
+    [
+     "C",
+     "Konè M.",
+     "Roma",
+     14,
+     50,
+     61
+    ],
+    [
+     "C",
+     "Lobotka",
+     "Napoli",
+     11,
+     26,
+     1
+    ],
+    [
+     "C",
+     "Pulisic",
+     "Milan",
+     25,
+     155,
+     180
+    ],
+    [
+     "C",
+     "Samardzic",
+     "Atalanta",
+     14,
+     36,
+     1
+    ],
+    [
+     "A",
+     "Berardi",
+     "Sassuolo",
+     18,
+     100,
+     86
+    ],
+    [
+     "A",
+     "Hojlund",
+     "Napoli",
+     27,
+     233,
+     140
+    ],
+    [
+     "A",
+     "Krstovic",
+     "Atalanta",
+     16,
+     75,
+     30
+    ],
+    [
+     "A",
+     "Neres",
+     "Napoli",
+     5,
+     14,
+     1
+    ],
+    [
+     "A",
+     "Pinamonti",
+     "Lazio",
+     10,
+     36,
+     11
+    ],
+    [
+     "A",
+     "Scamacca",
+     "Atalanta",
+     19,
+     91,
+     92
+    ]
+   ],
+   "csv": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRowXlxaNIJnn-2aMYdnMqXVtA8z76_EaAWSC8dUgUb_gvOY_9guMAYSGao2absTjufha101Z3W7HQJ/pub?gid=976851801&single=true&output=csv"
+  },
+  {
+   "id": "futuro",
+   "nome": "Futuro Nazionale",
+   "partecipanti": "Roberto Vannacci",
+   "crediti": 23,
+   "rosa": [
+    [
+     "P",
+     "Caprile",
+     "Cagliari",
+     13,
+     32,
+     62
+    ],
+    [
+     "P",
+     "Maignan",
+     "Milan",
+     15,
+     54,
+     95
+    ],
+    [
+     "P",
+     "Okoye",
+     "Udinese",
+     8,
+     25,
+     49
+    ],
+    [
+     "D",
+     "Akanji",
+     "Inter",
+     14,
+     40,
+     32
+    ],
+    [
+     "D",
+     "Coco",
+     "Torino",
+     8,
+     14,
+     2
+    ],
+    [
+     "D",
+     "De Winter",
+     "Milan",
+     6,
+     25,
+     22
+    ],
+    [
+     "D",
+     "Diego Carlos",
+     "Parma",
+     8,
+     15,
+     2
+    ],
+    [
+     "D",
+     "Ehizibue",
+     "Genoa",
+     4,
+     10,
+     1
+    ],
+    [
+     "D",
+     "Lucumì",
+     "Juventus",
+     8,
+     18,
+     1
+    ],
+    [
+     "D",
+     "Mina",
+     "Cagliari",
+     9,
+     16,
+     13
+    ],
+    [
+     "D",
+     "Siebert",
+     "Lecce",
+     4,
+     12,
+     1
+    ],
+    [
+     "C",
+     "Atta",
+     "Fiorentina",
+     14,
+     61,
+     30
+    ],
+    [
+     "C",
+     "Cissè A.",
+     "Milan",
+     6,
+     33,
+     1
+    ],
+    [
+     "C",
+     "Fitz-Jim",
+     "Torino",
+     6,
+     18,
+     1
+    ],
+    [
+     "C",
+     "Folorunsho",
+     "Monza",
+     3,
+     15,
+     1
+    ],
+    [
+     "C",
+     "McKennie",
+     "Juventus",
+     15,
+     61,
+     71
+    ],
+    [
+     "C",
+     "Njie",
+     "Fiorentina",
+     7,
+     33,
+     5
+    ],
+    [
+     "C",
+     "Paz N.",
+     "Como",
+     29,
+     235,
+     188
+    ],
+    [
+     "C",
+     "Rowe",
+     "Atalanta",
+     9,
+     35,
+     4
+    ],
+    [
+     "A",
+     "Beto",
+     "Fiorentina",
+     13,
+     49,
+     15
+    ],
+    [
+     "A",
+     "Davis K.",
+     "Udinese",
+     19,
+     111,
+     90
+    ],
+    [
+     "A",
+     "Kean",
+     "Como",
+     23,
+     130,
+     100
+    ],
+    [
+     "A",
+     "Laurientè",
+     "Sassuolo",
+     16,
+     71,
+     98
+    ],
+    [
+     "A",
+     "Santos A.",
+     "Napoli",
+     13,
+     36,
+     12
+    ],
+    [
+     "A",
+     "Varela G.",
+     "Monza",
+     10,
+     69,
+     81
+    ]
+   ],
+   "csv": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRowXlxaNIJnn-2aMYdnMqXVtA8z76_EaAWSC8dUgUb_gvOY_9guMAYSGao2absTjufha101Z3W7HQJ/pub?gid=1212788255&single=true&output=csv"
+  },
+  {
+   "id": "orsonaldo",
+   "nome": "Orsonaldo",
+   "partecipanti": "Ciro & CM13",
+   "crediti": 63,
+   "rosa": [
+    [
+     "P",
+     "Butez",
+     "Como",
+     13,
+     41,
+     75
+    ],
+    [
+     "P",
+     "Corvi",
+     "Parma",
+     4,
+     10,
+     1
+    ],
+    [
+     "P",
+     "Sanchez Ro.",
+     "Como",
+     8,
+     12,
+     2
+    ],
+    [
+     "D",
+     "Alaba",
+     "Udinese",
+     10,
+     24,
+     11
+    ],
+    [
+     "D",
+     "Doekhi",
+     "Lazio",
+     8,
+     13,
+     9
+    ],
+    [
+     "D",
+     "Hermoso",
+     "Roma",
+     12,
+     40,
+     30
+    ],
+    [
+     "D",
+     "Kalulu",
+     "Juventus",
+     13,
+     41,
+     40
+    ],
+    [
+     "D",
+     "Mangas",
+     "Monza",
+     10,
+     25,
+     9
+    ],
+    [
+     "D",
+     "Ramon",
+     "Como",
+     12,
+     34,
+     22
+    ],
+    [
+     "D",
+     "Ranieri L.",
+     "Fiorentina",
+     3,
+     13,
+     2
+    ],
+    [
+     "D",
+     "Zortea",
+     "Bologna",
+     6,
+     19,
+     1
+    ],
+    [
+     "C",
+     "Calhanoglu",
+     "Inter",
+     27,
+     214,
+     205
+    ],
+    [
+     "C",
+     "Cambiaghi",
+     "Bologna",
+     8,
+     23,
+     26
+    ],
+    [
+     "C",
+     "Chukwueze",
+     "Milan",
+     10,
+     24,
+     31
+    ],
+    [
+     "C",
+     "Jones C.",
+     "Inter",
+     12,
+     32,
+     8
+    ],
+    [
+     "C",
+     "Keita M.",
+     "Parma",
+     6,
+     15,
+     11
+    ],
+    [
+     "C",
+     "Orsolini",
+     "Bologna",
+     23,
+     138,
+     80
+    ],
+    [
+     "C",
+     "Politano",
+     "Napoli",
+     11,
+     41,
+     2
+    ],
+    [
+     "C",
+     "Vergara",
+     "Napoli",
+     9,
+     22,
+     2
+    ],
+    [
+     "A",
+     "De Ketelaere",
+     "Atalanta",
+     15,
+     64,
+     65
+    ],
+    [
+     "A",
+     "Diao",
+     "Como",
+     14,
+     68,
+     71
+    ],
+    [
+     "A",
+     "Dovbyk",
+     "Bologna",
+     15,
+     30,
+     15
+    ],
+    [
+     "A",
+     "Dybala",
+     "Roma",
+     17,
+     120,
+     140
+    ],
+    [
+     "A",
+     "Kvernadze",
+     "Frosinone",
+     11,
+     54,
+     58
+    ],
+    [
+     "A",
+     "Simeone",
+     "Torino",
+     13,
+     55,
+     21
+    ]
+   ],
+   "csv": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRowXlxaNIJnn-2aMYdnMqXVtA8z76_EaAWSC8dUgUb_gvOY_9guMAYSGao2absTjufha101Z3W7HQJ/pub?gid=411248144&single=true&output=csv"
+  },
+  {
+   "id": "scarsenal",
+   "nome": "SCARSENAL",
+   "partecipanti": "Pocho & Petrux",
+   "crediti": 144,
+   "rosa": [
+    [
+     "P",
+     "De Gea",
+     "Fiorentina",
+     10,
+     26,
+     30
+    ],
+    [
+     "P",
+     "Mandas",
+     "Lazio",
+     13,
+     41,
+     48
+    ],
+    [
+     "P",
+     "Motta",
+     "Lazio",
+     1,
+     1,
+     1
+    ],
+    [
+     "D",
+     "Bellanova",
+     "Atalanta",
+     5,
+     16,
+     14
+    ],
+    [
+     "D",
+     "Bisseck",
+     "Inter",
+     13,
+     37,
+     23
+    ],
+    [
+     "D",
+     "Carlos Augusto",
+     "Inter",
+     10,
+     27,
+     3
+    ],
+    [
+     "D",
+     "Gila",
+     "Milan",
+     13,
+     30,
+     41
+    ],
+    [
+     "D",
+     "Molina N.",
+     "Roma",
+     17,
+     62,
+     41
+    ],
+    [
+     "D",
+     "Ostigard",
+     "Genoa",
+     10,
+     23,
+     15
+    ],
+    [
+     "D",
+     "Scalvini",
+     "Atalanta",
+     10,
+     23,
+     9
+    ],
+    [
+     "D",
+     "Zappacosta",
+     "Atalanta",
+     7,
+     12,
+     12
+    ],
+    [
+     "C",
+     "Bernabè",
+     "Parma",
+     6,
+     25,
+     1
+    ],
+    [
+     "C",
+     "Ekkelenkamp",
+     "Udinese",
+     14,
+     64,
+     22
+    ],
+    [
+     "C",
+     "Mandragora",
+     "Torino",
+     12,
+     40,
+     14
+    ],
+    [
+     "C",
+     "Mastantuono",
+     "Fiorentina",
+     14,
+     76,
+     66
+    ],
+    [
+     "C",
+     "Modric",
+     "Milan",
+     12,
+     40,
+     2
+    ],
+    [
+     "C",
+     "Rabiot",
+     "Milan",
+     24,
+     145,
+     55
+    ],
+    [
+     "C",
+     "Schmid",
+     "Frosinone",
+     11,
+     40,
+     1
+    ],
+    [
+     "C",
+     "Thorstvedt",
+     "Sassuolo",
+     9,
+     31,
+     1
+    ],
+    [
+     "A",
+     "Douvikas",
+     "Como",
+     22,
+     134,
+     190
+    ],
+    [
+     "A",
+     "Pellegrino M.",
+     "Fiorentina",
+     16,
+     50,
+     28
+    ],
+    [
+     "A",
+     "Piccoli",
+     "Bologna",
+     9,
+     40,
+     115
+    ],
+    [
+     "A",
+     "Raspadori",
+     "Atalanta",
+     14,
+     25,
+     54
+    ],
+    [
+     "A",
+     "Soulè",
+     "Roma",
+     16,
+     67,
+     35
+    ],
+    [
+     "A",
+     "Woltemade",
+     "Juventus",
+     22,
+     62,
+     35
+    ]
+   ],
+   "csv": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRowXlxaNIJnn-2aMYdnMqXVtA8z76_EaAWSC8dUgUb_gvOY_9guMAYSGao2absTjufha101Z3W7HQJ/pub?gid=2076640845&single=true&output=csv"
+  },
+  {
+   "id": "veeam",
+   "nome": "VEEAM FATT A QUAGL FC",
+   "partecipanti": "Wasaberto & Veeamcenzo",
+   "crediti": 7,
+   "rosa": [
+    [
+     "P",
+     "Falcone",
+     "Lecce",
+     7,
+     23,
+     5
+    ],
+    [
+     "P",
+     "Meret",
+     "Napoli",
+     9,
+     40,
+     41
+    ],
+    [
+     "P",
+     "Milinkovic-Savic V.",
+     "Napoli",
+     7,
+     13,
+     20
+    ],
+    [
+     "D",
+     "Birindelli",
+     "Monza",
+     7,
+     13,
+     1
+    ],
+    [
+     "D",
+     "Delprato",
+     "Parma",
+     8,
+     22,
+     1
+    ],
+    [
+     "D",
+     "Dimarco",
+     "Inter",
+     29,
+     210,
+     106
+    ],
+    [
+     "D",
+     "Pavlovic",
+     "Milan",
+     13,
+     50,
+     32
+    ],
+    [
+     "D",
+     "Spinazzola",
+     "Napoli",
+     8,
+     21,
+     1
+    ],
+    [
+     "D",
+     "Valeri",
+     "Parma",
+     9,
+     24,
+     1
+    ],
+    [
+     "D",
+     "Valle",
+     "Como",
+     8,
+     19,
+     3
+    ],
+    [
+     "D",
+     "Vasquez",
+     "Genoa",
+     9,
+     26,
+     3
+    ],
+    [
+     "C",
+     "Da Cunha",
+     "Como",
+     17,
+     60,
+     41
+    ],
+    [
+     "C",
+     "Diouf",
+     "Inter",
+     11,
+     64,
+     36
+    ],
+    [
+     "C",
+     "Gudmundsson",
+     "Lazio",
+     13,
+     30,
+     1
+    ],
+    [
+     "C",
+     "McTominay",
+     "Napoli",
+     24,
+     112,
+     101
+    ],
+    [
+     "C",
+     "Taylor K.",
+     "Lazio",
+     13,
+     42,
+     1
+    ],
+    [
+     "C",
+     "Zaccagni",
+     "Lazio",
+     18,
+     124,
+     51
+    ],
+    [
+     "C",
+     "Zaniolo",
+     "Udinese",
+     16,
+     54,
+     11
+    ],
+    [
+     "C",
+     "Zielinski",
+     "Inter",
+     13,
+     41,
+     10
+    ],
+    [
+     "A",
+     "Colombo",
+     "Genoa",
+     10,
+     43,
+     13
+    ],
+    [
+     "A",
+     "Esposito F.P.",
+     "Inter",
+     18,
+     116,
+     312
+    ],
+    [
+     "A",
+     "Esposito Se.",
+     "Sassuolo",
+     14,
+     42,
+     21
+    ],
+    [
+     "A",
+     "Kolo Muani",
+     "Juventus",
+     23,
+     122,
+     101
+    ],
+    [
+     "A",
+     "Lontani",
+     "Parma",
+     6,
+     16,
+     1
+    ],
+    [
+     "A",
+     "Yildiz",
+     "Juventus",
+     20,
+     70,
+     79
+    ]
+   ],
+   "csv": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRowXlxaNIJnn-2aMYdnMqXVtA8z76_EaAWSC8dUgUb_gvOY_9guMAYSGao2absTjufha101Z3W7HQJ/pub?gid=431067308&single=true&output=csv"
+  }
+ ],
+ "competizioni": {
+  "coppa": {
+   "nome": "Coppa",
+   "fase": "Fase a gruppi",
+   "gironi": {
+    "A": [
+     "scarsenal",
+     "backend",
+     "zonaflegrea",
+     "veeam"
+    ],
+    "B": [
+     "vesuviani",
+     "dns",
+     "futuro",
+     "orsonaldo"
+    ]
+   }
+  },
+  "campionato": {
+   "nome": "Campionato",
+   "squadre": [
+    "orsonaldo",
+    "backend",
+    "scarsenal",
+    "vesuviani",
+    "dns",
+    "futuro",
+    "zonaflegrea",
+    "veeam"
+   ]
+  }
+ },
+ "giornate": [
+  {
+   "comp": "campionato",
+   "n": 1,
+   "serieA": 6,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "zonaflegrea",
+     "fuori": "vesuviani",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "scarsenal",
+     "fuori": "futuro",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "veeam",
+     "fuori": "orsonaldo",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "dns",
+     "fuori": "backend",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2026-10-11"
+  },
+  {
+   "comp": "campionato",
+   "n": 2,
+   "serieA": 7,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "vesuviani",
+     "fuori": "dns",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "futuro",
+     "fuori": "zonaflegrea",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "backend",
+     "fuori": "veeam",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "orsonaldo",
+     "fuori": "scarsenal",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2026-10-18"
+  },
+  {
+   "comp": "campionato",
+   "n": 3,
+   "serieA": 8,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "veeam",
+     "fuori": "vesuviani",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "dns",
+     "fuori": "futuro",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "zonaflegrea",
+     "fuori": "scarsenal",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "backend",
+     "fuori": "orsonaldo",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2026-10-25"
+  },
+  {
+   "comp": "campionato",
+   "n": 4,
+   "serieA": 9,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "vesuviani",
+     "fuori": "backend",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "scarsenal",
+     "fuori": "dns",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "futuro",
+     "fuori": "veeam",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "orsonaldo",
+     "fuori": "zonaflegrea",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2026-10-28"
+  },
+  {
+   "comp": "campionato",
+   "n": 5,
+   "serieA": 10,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "vesuviani",
+     "fuori": "orsonaldo",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "veeam",
+     "fuori": "scarsenal",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "dns",
+     "fuori": "zonaflegrea",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "backend",
+     "fuori": "futuro",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2026-11-01"
+  },
+  {
+   "comp": "campionato",
+   "n": 6,
+   "serieA": 11,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "futuro",
+     "fuori": "vesuviani",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "scarsenal",
+     "fuori": "backend",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "dns",
+     "fuori": "orsonaldo",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "zonaflegrea",
+     "fuori": "veeam",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2026-11-08"
+  },
+  {
+   "comp": "campionato",
+   "n": 7,
+   "serieA": 12,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "vesuviani",
+     "fuori": "scarsenal",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "veeam",
+     "fuori": "dns",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "backend",
+     "fuori": "zonaflegrea",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "orsonaldo",
+     "fuori": "futuro",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2026-11-22"
+  },
+  {
+   "comp": "campionato",
+   "n": 8,
+   "serieA": 13,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "vesuviani",
+     "fuori": "zonaflegrea",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "futuro",
+     "fuori": "scarsenal",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "orsonaldo",
+     "fuori": "veeam",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "backend",
+     "fuori": "dns",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2026-11-29"
+  },
+  {
+   "comp": "campionato",
+   "n": 9,
+   "serieA": 14,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "dns",
+     "fuori": "vesuviani",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "zonaflegrea",
+     "fuori": "futuro",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "veeam",
+     "fuori": "backend",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "scarsenal",
+     "fuori": "orsonaldo",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2026-12-06"
+  },
+  {
+   "comp": "campionato",
+   "n": 10,
+   "serieA": 15,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "vesuviani",
+     "fuori": "veeam",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "futuro",
+     "fuori": "dns",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "scarsenal",
+     "fuori": "zonaflegrea",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "orsonaldo",
+     "fuori": "backend",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2026-12-13"
+  },
+  {
+   "comp": "campionato",
+   "n": 11,
+   "serieA": 16,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "backend",
+     "fuori": "vesuviani",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "dns",
+     "fuori": "scarsenal",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "veeam",
+     "fuori": "futuro",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "zonaflegrea",
+     "fuori": "orsonaldo",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2026-12-20"
+  },
+  {
+   "comp": "campionato",
+   "n": 12,
+   "serieA": 17,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "orsonaldo",
+     "fuori": "vesuviani",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "scarsenal",
+     "fuori": "veeam",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "zonaflegrea",
+     "fuori": "dns",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "futuro",
+     "fuori": "backend",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-01-03"
+  },
+  {
+   "comp": "campionato",
+   "n": 13,
+   "serieA": 18,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "vesuviani",
+     "fuori": "futuro",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "backend",
+     "fuori": "scarsenal",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "orsonaldo",
+     "fuori": "dns",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "veeam",
+     "fuori": "zonaflegrea",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-01-06"
+  },
+  {
+   "comp": "campionato",
+   "n": 14,
+   "serieA": 19,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "scarsenal",
+     "fuori": "vesuviani",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "dns",
+     "fuori": "veeam",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "zonaflegrea",
+     "fuori": "backend",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "futuro",
+     "fuori": "orsonaldo",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-01-10"
+  },
+  {
+   "comp": "campionato",
+   "n": 15,
+   "serieA": 20,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "zonaflegrea",
+     "fuori": "vesuviani",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "scarsenal",
+     "fuori": "futuro",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "veeam",
+     "fuori": "orsonaldo",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "dns",
+     "fuori": "backend",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-01-17"
+  },
+  {
+   "comp": "campionato",
+   "n": 16,
+   "serieA": 21,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "vesuviani",
+     "fuori": "dns",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "futuro",
+     "fuori": "zonaflegrea",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "backend",
+     "fuori": "veeam",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "orsonaldo",
+     "fuori": "scarsenal",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-01-24"
+  },
+  {
+   "comp": "campionato",
+   "n": 17,
+   "serieA": 22,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "veeam",
+     "fuori": "vesuviani",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "dns",
+     "fuori": "futuro",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "zonaflegrea",
+     "fuori": "scarsenal",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "backend",
+     "fuori": "orsonaldo",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-01-31"
+  },
+  {
+   "comp": "campionato",
+   "n": 18,
+   "serieA": 23,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "vesuviani",
+     "fuori": "backend",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "scarsenal",
+     "fuori": "dns",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "futuro",
+     "fuori": "veeam",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "orsonaldo",
+     "fuori": "zonaflegrea",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-02-07"
+  },
+  {
+   "comp": "campionato",
+   "n": 19,
+   "serieA": 24,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "vesuviani",
+     "fuori": "orsonaldo",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "veeam",
+     "fuori": "scarsenal",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "dns",
+     "fuori": "zonaflegrea",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "backend",
+     "fuori": "futuro",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-02-14"
+  },
+  {
+   "comp": "campionato",
+   "n": 20,
+   "serieA": 25,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "futuro",
+     "fuori": "vesuviani",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "scarsenal",
+     "fuori": "backend",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "dns",
+     "fuori": "orsonaldo",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "zonaflegrea",
+     "fuori": "veeam",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-02-21"
+  },
+  {
+   "comp": "campionato",
+   "n": 21,
+   "serieA": 26,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "vesuviani",
+     "fuori": "scarsenal",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "veeam",
+     "fuori": "dns",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "backend",
+     "fuori": "zonaflegrea",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "orsonaldo",
+     "fuori": "futuro",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-02-28"
+  },
+  {
+   "comp": "campionato",
+   "n": 22,
+   "serieA": 27,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "vesuviani",
+     "fuori": "zonaflegrea",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "futuro",
+     "fuori": "scarsenal",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "orsonaldo",
+     "fuori": "veeam",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "backend",
+     "fuori": "dns",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-03-07"
+  },
+  {
+   "comp": "campionato",
+   "n": 23,
+   "serieA": 28,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "dns",
+     "fuori": "vesuviani",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "zonaflegrea",
+     "fuori": "futuro",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "veeam",
+     "fuori": "backend",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "scarsenal",
+     "fuori": "orsonaldo",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-03-14"
+  },
+  {
+   "comp": "campionato",
+   "n": 24,
+   "serieA": 29,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "vesuviani",
+     "fuori": "veeam",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "futuro",
+     "fuori": "dns",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "scarsenal",
+     "fuori": "zonaflegrea",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "orsonaldo",
+     "fuori": "backend",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-03-21"
+  },
+  {
+   "comp": "campionato",
+   "n": 25,
+   "serieA": 30,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "backend",
+     "fuori": "vesuviani",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "dns",
+     "fuori": "scarsenal",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "veeam",
+     "fuori": "futuro",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "zonaflegrea",
+     "fuori": "orsonaldo",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-04-04"
+  },
+  {
+   "comp": "campionato",
+   "n": 26,
+   "serieA": 31,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "orsonaldo",
+     "fuori": "vesuviani",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "scarsenal",
+     "fuori": "veeam",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "zonaflegrea",
+     "fuori": "dns",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "futuro",
+     "fuori": "backend",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-04-11"
+  },
+  {
+   "comp": "campionato",
+   "n": 27,
+   "serieA": 32,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "vesuviani",
+     "fuori": "futuro",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "backend",
+     "fuori": "scarsenal",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "orsonaldo",
+     "fuori": "dns",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "veeam",
+     "fuori": "zonaflegrea",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-04-18"
+  },
+  {
+   "comp": "campionato",
+   "n": 28,
+   "serieA": 33,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "scarsenal",
+     "fuori": "vesuviani",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "dns",
+     "fuori": "veeam",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "zonaflegrea",
+     "fuori": "backend",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "futuro",
+     "fuori": "orsonaldo",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-04-25"
+  },
+  {
+   "comp": "campionato",
+   "n": 29,
+   "serieA": 34,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "zonaflegrea",
+     "fuori": "vesuviani",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "scarsenal",
+     "fuori": "futuro",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "veeam",
+     "fuori": "orsonaldo",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "dns",
+     "fuori": "backend",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-05-02"
+  },
+  {
+   "comp": "campionato",
+   "n": 30,
+   "serieA": 35,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "vesuviani",
+     "fuori": "dns",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "futuro",
+     "fuori": "zonaflegrea",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "backend",
+     "fuori": "veeam",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "orsonaldo",
+     "fuori": "scarsenal",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-05-09"
+  },
+  {
+   "comp": "campionato",
+   "n": 31,
+   "serieA": 36,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "veeam",
+     "fuori": "vesuviani",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "dns",
+     "fuori": "futuro",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "zonaflegrea",
+     "fuori": "scarsenal",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "backend",
+     "fuori": "orsonaldo",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-05-16"
+  },
+  {
+   "comp": "campionato",
+   "n": 32,
+   "serieA": 37,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "vesuviani",
+     "fuori": "backend",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "scarsenal",
+     "fuori": "dns",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "futuro",
+     "fuori": "veeam",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "orsonaldo",
+     "fuori": "zonaflegrea",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-05-23"
+  },
+  {
+   "comp": "campionato",
+   "n": 33,
+   "serieA": 38,
+   "fase": null,
+   "partite": [
+    {
+     "casa": "vesuviani",
+     "fuori": "orsonaldo",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "veeam",
+     "fuori": "scarsenal",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "dns",
+     "fuori": "zonaflegrea",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "casa": "backend",
+     "fuori": "futuro",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-05-30"
+  },
+  {
+   "comp": "coppa",
+   "n": 1,
+   "serieA": 27,
+   "fase": "Fase a gruppi",
+   "partite": [
+    {
+     "g": "A",
+     "casa": "veeam",
+     "fuori": "zonaflegrea",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "g": "A",
+     "casa": "scarsenal",
+     "fuori": "backend",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "g": "B",
+     "casa": "dns",
+     "fuori": "vesuviani",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "g": "B",
+     "casa": "futuro",
+     "fuori": "orsonaldo",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-03-07"
+  },
+  {
+   "comp": "coppa",
+   "n": 2,
+   "serieA": 28,
+   "fase": "Fase a gruppi",
+   "partite": [
+    {
+     "g": "A",
+     "casa": "backend",
+     "fuori": "veeam",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "g": "A",
+     "casa": "zonaflegrea",
+     "fuori": "scarsenal",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "g": "B",
+     "casa": "vesuviani",
+     "fuori": "futuro",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "g": "B",
+     "casa": "orsonaldo",
+     "fuori": "dns",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-03-14"
+  },
+  {
+   "comp": "coppa",
+   "n": 3,
+   "serieA": 29,
+   "fase": "Fase a gruppi",
+   "partite": [
+    {
+     "g": "A",
+     "casa": "backend",
+     "fuori": "zonaflegrea",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "g": "A",
+     "casa": "scarsenal",
+     "fuori": "veeam",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "g": "B",
+     "casa": "orsonaldo",
+     "fuori": "vesuviani",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "g": "B",
+     "casa": "futuro",
+     "fuori": "dns",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-03-21"
+  },
+  {
+   "comp": "coppa",
+   "n": 4,
+   "serieA": 30,
+   "fase": "Fase a gruppi",
+   "partite": [
+    {
+     "g": "A",
+     "casa": "zonaflegrea",
+     "fuori": "veeam",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "g": "A",
+     "casa": "backend",
+     "fuori": "scarsenal",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "g": "B",
+     "casa": "vesuviani",
+     "fuori": "dns",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "g": "B",
+     "casa": "orsonaldo",
+     "fuori": "futuro",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-04-04"
+  },
+  {
+   "comp": "coppa",
+   "n": 5,
+   "serieA": 31,
+   "fase": "Fase a gruppi",
+   "partite": [
+    {
+     "g": "A",
+     "casa": "veeam",
+     "fuori": "backend",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "g": "A",
+     "casa": "scarsenal",
+     "fuori": "zonaflegrea",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "g": "B",
+     "casa": "futuro",
+     "fuori": "vesuviani",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "g": "B",
+     "casa": "dns",
+     "fuori": "orsonaldo",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-04-11"
+  },
+  {
+   "comp": "coppa",
+   "n": 6,
+   "serieA": 32,
+   "fase": "Fase a gruppi",
+   "partite": [
+    {
+     "g": "A",
+     "casa": "zonaflegrea",
+     "fuori": "backend",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "g": "A",
+     "casa": "veeam",
+     "fuori": "scarsenal",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "g": "B",
+     "casa": "vesuviani",
+     "fuori": "orsonaldo",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    },
+    {
+     "g": "B",
+     "casa": "dns",
+     "fuori": "futuro",
+     "gc": null,
+     "gf": null,
+     "pc": null,
+     "pf": null
+    }
+   ],
+   "data": "2027-04-18"
+  },
+  {
+   "comp": "coppa",
+   "n": 7,
+   "serieA": null,
+   "fase": null,
+   "partite": [],
+   "nota": "Il calendario di questa giornata sarà disponibile quando la fase precedente della competizione sarà conclusa."
+  },
+  {
+   "comp": "coppa",
+   "n": 8,
+   "serieA": null,
+   "fase": null,
+   "partite": [],
+   "nota": "Il calendario di questa giornata sarà disponibile quando la fase precedente della competizione sarà conclusa."
+  },
+  {
+   "comp": "coppa",
+   "n": 9,
+   "serieA": null,
+   "fase": null,
+   "partite": [],
+   "nota": "Il calendario di questa giornata sarà disponibile quando la fase precedente della competizione sarà conclusa."
+  }
+ ],
+ "calendarioSerieA": [
+  {
+   "n": 1,
+   "data": "2026-08-23",
+   "partite": [
+    [
+     "Atalanta",
+     "Sassuolo"
+    ],
+    [
+     "Bologna",
+     "Lazio"
+    ],
+    [
+     "Frosinone",
+     "Juventus"
+    ],
+    [
+     "Genoa",
+     "Napoli"
+    ],
+    [
+     "Inter",
+     "Monza"
+    ],
+    [
+     "Parma",
+     "Cagliari"
+    ],
+    [
+     "Roma",
+     "Fiorentina"
+    ],
+    [
+     "Torino",
+     "Milan"
+    ],
+    [
+     "Udinese",
+     "Como"
+    ],
+    [
+     "Venezia",
+     "Lecce"
+    ]
+   ]
+  },
+  {
+   "n": 2,
+   "data": "2026-08-30",
+   "partite": [
+    [
+     "Atalanta",
+     "Bologna"
+    ],
+    [
+     "Cagliari",
+     "Inter"
+    ],
+    [
+     "Fiorentina",
+     "Frosinone"
+    ],
+    [
+     "Juventus",
+     "Parma"
+    ],
+    [
+     "Lazio",
+     "Genoa"
+    ],
+    [
+     "Lecce",
+     "Roma"
+    ],
+    [
+     "Milan",
+     "Venezia"
+    ],
+    [
+     "Monza",
+     "Udinese"
+    ],
+    [
+     "Napoli",
+     "Como"
+    ],
+    [
+     "Sassuolo",
+     "Torino"
+    ]
+   ]
+  },
+  {
+   "n": 3,
+   "data": "2026-09-06",
+   "partite": [
+    [
+     "Bologna",
+     "Sassuolo"
+    ],
+    [
+     "Cagliari",
+     "Lecce"
+    ],
+    [
+     "Fiorentina",
+     "Torino"
+    ],
+    [
+     "Frosinone",
+     "Venezia"
+    ],
+    [
+     "Genoa",
+     "Como"
+    ],
+    [
+     "Inter",
+     "Napoli"
+    ],
+    [
+     "Juventus",
+     "Milan"
+    ],
+    [
+     "Parma",
+     "Monza"
+    ],
+    [
+     "Roma",
+     "Atalanta"
+    ],
+    [
+     "Udinese",
+     "Lazio"
+    ]
+   ]
+  },
+  {
+   "n": 4,
+   "data": "2026-09-13",
+   "partite": [
+    [
+     "Atalanta",
+     "Cagliari"
+    ],
+    [
+     "Como",
+     "Parma"
+    ],
+    [
+     "Genoa",
+     "Frosinone"
+    ],
+    [
+     "Inter",
+     "Udinese"
+    ],
+    [
+     "Lazio",
+     "Milan"
+    ],
+    [
+     "Lecce",
+     "Monza"
+    ],
+    [
+     "Napoli",
+     "Bologna"
+    ],
+    [
+     "Sassuolo",
+     "Juventus"
+    ],
+    [
+     "Torino",
+     "Roma"
+    ],
+    [
+     "Venezia",
+     "Fiorentina"
+    ]
+   ]
+  },
+  {
+   "n": 5,
+   "data": "2026-09-20",
+   "partite": [
+    [
+     "Bologna",
+     "Torino"
+    ],
+    [
+     "Fiorentina",
+     "Napoli"
+    ],
+    [
+     "Frosinone",
+     "Como"
+    ],
+    [
+     "Juventus",
+     "Atalanta"
+    ],
+    [
+     "Milan",
+     "Lecce"
+    ],
+    [
+     "Monza",
+     "Sassuolo"
+    ],
+    [
+     "Parma",
+     "Genoa"
+    ],
+    [
+     "Roma",
+     "Inter"
+    ],
+    [
+     "Udinese",
+     "Cagliari"
+    ],
+    [
+     "Venezia",
+     "Lazio"
+    ]
+   ]
+  },
+  {
+   "n": 6,
+   "data": "2026-10-11",
+   "partite": [
+    [
+     "Atalanta",
+     "Venezia"
+    ],
+    [
+     "Cagliari",
+     "Juventus"
+    ],
+    [
+     "Como",
+     "Roma"
+    ],
+    [
+     "Genoa",
+     "Fiorentina"
+    ],
+    [
+     "Inter",
+     "Parma"
+    ],
+    [
+     "Lazio",
+     "Monza"
+    ],
+    [
+     "Lecce",
+     "Bologna"
+    ],
+    [
+     "Napoli",
+     "Frosinone"
+    ],
+    [
+     "Sassuolo",
+     "Milan"
+    ],
+    [
+     "Torino",
+     "Udinese"
+    ]
+   ]
+  },
+  {
+   "n": 7,
+   "data": "2026-10-18",
+   "partite": [
+    [
+     "Bologna",
+     "Inter"
+    ],
+    [
+     "Fiorentina",
+     "Como"
+    ],
+    [
+     "Frosinone",
+     "Sassuolo"
+    ],
+    [
+     "Juventus",
+     "Lazio"
+    ],
+    [
+     "Milan",
+     "Atalanta"
+    ],
+    [
+     "Monza",
+     "Cagliari"
+    ],
+    [
+     "Parma",
+     "Torino"
+    ],
+    [
+     "Roma",
+     "Genoa"
+    ],
+    [
+     "Udinese",
+     "Lecce"
+    ],
+    [
+     "Venezia",
+     "Napoli"
+    ]
+   ]
+  },
+  {
+   "n": 8,
+   "data": "2026-10-25",
+   "partite": [
+    [
+     "Atalanta",
+     "Frosinone"
+    ],
+    [
+     "Cagliari",
+     "Bologna"
+    ],
+    [
+     "Como",
+     "Sassuolo"
+    ],
+    [
+     "Genoa",
+     "Venezia"
+    ],
+    [
+     "Inter",
+     "Fiorentina"
+    ],
+    [
+     "Lazio",
+     "Parma"
+    ],
+    [
+     "Lecce",
+     "Juventus"
+    ],
+    [
+     "Napoli",
+     "Roma"
+    ],
+    [
+     "Torino",
+     "Monza"
+    ],
+    [
+     "Udinese",
+     "Milan"
+    ]
+   ]
+  },
+  {
+   "n": 9,
+   "data": "2026-10-28",
+   "partite": [
+    [
+     "Fiorentina",
+     "Atalanta"
+    ],
+    [
+     "Frosinone",
+     "Lecce"
+    ],
+    [
+     "Genoa",
+     "Juventus"
+    ],
+    [
+     "Milan",
+     "Bologna"
+    ],
+    [
+     "Monza",
+     "Napoli"
+    ],
+    [
+     "Parma",
+     "Udinese"
+    ],
+    [
+     "Roma",
+     "Cagliari"
+    ],
+    [
+     "Sassuolo",
+     "Lazio"
+    ],
+    [
+     "Torino",
+     "Como"
+    ],
+    [
+     "Venezia",
+     "Inter"
+    ]
+   ]
+  },
+  {
+   "n": 10,
+   "data": "2026-11-01",
+   "partite": [
+    [
+     "Atalanta",
+     "Parma"
+    ],
+    [
+     "Bologna",
+     "Monza"
+    ],
+    [
+     "Como",
+     "Venezia"
+    ],
+    [
+     "Frosinone",
+     "Torino"
+    ],
+    [
+     "Juventus",
+     "Napoli"
+    ],
+    [
+     "Lazio",
+     "Cagliari"
+    ],
+    [
+     "Lecce",
+     "Genoa"
+    ],
+    [
+     "Milan",
+     "Inter"
+    ],
+    [
+     "Sassuolo",
+     "Fiorentina"
+    ],
+    [
+     "Udinese",
+     "Roma"
+    ]
+   ]
+  },
+  {
+   "n": 11,
+   "data": "2026-11-08",
+   "partite": [
+    [
+     "Cagliari",
+     "Frosinone"
+    ],
+    [
+     "Fiorentina",
+     "Juventus"
+    ],
+    [
+     "Genoa",
+     "Milan"
+    ],
+    [
+     "Inter",
+     "Como"
+    ],
+    [
+     "Monza",
+     "Atalanta"
+    ],
+    [
+     "Napoli",
+     "Lazio"
+    ],
+    [
+     "Parma",
+     "Bologna"
+    ],
+    [
+     "Roma",
+     "Sassuolo"
+    ],
+    [
+     "Torino",
+     "Lecce"
+    ],
+    [
+     "Venezia",
+     "Udinese"
+    ]
+   ]
+  },
+  {
+   "n": 12,
+   "data": "2026-11-22",
+   "partite": [
+    [
+     "Atalanta",
+     "Inter"
+    ],
+    [
+     "Bologna",
+     "Udinese"
+    ],
+    [
+     "Como",
+     "Cagliari"
+    ],
+    [
+     "Juventus",
+     "Venezia"
+    ],
+    [
+     "Lazio",
+     "Lecce"
+    ],
+    [
+     "Milan",
+     "Frosinone"
+    ],
+    [
+     "Monza",
+     "Fiorentina"
+    ],
+    [
+     "Napoli",
+     "Torino"
+    ],
+    [
+     "Parma",
+     "Roma"
+    ],
+    [
+     "Sassuolo",
+     "Genoa"
+    ]
+   ]
+  },
+  {
+   "n": 13,
+   "data": "2026-11-29",
+   "partite": [
+    [
+     "Cagliari",
+     "Milan"
+    ],
+    [
+     "Como",
+     "Juventus"
+    ],
+    [
+     "Frosinone",
+     "Parma"
+    ],
+    [
+     "Inter",
+     "Genoa"
+    ],
+    [
+     "Lecce",
+     "Atalanta"
+    ],
+    [
+     "Roma",
+     "Monza"
+    ],
+    [
+     "Sassuolo",
+     "Napoli"
+    ],
+    [
+     "Torino",
+     "Lazio"
+    ],
+    [
+     "Udinese",
+     "Fiorentina"
+    ],
+    [
+     "Venezia",
+     "Bologna"
+    ]
+   ]
+  },
+  {
+   "n": 14,
+   "data": "2026-12-06",
+   "partite": [
+    [
+     "Bologna",
+     "Roma"
+    ],
+    [
+     "Fiorentina",
+     "Cagliari"
+    ],
+    [
+     "Frosinone",
+     "Inter"
+    ],
+    [
+     "Genoa",
+     "Torino"
+    ],
+    [
+     "Juventus",
+     "Udinese"
+    ],
+    [
+     "Lazio",
+     "Atalanta"
+    ],
+    [
+     "Milan",
+     "Parma"
+    ],
+    [
+     "Monza",
+     "Como"
+    ],
+    [
+     "Napoli",
+     "Lecce"
+    ],
+    [
+     "Venezia",
+     "Sassuolo"
+    ]
+   ]
+  },
+  {
+   "n": 15,
+   "data": "2026-12-13",
+   "partite": [
+    [
+     "Atalanta",
+     "Genoa"
+    ],
+    [
+     "Cagliari",
+     "Venezia"
+    ],
+    [
+     "Como",
+     "Bologna"
+    ],
+    [
+     "Inter",
+     "Torino"
+    ],
+    [
+     "Juventus",
+     "Monza"
+    ],
+    [
+     "Lazio",
+     "Roma"
+    ],
+    [
+     "Lecce",
+     "Sassuolo"
+    ],
+    [
+     "Napoli",
+     "Milan"
+    ],
+    [
+     "Parma",
+     "Fiorentina"
+    ],
+    [
+     "Udinese",
+     "Frosinone"
+    ]
+   ]
+  },
+  {
+   "n": 16,
+   "data": "2026-12-20",
+   "partite": [
+    [
+     "Atalanta",
+     "Napoli"
+    ],
+    [
+     "Fiorentina",
+     "Bologna"
+    ],
+    [
+     "Frosinone",
+     "Lazio"
+    ],
+    [
+     "Genoa",
+     "Udinese"
+    ],
+    [
+     "Lecce",
+     "Inter"
+    ],
+    [
+     "Milan",
+     "Como"
+    ],
+    [
+     "Roma",
+     "Juventus"
+    ],
+    [
+     "Sassuolo",
+     "Parma"
+    ],
+    [
+     "Torino",
+     "Cagliari"
+    ],
+    [
+     "Venezia",
+     "Monza"
+    ]
+   ]
+  },
+  {
+   "n": 17,
+   "data": "2027-01-03",
+   "partite": [
+    [
+     "Bologna",
+     "Juventus"
+    ],
+    [
+     "Cagliari",
+     "Genoa"
+    ],
+    [
+     "Como",
+     "Lecce"
+    ],
+    [
+     "Fiorentina",
+     "Lazio"
+    ],
+    [
+     "Inter",
+     "Sassuolo"
+    ],
+    [
+     "Monza",
+     "Milan"
+    ],
+    [
+     "Parma",
+     "Napoli"
+    ],
+    [
+     "Roma",
+     "Frosinone"
+    ],
+    [
+     "Torino",
+     "Venezia"
+    ],
+    [
+     "Udinese",
+     "Atalanta"
+    ]
+   ]
+  },
+  {
+   "n": 18,
+   "data": "2027-01-06",
+   "partite": [
+    [
+     "Atalanta",
+     "Como"
+    ],
+    [
+     "Frosinone",
+     "Bologna"
+    ],
+    [
+     "Genoa",
+     "Monza"
+    ],
+    [
+     "Juventus",
+     "Torino"
+    ],
+    [
+     "Lazio",
+     "Inter"
+    ],
+    [
+     "Lecce",
+     "Parma"
+    ],
+    [
+     "Milan",
+     "Fiorentina"
+    ],
+    [
+     "Napoli",
+     "Cagliari"
+    ],
+    [
+     "Sassuolo",
+     "Udinese"
+    ],
+    [
+     "Venezia",
+     "Roma"
+    ]
+   ]
+  },
+  {
+   "n": 19,
+   "data": "2027-01-10",
+   "partite": [
+    [
+     "Bologna",
+     "Genoa"
+    ],
+    [
+     "Cagliari",
+     "Sassuolo"
+    ],
+    [
+     "Como",
+     "Lazio"
+    ],
+    [
+     "Fiorentina",
+     "Lecce"
+    ],
+    [
+     "Inter",
+     "Juventus"
+    ],
+    [
+     "Monza",
+     "Frosinone"
+    ],
+    [
+     "Parma",
+     "Venezia"
+    ],
+    [
+     "Roma",
+     "Milan"
+    ],
+    [
+     "Torino",
+     "Atalanta"
+    ],
+    [
+     "Udinese",
+     "Napoli"
+    ]
+   ]
+  },
+  {
+   "n": 20,
+   "data": "2027-01-17",
+   "partite": [
+    [
+     "Atalanta",
+     "Roma"
+    ],
+    [
+     "Cagliari",
+     "Como"
+    ],
+    [
+     "Juventus",
+     "Genoa"
+    ],
+    [
+     "Lazio",
+     "Bologna"
+    ],
+    [
+     "Lecce",
+     "Udinese"
+    ],
+    [
+     "Milan",
+     "Torino"
+    ],
+    [
+     "Napoli",
+     "Fiorentina"
+    ],
+    [
+     "Parma",
+     "Inter"
+    ],
+    [
+     "Sassuolo",
+     "Monza"
+    ],
+    [
+     "Venezia",
+     "Frosinone"
+    ]
+   ]
+  },
+  {
+   "n": 21,
+   "data": "2027-01-24",
+   "partite": [
+    [
+     "Bologna",
+     "Atalanta"
+    ],
+    [
+     "Como",
+     "Napoli"
+    ],
+    [
+     "Fiorentina",
+     "Sassuolo"
+    ],
+    [
+     "Frosinone",
+     "Milan"
+    ],
+    [
+     "Genoa",
+     "Parma"
+    ],
+    [
+     "Inter",
+     "Venezia"
+    ],
+    [
+     "Juventus",
+     "Cagliari"
+    ],
+    [
+     "Lecce",
+     "Torino"
+    ],
+    [
+     "Monza",
+     "Lazio"
+    ],
+    [
+     "Roma",
+     "Udinese"
+    ]
+   ]
+  },
+  {
+   "n": 22,
+   "data": "2027-01-31",
+   "partite": [
+    [
+     "Atalanta",
+     "Fiorentina"
+    ],
+    [
+     "Cagliari",
+     "Parma"
+    ],
+    [
+     "Genoa",
+     "Lecce"
+    ],
+    [
+     "Lazio",
+     "Venezia"
+    ],
+    [
+     "Milan",
+     "Juventus"
+    ],
+    [
+     "Monza",
+     "Roma"
+    ],
+    [
+     "Napoli",
+     "Inter"
+    ],
+    [
+     "Sassuolo",
+     "Como"
+    ],
+    [
+     "Torino",
+     "Frosinone"
+    ],
+    [
+     "Udinese",
+     "Bologna"
+    ]
+   ]
+  },
+  {
+   "n": 23,
+   "data": "2027-02-07",
+   "partite": [
+    [
+     "Atalanta",
+     "Lazio"
+    ],
+    [
+     "Bologna",
+     "Milan"
+    ],
+    [
+     "Como",
+     "Monza"
+    ],
+    [
+     "Fiorentina",
+     "Udinese"
+    ],
+    [
+     "Inter",
+     "Cagliari"
+    ],
+    [
+     "Juventus",
+     "Sassuolo"
+    ],
+    [
+     "Lecce",
+     "Napoli"
+    ],
+    [
+     "Parma",
+     "Frosinone"
+    ],
+    [
+     "Roma",
+     "Torino"
+    ],
+    [
+     "Venezia",
+     "Genoa"
+    ]
+   ]
+  },
+  {
+   "n": 24,
+   "data": "2027-02-14",
+   "partite": [
+    [
+     "Bologna",
+     "Como"
+    ],
+    [
+     "Cagliari",
+     "Lazio"
+    ],
+    [
+     "Frosinone",
+     "Fiorentina"
+    ],
+    [
+     "Genoa",
+     "Atalanta"
+    ],
+    [
+     "Inter",
+     "Milan"
+    ],
+    [
+     "Monza",
+     "Lecce"
+    ],
+    [
+     "Napoli",
+     "Juventus"
+    ],
+    [
+     "Roma",
+     "Parma"
+    ],
+    [
+     "Torino",
+     "Sassuolo"
+    ],
+    [
+     "Udinese",
+     "Venezia"
+    ]
+   ]
+  },
+  {
+   "n": 25,
+   "data": "2027-02-21",
+   "partite": [
+    [
+     "Atalanta",
+     "Monza"
+    ],
+    [
+     "Como",
+     "Torino"
+    ],
+    [
+     "Fiorentina",
+     "Inter"
+    ],
+    [
+     "Juventus",
+     "Bologna"
+    ],
+    [
+     "Lazio",
+     "Napoli"
+    ],
+    [
+     "Lecce",
+     "Frosinone"
+    ],
+    [
+     "Milan",
+     "Genoa"
+    ],
+    [
+     "Sassuolo",
+     "Roma"
+    ],
+    [
+     "Udinese",
+     "Parma"
+    ],
+    [
+     "Venezia",
+     "Cagliari"
+    ]
+   ]
+  },
+  {
+   "n": 26,
+   "data": "2027-02-28",
+   "partite": [
+    [
+     "Bologna",
+     "Lecce"
+    ],
+    [
+     "Cagliari",
+     "Udinese"
+    ],
+    [
+     "Como",
+     "Milan"
+    ],
+    [
+     "Frosinone",
+     "Napoli"
+    ],
+    [
+     "Genoa",
+     "Lazio"
+    ],
+    [
+     "Inter",
+     "Atalanta"
+    ],
+    [
+     "Monza",
+     "Juventus"
+    ],
+    [
+     "Parma",
+     "Sassuolo"
+    ],
+    [
+     "Roma",
+     "Venezia"
+    ],
+    [
+     "Torino",
+     "Fiorentina"
+    ]
+   ]
+  },
+  {
+   "n": 27,
+   "data": "2027-03-07",
+   "partite": [
+    [
+     "Atalanta",
+     "Torino"
+    ],
+    [
+     "Fiorentina",
+     "Venezia"
+    ],
+    [
+     "Juventus",
+     "Roma"
+    ],
+    [
+     "Lazio",
+     "Frosinone"
+    ],
+    [
+     "Lecce",
+     "Como"
+    ],
+    [
+     "Milan",
+     "Cagliari"
+    ],
+    [
+     "Monza",
+     "Genoa"
+    ],
+    [
+     "Napoli",
+     "Parma"
+    ],
+    [
+     "Sassuolo",
+     "Bologna"
+    ],
+    [
+     "Udinese",
+     "Inter"
+    ]
+   ]
+  },
+  {
+   "n": 28,
+   "data": "2027-03-14",
+   "partite": [
+    [
+     "Bologna",
+     "Napoli"
+    ],
+    [
+     "Cagliari",
+     "Fiorentina"
+    ],
+    [
+     "Como",
+     "Udinese"
+    ],
+    [
+     "Frosinone",
+     "Monza"
+    ],
+    [
+     "Genoa",
+     "Roma"
+    ],
+    [
+     "Lazio",
+     "Juventus"
+    ],
+    [
+     "Milan",
+     "Sassuolo"
+    ],
+    [
+     "Parma",
+     "Lecce"
+    ],
+    [
+     "Torino",
+     "Inter"
+    ],
+    [
+     "Venezia",
+     "Atalanta"
+    ]
+   ]
+  },
+  {
+   "n": 29,
+   "data": "2027-03-21",
+   "partite": [
+    [
+     "Atalanta",
+     "Milan"
+    ],
+    [
+     "Fiorentina",
+     "Genoa"
+    ],
+    [
+     "Inter",
+     "Frosinone"
+    ],
+    [
+     "Juventus",
+     "Como"
+    ],
+    [
+     "Monza",
+     "Bologna"
+    ],
+    [
+     "Napoli",
+     "Venezia"
+    ],
+    [
+     "Parma",
+     "Lazio"
+    ],
+    [
+     "Roma",
+     "Lecce"
+    ],
+    [
+     "Sassuolo",
+     "Cagliari"
+    ],
+    [
+     "Udinese",
+     "Torino"
+    ]
+   ]
+  },
+  {
+   "n": 30,
+   "data": "2027-04-04",
+   "partite": [
+    [
+     "Cagliari",
+     "Napoli"
+    ],
+    [
+     "Como",
+     "Fiorentina"
+    ],
+    [
+     "Frosinone",
+     "Udinese"
+    ],
+    [
+     "Genoa",
+     "Inter"
+    ],
+    [
+     "Lecce",
+     "Lazio"
+    ],
+    [
+     "Milan",
+     "Monza"
+    ],
+    [
+     "Roma",
+     "Bologna"
+    ],
+    [
+     "Sassuolo",
+     "Atalanta"
+    ],
+    [
+     "Torino",
+     "Juventus"
+    ],
+    [
+     "Venezia",
+     "Parma"
+    ]
+   ]
+  },
+  {
+   "n": 31,
+   "data": "2027-04-11",
+   "partite": [
+    [
+     "Bologna",
+     "Venezia"
+    ],
+    [
+     "Cagliari",
+     "Atalanta"
+    ],
+    [
+     "Fiorentina",
+     "Milan"
+    ],
+    [
+     "Frosinone",
+     "Genoa"
+    ],
+    [
+     "Inter",
+     "Roma"
+    ],
+    [
+     "Juventus",
+     "Lecce"
+    ],
+    [
+     "Lazio",
+     "Torino"
+    ],
+    [
+     "Napoli",
+     "Sassuolo"
+    ],
+    [
+     "Parma",
+     "Como"
+    ],
+    [
+     "Udinese",
+     "Monza"
+    ]
+   ]
+  },
+  {
+   "n": 32,
+   "data": "2027-04-18",
+   "partite": [
+    [
+     "Atalanta",
+     "Udinese"
+    ],
+    [
+     "Bologna",
+     "Cagliari"
+    ],
+    [
+     "Como",
+     "Frosinone"
+    ],
+    [
+     "Fiorentina",
+     "Parma"
+    ],
+    [
+     "Milan",
+     "Napoli"
+    ],
+    [
+     "Monza",
+     "Inter"
+    ],
+    [
+     "Roma",
+     "Lazio"
+    ],
+    [
+     "Sassuolo",
+     "Lecce"
+    ],
+    [
+     "Torino",
+     "Genoa"
+    ],
+    [
+     "Venezia",
+     "Juventus"
+    ]
+   ]
+  },
+  {
+   "n": 33,
+   "data": "2027-04-25",
+   "partite": [
+    [
+     "Cagliari",
+     "Monza"
+    ],
+    [
+     "Frosinone",
+     "Roma"
+    ],
+    [
+     "Genoa",
+     "Sassuolo"
+    ],
+    [
+     "Inter",
+     "Bologna"
+    ],
+    [
+     "Juventus",
+     "Fiorentina"
+    ],
+    [
+     "Lazio",
+     "Como"
+    ],
+    [
+     "Lecce",
+     "Milan"
+    ],
+    [
+     "Napoli",
+     "Udinese"
+    ],
+    [
+     "Parma",
+     "Atalanta"
+    ],
+    [
+     "Venezia",
+     "Torino"
+    ]
+   ]
+  },
+  {
+   "n": 34,
+   "data": "2027-05-02",
+   "partite": [
+    [
+     "Atalanta",
+     "Juventus"
+    ],
+    [
+     "Bologna",
+     "Fiorentina"
+    ],
+    [
+     "Como",
+     "Inter"
+    ],
+    [
+     "Lecce",
+     "Cagliari"
+    ],
+    [
+     "Milan",
+     "Lazio"
+    ],
+    [
+     "Monza",
+     "Venezia"
+    ],
+    [
+     "Roma",
+     "Napoli"
+    ],
+    [
+     "Sassuolo",
+     "Frosinone"
+    ],
+    [
+     "Torino",
+     "Parma"
+    ],
+    [
+     "Udinese",
+     "Genoa"
+    ]
+   ]
+  },
+  {
+   "n": 35,
+   "data": "2027-05-09",
+   "partite": [
+    [
+     "Fiorentina",
+     "Roma"
+    ],
+    [
+     "Frosinone",
+     "Atalanta"
+    ],
+    [
+     "Genoa",
+     "Cagliari"
+    ],
+    [
+     "Inter",
+     "Lecce"
+    ],
+    [
+     "Lazio",
+     "Sassuolo"
+    ],
+    [
+     "Napoli",
+     "Monza"
+    ],
+    [
+     "Parma",
+     "Milan"
+    ],
+    [
+     "Torino",
+     "Bologna"
+    ],
+    [
+     "Udinese",
+     "Juventus"
+    ],
+    [
+     "Venezia",
+     "Como"
+    ]
+   ]
+  },
+  {
+   "n": 36,
+   "data": "2027-05-16",
+   "partite": [
+    [
+     "Bologna",
+     "Frosinone"
+    ],
+    [
+     "Cagliari",
+     "Torino"
+    ],
+    [
+     "Como",
+     "Atalanta"
+    ],
+    [
+     "Juventus",
+     "Inter"
+    ],
+    [
+     "Lazio",
+     "Udinese"
+    ],
+    [
+     "Lecce",
+     "Fiorentina"
+    ],
+    [
+     "Milan",
+     "Roma"
+    ],
+    [
+     "Monza",
+     "Parma"
+    ],
+    [
+     "Napoli",
+     "Genoa"
+    ],
+    [
+     "Sassuolo",
+     "Venezia"
+    ]
+   ]
+  },
+  {
+   "n": 37,
+   "data": "2027-05-23",
+   "partite": [
+    [
+     "Atalanta",
+     "Lecce"
+    ],
+    [
+     "Fiorentina",
+     "Monza"
+    ],
+    [
+     "Frosinone",
+     "Cagliari"
+    ],
+    [
+     "Genoa",
+     "Bologna"
+    ],
+    [
+     "Inter",
+     "Lazio"
+    ],
+    [
+     "Parma",
+     "Juventus"
+    ],
+    [
+     "Roma",
+     "Como"
+    ],
+    [
+     "Torino",
+     "Napoli"
+    ],
+    [
+     "Udinese",
+     "Sassuolo"
+    ],
+    [
+     "Venezia",
+     "Milan"
+    ]
+   ]
+  },
+  {
+   "n": 38,
+   "data": "2027-05-30",
+   "partite": [
+    [
+     "Bologna",
+     "Parma"
+    ],
+    [
+     "Cagliari",
+     "Roma"
+    ],
+    [
+     "Como",
+     "Genoa"
+    ],
+    [
+     "Juventus",
+     "Frosinone"
+    ],
+    [
+     "Lazio",
+     "Fiorentina"
+    ],
+    [
+     "Lecce",
+     "Venezia"
+    ],
+    [
+     "Milan",
+     "Udinese"
+    ],
+    [
+     "Monza",
+     "Torino"
+    ],
+    [
+     "Napoli",
+     "Atalanta"
+    ],
+    [
+     "Sassuolo",
+     "Inter"
+    ]
+   ]
+  }
+ ]
 }
