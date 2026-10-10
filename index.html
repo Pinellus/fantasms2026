@@ -59,6 +59,12 @@ a { color: var(--accent); }
 .tabs a { flex: 0 0 auto; padding: 9px 13px 10px; text-decoration: none; color: var(--muted); font: 600 15px/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; border-bottom: 2px solid transparent; }
 .tabs a:hover { color: var(--fg); }
 .tabs a[aria-current="page"] { color: var(--fg); border-bottom-color: var(--accent); }
+/* telefono: le 5 voci stanno tutte nella riga, senza scorrimento */
+@media (max-width: 560px) {
+  .tabs { flex: 1 1 100%; overflow: visible; }
+  .tabs a { flex: 1 1 0; min-width: 0; text-align: center; padding: 10px 2px 10px; font-size: clamp(11.5px, 3.4vw, 14px); letter-spacing: .03em; }
+  .brand { padding-bottom: 4px; }
+}
 
 main { padding-block: 22px 40px; display: grid; gap: 28px; }
 .sec-h { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 12px; }
@@ -121,6 +127,12 @@ thead th { background: var(--surface2); font: 600 13px/1 var(--f-display); lette
 tbody tr + tr td { border-top: 1px solid var(--line); }
 th:first-child, td:first-child { position: sticky; left: 0; text-align: left; background: var(--surface); min-width: 188px; padding-left: 12px; box-shadow: 1px 0 0 var(--line); }
 thead th:first-child { background: var(--surface2); }
+.ctrl { display: flex; flex-wrap: wrap; gap: 8px; }
+table.compatta th:first-child, table.compatta td:first-child { position: static; min-width: 0; width: 100%; white-space: normal; box-shadow: none; padding-left: 10px; }
+table.compatta th, table.compatta td { padding: 10px 6px; }
+table.compatta td:not(:first-child) { white-space: nowrap; }
+table.compatta .cell { gap: 8px; }
+table.compatta .cell .n { line-height: 1.2; overflow-wrap: anywhere; }
 td.pt { font: 700 18px/1 var(--f-display); color: var(--accent); }
 td.ptt { color: var(--muted); }
 .cell { display: flex; align-items: center; gap: 10px; }
@@ -156,7 +168,7 @@ a.sq:hover { border-color: var(--accent); }
 .stats b { display: block; color: var(--fg); font: 700 28px/1.05 var(--f-display); font-variant-numeric: tabular-nums; }
 .reparto { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
 .reparto + .reparto { margin-top: 14px; }
-.rh, .pl { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 14px; }
+.rh, .pl { display: grid; grid-template-columns: 48px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 14px; }
 .rh { background: var(--surface2); border-bottom: 1px solid var(--line); padding-block: 10px; }
 .rh h3 { grid-column: 1 / 3; display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
 .badge { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; color: #fff; font: 700 14px/1 var(--f-display); }
@@ -164,7 +176,7 @@ a.sq:hover { border-color: var(--accent); }
 .nums { display: grid; grid-template-columns: repeat(3, 40px); gap: 4px; text-align: right; font-variant-numeric: tabular-nums; font-size: 14px; }
 .rh .nums { font: 600 11px/1.2 var(--f-display); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 .pl + .pl { border-top: 1px solid var(--line); }
-.ph { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background-color: var(--surface2); background-repeat: no-repeat; }
+.ph { width: 48px; height: 48px; border-radius: 10px; border: 1px solid var(--line); background-color: #1b1b1b; background-repeat: no-repeat; }
 .pl .nm { min-width: 0; line-height: 1.25; }
 .pl .nm a { color: var(--fg); font-weight: 500; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; overflow-wrap: anywhere; }
 .pl .nm a:hover { color: var(--accent); text-decoration-color: var(--accent); }
@@ -243,9 +255,9 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;'
 const num = n => n.toLocaleString('it-IT', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
 const logo = id => `img/${id}.webp`;
 const SECTIONS = [['home', 'Home'], ['squadre', 'Squadre'], ['calendario', 'Calendario'], ['classifica', 'Classifica'], ['commenti', 'Commenti']];
-const S = { cal: 'campionato', cla: 'campionato' };
+const S = { cal: 'campionato', cla: 'campionato', vista: (typeof matchMedia === 'function' && matchMedia('(max-width: 560px)').matches) ? 'compatta' : 'dettaglio' };
 const RUOLI = { P: 'Portieri', D: 'Difensori', C: 'Centrocampisti', A: 'Attaccanti' };
-const CELLA = 44; // le figurine di ogni squadra sono in un'unica immagine 5x5, nell'ordine della rosa
+const CELLA = 48; // le figurine di ogni squadra sono in un'unica immagine 5x5, nell'ordine della rosa
 const faccia = (id, i) => `background-image:url(img/rosa-${id}.webp);background-size:${5 * CELLA}px ${5 * CELLA}px;background-position:-${(i % 5) * CELLA}px -${Math.floor(i / 5) * CELLA}px`;
 const tmUrl = (nome, club) => 'https://www.google.com/search?q=' + encodeURIComponent(nome.replace(/\./g, '') + ' ' + club + ' calciatore transfermarkt');
 
@@ -289,6 +301,13 @@ function giornataHtml(g) {
 }
 
 function tabellaHtml(righe) {
+  if (S.vista === 'compatta') {
+    return `<div class="tablewrap"><table class="compatta">
+      <thead><tr><th>Squadra</th><th>G</th><th>V-N-P</th><th>Pt</th></tr></thead>
+      <tbody>${righe.map((r, i) => `<tr>
+        <td><div class="cell"><span class="rk">${i + 1}</span><img src="${logo(r.id)}" alt="" width="28" height="28"><span class="n">${esc(T[r.id].nome)}</span></div></td>
+        <td>${r.g}</td><td>${r.v}-${r.n}-${r.p}</td><td class="pt">${r.pt}</td></tr>`).join('')}</tbody></table></div>`;
+  }
   return `<div class="tablewrap"><table>
     <thead><tr><th>Squadra</th><th>G</th><th>V</th><th>N</th><th>P</th><th>Gf</th><th>Gs</th><th>Pt</th><th>Pt totali</th></tr></thead>
     <tbody>${righe.map((r, i) => `<tr>
@@ -305,9 +324,10 @@ function classificaCampionato() {
   return classifica(D.competizioni.campionato.squadre, partiteDi('campionato'), D.criteri);
 }
 
-function seg(act, cur) {
-  return `<div class="seg" role="group" aria-label="Competizione">${['campionato', 'coppa'].map(k =>
-    `<button type="button" data-act="${act}" data-v="${k}" aria-pressed="${cur === k}">${esc(D.competizioni[k].nome)}</button>`).join('')}</div>`;
+function seg(act, cur, opzioni, etichetta) {
+  const o = opzioni || ['campionato', 'coppa'].map(k => [k, D.competizioni[k].nome]);
+  return `<div class="seg" role="group" aria-label="${etichetta || 'Competizione'}">${o.map(([k, l]) =>
+    `<button type="button" data-act="${act}" data-v="${k}" aria-pressed="${cur === k}">${esc(l)}</button>`).join('')}</div>`;
 }
 
 const VIEWS = {
@@ -375,11 +395,14 @@ const VIEWS = {
       ${gs.length ? gs.map(giornataHtml).join('') : `<div class="vuoto"><strong>Calendario non ancora inserito</strong>Le giornate del ${esc(D.competizioni[S.cal].nome)} compaiono qui appena disponibili.</div>`}</section>`;
   },
   classifica() {
-    const leg = '<p class="legenda">G giocate · V vinte · N pareggiate · P perse · Gf gol fatti · Gs gol subiti · Pt punti · Pt totali somma dei fantapunti</p>';
+    const leg = S.vista === 'compatta'
+      ? '<p class="legenda">G giocate · V-N-P vinte, pareggiate, perse · Pt punti. Con «Dettaglio» vedi anche gol e fantapunti.</p>'
+      : '<p class="legenda">G giocate · V vinte · N pareggiate · P perse · Gf gol fatti · Gs gol subiti · Pt punti · Pt totali somma dei fantapunti</p>';
     const corpo = S.cla === 'coppa'
       ? classificheCoppa().map(({ k, righe }) => `<h3 class="tbl-h">Gruppo ${esc(k)}</h3>${tabellaHtml(righe)}`).join('')
       : tabellaHtml(classificaCampionato());
-    return `<section><div class="sec-h"><h2>Classifica</h2>${seg('cla', S.cla)}</div>${corpo}${leg}</section>`;
+    const vista = seg('vista', S.vista, [['compatta', 'Compatta'], ['dettaglio', 'Dettaglio']], 'Vista');
+    return `<section><div class="sec-h"><h2>Classifica</h2><div class="ctrl">${seg('cla', S.cla)}${vista}</div></div>${corpo}${leg}</section>`;
   },
   commenti() {
     return `<section><div class="sec-h"><h2>Commenti di giornata</h2><p>Articoli e video</p></div>
