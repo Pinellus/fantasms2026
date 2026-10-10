@@ -209,6 +209,15 @@ a.sq:hover { border-color: var(--accent); }
 
 footer { border-top: 1px solid var(--line); padding-block: 18px 28px; color: var(--muted); font-size: 13px; }
 @media (prefers-reduced-motion: no-preference) { .tabs a, .seg button { transition: color .15s, background-color .15s, border-color .15s; } }
+[hidden] { display: none !important; }
+.cerca { position: relative; margin-bottom: 16px; }
+.cerca input { width: 100%; box-sizing: border-box; font: inherit; font-size: 16px; color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 11px 14px; }
+.cerca input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.ris .pl { grid-template-columns: 48px minmax(0, 1fr) auto; }
+.ris .di { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--fg); font-size: 13px; max-width: 150px; line-height: 1.2; }
+.ris .di img { flex: none; }
+.ris .di:hover span { color: var(--accent); }
+.ris-n { color: var(--muted); font-size: 13px; margin: 0 0 8px; }
 </style>
 <style>[hidden]{display:none!important}img{max-width:100%}</style>
 </head>
@@ -255,7 +264,7 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;'
 const num = n => n.toLocaleString('it-IT', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
 const logo = id => `img/${id}.webp`;
 const SECTIONS = [['home', 'Home'], ['squadre', 'Squadre'], ['calendario', 'Calendario'], ['classifica', 'Classifica'], ['commenti', 'Commenti']];
-const S = { cal: 'campionato', cla: 'campionato', vista: (typeof matchMedia === 'function' && matchMedia('(max-width: 560px)').matches) ? 'compatta' : 'dettaglio' };
+const S = { q: '', cal: 'campionato', cla: 'campionato', vista: (typeof matchMedia === 'function' && matchMedia('(max-width: 560px)').matches) ? 'compatta' : 'dettaglio' };
 const RUOLI = { P: 'Portieri', D: 'Difensori', C: 'Centrocampisti', A: 'Attaccanti' };
 const CELLA = 48; // le figurine di ogni squadra sono in un'unica immagine 5x5, nell'ordine della rosa
 const faccia = (id, i) => `background-image:url(img/rosa-${id}.webp);background-size:${5 * CELLA}px ${5 * CELLA}px;background-position:-${(i % 5) * CELLA}px -${Math.floor(i / 5) * CELLA}px`;
@@ -330,6 +339,22 @@ function seg(act, cur, opzioni, etichetta) {
     `<button type="button" data-act="${act}" data-v="${k}" aria-pressed="${cur === k}">${esc(l)}</button>`).join('')}</div>`;
 }
 
+const norm = x => String(x).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+function cercaHtml(q) {
+  const k = norm(q).trim().split(/\s+/).filter(Boolean);
+  if (!k.length) return '';
+  const trovati = [];
+  for (const s of D.squadre) s.rosa.forEach((p, i) => {
+    const t = norm(p[1] + ' ' + p[2]);
+    if (k.every(w => t.includes(w))) trovati.push({ s, p, i });
+  });
+  if (!trovati.length) return '<div class="vuoto"><strong>Nessun giocatore trovato</strong>Prova con il cognome o con il nome del club. Se è libero, non è in nessuna rosa.</div>';
+  return `<p class="ris-n">${trovati.length} ${trovati.length === 1 ? 'giocatore' : 'giocatori'}</p><div class="reparto">${trovati.map(({ s, p, i }) =>
+    `<div class="pl"><span class="ph" style="${faccia(s.id, i)}" role="img" aria-label="Figurina ${esc(p[1])}"></span>
+      <div class="nm"><a href="${tmUrl(p[1], p[2])}" target="_blank" rel="noopener">${esc(p[1])} ↗</a><div class="cl"><span class="badge ${p[0]}">${p[0]}</span> ${esc(p[2])}</div></div>
+      <a class="di" href="#squadra-${s.id}"><img src="${logo(s.id)}" alt="" width="28" height="28"><span>${esc(s.nome)}</span></a></div>`).join('')}</div>`;
+}
+
 const VIEWS = {
   home() {
     const camp = prossima('campionato'), coppa = prossima('coppa');
@@ -362,7 +387,9 @@ const VIEWS = {
   squadre() {
     const gruppo = id => Object.entries(D.competizioni.coppa.gironi).find(([, ids]) => ids.includes(id))?.[0];
     return `<section><div class="sec-h"><h2>Squadre</h2><p>${D.squadre.length} partecipanti · tocca una squadra per vedere la rosa</p></div>
-      <div class="squadre">${D.squadre.map(s => `<a class="sq" href="#squadra-${s.id}">
+      <div class="cerca"><input id="cerca" type="search" placeholder="Cerca un giocatore o un club: chi ce l'ha?" value="${esc(S.q)}" autocomplete="off" aria-label="Cerca un giocatore"></div>
+      <div class="ris" id="ris">${cercaHtml(S.q)}</div>
+      <div class="squadre" id="elenco"${S.q.trim() ? ' hidden' : ''}>${D.squadre.map(s => `<a class="sq" href="#squadra-${s.id}">
         <img src="${logo(s.id)}" alt="Stemma ${esc(s.nome)}" width="92" height="92">
         <h3>${esc(s.nome)}</h3>
         <div class="part">${esc(s.partecipanti)}</div>
@@ -468,6 +495,12 @@ function render() {
   document.getElementById('tabs').innerHTML = SECTIONS.map(([k, l]) => `<a href="#${k}"${k === voce ? ' aria-current="page"' : ''}>${l}</a>`).join('');
   document.getElementById('app').innerHTML = cur.startsWith('squadra-') ? VIEWS.squadra(cur.slice(8)) : VIEWS[cur]();
 }
+document.addEventListener('input', e => {
+  if (e.target.id !== 'cerca') return;
+  S.q = e.target.value;
+  document.getElementById('ris').innerHTML = cercaHtml(S.q);
+  document.getElementById('elenco').hidden = !!S.q.trim();
+});
 document.addEventListener('click', e => {
   const b = e.target.closest('button[data-act]');
   if (!b) return;
