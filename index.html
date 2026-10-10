@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Fanta SMS Engineering: squadre, calendario, classifiche e commenti di giornata della lega di fantacalcio.">
+<link rel="icon" href="img/lega.webp" type="image/webp">
+<title>Fanta SMS Engineering</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Condensed:wght@500;600;700&display=swap">
+<style>
+/* Layout: barra fissa con logo e schede; colonna unica fino a 960px; partite a tre colonne (casa, risultato, ospite); tabelle con prima colonna fissa. */
+:root {
+  --bg: #0a111f;
+  --surface: #111a2d;
+  --surface2: #17223a;
+  --line: #233352;
+  --fg: #e9f0fc;
+  --muted: #92a3c1;
+  --accent: #4b93ff;
+  --accent-ink: #06142e;
+  --warm: #ff9033;
+  --hero-bg: #0b1428;
+  --hero-fg: #eaf2ff;
+  --hero-muted: #9bb0d3;
+  --hero-line: #15233f;
+  --f-display: 'Saira Condensed', 'Arial Narrow', Arial, sans-serif;
+  --f-body: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f2f5fa; --surface: #ffffff; --surface2: #e9eff8; --line: #d3dcea;
+    --fg: #0f1b33; --muted: #566884; --accent: #1f64d6; --accent-ink: #ffffff; --warm: #b84f08;
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #f2f5fa; --surface: #ffffff; --surface2: #e9eff8; --line: #d3dcea;
+  --fg: #0f1b33; --muted: #566884; --accent: #1f64d6; --accent-ink: #ffffff; --warm: #b84f08;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 400 15px/1.5 var(--f-body); }
+img { display: block; }
+h1, h2, h3 { font-family: var(--f-display); margin: 0; text-wrap: balance; }
+a { color: var(--accent); }
+.wrap { max-width: 960px; margin-inline: auto; padding-inline: 16px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* barra */
+.topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+.bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 24px; padding-block: 10px 0; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--fg); padding-bottom: 8px; }
+.brand img { width: 34px; height: 34px; border-radius: 8px; }
+.brand span { font: 700 21px/1 var(--f-display); letter-spacing: .03em; text-transform: uppercase; }
+.tabs { display: flex; gap: 2px; overflow-x: auto; min-width: 0; flex: 1 1 340px; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tabs a { flex: 0 0 auto; padding: 9px 13px 10px; text-decoration: none; color: var(--muted); font: 600 15px/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; border-bottom: 2px solid transparent; }
+.tabs a:hover { color: var(--fg); }
+.tabs a[aria-current="page"] { color: var(--fg); border-bottom-color: var(--accent); }
+
+main { padding-block: 22px 40px; display: grid; gap: 28px; }
+.sec-h { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 12px; }
+.sec-h h2 { font-size: 26px; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; }
+.sec-h p { margin: 0; color: var(--muted); font-size: 14px; }
+
+/* hero */
+.hero { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 18px 28px; align-items: center; padding: 22px; border: 1px solid var(--line); border-radius: 14px; color: var(--hero-fg);
+  background-color: var(--hero-bg);
+  background-image: linear-gradient(var(--hero-line) 1px, transparent 1px), linear-gradient(90deg, var(--hero-line) 1px, transparent 1px);
+  background-size: 28px 28px; }
+.hero img { width: 136px; height: 136px; border-radius: 14px; }
+.hero h1 { font-size: clamp(34px, 7vw, 54px); font-weight: 700; line-height: .95; letter-spacing: .02em; text-transform: uppercase; }
+.hero p { margin: 8px 0 0; color: var(--hero-muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.chip { font: 600 12px/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; padding: 6px 9px; border-radius: 4px; border: 1px solid var(--hero-line); color: var(--hero-fg); background: rgba(75, 147, 255, .12); }
+.chip.warm { color: var(--warm); border-color: var(--warm); background: transparent; }
+@media (max-width: 560px) { .hero { grid-template-columns: 1fr; padding: 18px; } .hero img { width: 104px; height: 104px; } }
+
+/* giornate e partite */
+.gio { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.gio + .gio { margin-top: 14px; }
+.gio-h { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 12px 16px; background: var(--surface2); border-bottom: 1px solid var(--line); }
+.gio-h h3 { font-size: 22px; font-weight: 700; letter-spacing: .03em; margin-right: 4px; }
+.tag { font: 600 12px/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.tag + .tag::before { content: "·"; margin-right: 10px; }
+.state { margin-left: auto; font: 600 12px/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; padding: 5px 8px; border-radius: 4px; border: 1px solid var(--line); color: var(--muted); }
+.state.next { color: var(--warm); border-color: var(--warm); }
+.state.done { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); }
+.girone { padding: 10px 16px 4px; font: 600 13px/1 var(--f-display); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.match { display: grid; grid-template-columns: minmax(0, 1fr) 64px minmax(0, 1fr); gap: 8px; align-items: center; padding: 10px 16px; }
+.match + .match { border-top: 1px solid var(--line); }
+.team { display: flex; align-items: center; gap: 10px; min-width: 0; font-weight: 500; font-size: 14.5px; line-height: 1.25; }
+.team img { flex: 0 0 auto; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); }
+.team.home { justify-content: flex-end; text-align: right; }
+.team span { min-width: 0; overflow-wrap: anywhere; }
+.mid { text-align: center; }
+.vs { font: 600 13px/1 var(--f-display); letter-spacing: .14em; color: var(--muted); }
+.score { font: 700 24px/1 var(--f-display); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.score i { font-style: normal; color: var(--muted); padding-inline: 3px; }
+.pts { margin-top: 3px; font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.nota { display: flex; gap: 12px; align-items: center; padding: 16px; color: var(--muted); font-size: 14px; }
+.vuoto { padding: 22px 18px; border: 1px dashed var(--line); border-radius: 12px; color: var(--muted); }
+.vuoto strong { display: block; color: var(--fg); font: 600 18px/1.2 var(--f-display); letter-spacing: .03em; margin-bottom: 4px; }
+@media (max-width: 480px) { .match { grid-template-columns: minmax(0, 1fr) 54px minmax(0, 1fr); padding-inline: 12px; gap: 6px; } .team { font-size: 13px; gap: 7px; } .team img { width: 30px; height: 30px; } .gio-h, .girone { padding-inline: 12px; } }
+
+/* selettore competizione */
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { font: 600 14px/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; padding: 10px 16px; border: 0; background: transparent; color: var(--muted); cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+
+/* tabelle */
+.tbl-h { font: 600 14px/1 var(--f-display); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 18px 0 8px; }
+.tbl-h:first-child { margin-top: 0; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+th, td { padding: 10px 8px; text-align: center; white-space: nowrap; }
+thead th { background: var(--surface2); font: 600 13px/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line); }
+tbody tr + tr td { border-top: 1px solid var(--line); }
+th:first-child, td:first-child { position: sticky; left: 0; text-align: left; background: var(--surface); min-width: 188px; padding-left: 12px; box-shadow: 1px 0 0 var(--line); }
+thead th:first-child { background: var(--surface2); }
+td.pt { font: 700 18px/1 var(--f-display); color: var(--accent); }
+td.ptt { color: var(--muted); }
+.cell { display: flex; align-items: center; gap: 10px; }
+.rk { width: 18px; font: 700 18px/1 var(--f-display); color: var(--muted); text-align: right; }
+.cell img { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--line); flex: 0 0 auto; }
+.cell span.n { font-weight: 500; font-size: 14.5px; }
+.legenda { margin: 10px 2px 0; font-size: 12.5px; color: var(--muted); }
+
+/* squadre */
+.squadre { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (min-width: 720px) { .squadre { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.sq { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px 14px 14px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; min-width: 0; }
+.sq img { width: 92px; height: 92px; border-radius: 50%; border: 2px solid var(--line); margin-bottom: 8px; }
+.sq h3 { font-size: 22px; font-weight: 700; line-height: 1.05; letter-spacing: .02em; overflow-wrap: anywhere; }
+.sq .part { color: var(--muted); font-size: 14px; overflow-wrap: anywhere; }
+.sq dl { margin: 12px 0 0; width: 100%; display: grid; gap: 6px; border-top: 1px solid var(--line); padding-top: 10px; font-size: 13px; }
+.sq dl div { display: flex; justify-content: space-between; gap: 8px; }
+.sq dt { color: var(--muted); }
+.sq dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+a.sq { color: inherit; text-decoration: none; }
+a.sq:hover { border-color: var(--accent); }
+.sq .vai { margin-top: 10px; font: 600 13px/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+
+/* scheda squadra e rosa */
+:root { --rp: #e8a91c; --rd: #2f9e63; --rc: #3b82f6; --ra: #e5484d; }
+.back { display: inline-block; margin-bottom: 14px; font: 600 14px/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; text-decoration: none; }
+.sq-head { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 22px; }
+.sq-head img { width: 96px; height: 96px; border-radius: 50%; border: 2px solid var(--line); }
+.sq-head h2 { font-size: clamp(30px, 6vw, 44px); font-weight: 700; line-height: 1; letter-spacing: .02em; text-transform: uppercase; overflow-wrap: anywhere; }
+.sq-head p { margin: 4px 0 0; color: var(--muted); }
+.stats { display: flex; flex-wrap: wrap; gap: 10px 32px; margin-top: 18px; }
+.stats div { color: var(--muted); font-size: 13px; }
+.stats b { display: block; color: var(--fg); font: 700 28px/1.05 var(--f-display); font-variant-numeric: tabular-nums; }
+.reparto { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.reparto + .reparto { margin-top: 14px; }
+.rh, .pl { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 14px; }
+.rh { background: var(--surface2); border-bottom: 1px solid var(--line); padding-block: 10px; }
+.rh h3 { grid-column: 1 / 3; display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.badge { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; color: #fff; font: 700 14px/1 var(--f-display); }
+.badge.P { background: var(--rp); color: #1a1200; } .badge.D { background: var(--rd); } .badge.C { background: var(--rc); } .badge.A { background: var(--ra); }
+.nums { display: grid; grid-template-columns: repeat(3, 40px); gap: 4px; text-align: right; font-variant-numeric: tabular-nums; font-size: 14px; }
+.rh .nums { font: 600 11px/1.2 var(--f-display); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.pl + .pl { border-top: 1px solid var(--line); }
+.ph { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background-color: var(--surface2); background-repeat: no-repeat; }
+.pl .nm { min-width: 0; line-height: 1.25; }
+.pl .nm a { color: var(--fg); font-weight: 500; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; overflow-wrap: anywhere; }
+.pl .nm a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+.pl .cl { font-size: 12.5px; color: var(--muted); }
+.nums .pg { font-weight: 600; color: var(--accent); }
+.fonte { margin: 12px 2px 0; font-size: 12.5px; color: var(--muted); }
+@media (max-width: 480px) { .rh, .pl { padding-inline: 12px; gap: 8px; } .nums { grid-template-columns: repeat(3, 36px); font-size: 13.5px; } .rh .nums { font-size: 10px; letter-spacing: .04em; } }
+
+/* home: mini classifica */
+.duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 640px) { .duo { grid-template-columns: minmax(0, 1fr); } }
+.mini { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.mini h3 { padding: 11px 14px; background: var(--surface2); border-bottom: 1px solid var(--line); font-size: 16px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.mini .r { display: grid; grid-template-columns: 18px 28px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 9px 14px; }
+.mini .r + .r { border-top: 1px solid var(--line); }
+.mini .r img { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--line); }
+.mini .r b { font: 700 18px/1 var(--f-display); color: var(--accent); font-variant-numeric: tabular-nums; }
+.mini .r .rk { width: auto; }
+.mini .r .n { font-weight: 500; font-size: 14.5px; overflow-wrap: anywhere; }
+
+/* commenti */
+.post { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 8px; max-width: 70ch; }
+.post + .post { margin-top: 14px; }
+.post h3 { font-size: 26px; font-weight: 700; letter-spacing: .02em; }
+.post .meta { color: var(--muted); font-size: 13px; }
+.post p { margin: 0; }
+.post a.video { justify-self: start; padding: 9px 14px; border-radius: 8px; background: var(--accent); color: var(--accent-ink); font-weight: 600; text-decoration: none; }
+
+footer { border-top: 1px solid var(--line); padding-block: 18px 28px; color: var(--muted); font-size: 13px; }
+@media (prefers-reduced-motion: no-preference) { .tabs a, .seg button { transition: color .15s, background-color .15s, border-color .15s; } }
+</style>
+<style>[hidden]{display:none!important}img{max-width:100%}</style>
+</head>
+<body>
+<!-- DATI DELLA LEGA: si modifica solo questo blocco. Risultato di una partita: gc/gf = gol casa/fuori, pc/pf = fantapunti casa/fuori. -->
+<script type="application/json" id="dati">
+{
+  "aggiornato": "2026-10-10",
+  "lega": { "nome": "Fanta SMS Engineering", "stagione": "2026/27", "fonte": "fantacalcio.it" },
+  "criteri": ["pt", "dr", "gf", "ptt"],
+  "squadre": [
+    { "id": "vesuviani", "nome": "I Vesuviani", "partecipanti": "Bancunar e Pinellus & pinellus", "crediti": 4, "rosa": [
+      ["P","Gollini","Roma",1,1,1],
+      ["P","Svilar","Roma",19,95,100],
+      ["P","Tornqvist","Monza",3,8,6],
+      ["D","Calvani","Frosinone",8,15,1],
+      ["D","Chalobah T.","Como",9,25,30],
+      ["D","Di Lorenzo","Napoli",12,33,30],
+      ["D","Mancini","Roma",15,54,36],
+      ["D","Miranda J.","Bologna",10,22,9],
+      ["D","Obert","Cagliari",8,15,1],
+      ["D","Provstgaard","Lazio",5,12,1],
+      ["D","Sutalo J.","Lazio",7,15,1],
+      ["C","Barella","Inter",18,81,38],
+      ["C","Conceicao","Juventus",14,77,31],
+      ["C","Coulibaly L.","Lecce",10,17,2],
+      ["C","Elmas","Atalanta",6,17,1],
+      ["C","Kessiè","Atalanta",11,30,30],
+      ["C","Mora","Roma",20,60,55],
+      ["C","Moreira","Milan",15,60,51],
+      ["C","Vlasic","Torino",11,57,20],
+      ["A","Lang","Napoli",4,12,1],
+      ["A","Martinez L.","Inter",36,418,501],
+      ["A","Raimondo","Frosinone",12,60,34],
+      ["A","Romero D.","Parma",13,44,10],
+      ["A","Stulic","Lecce",6,11,2],
+      ["A","Tourè E.","Parma",10,31,4] ] },
+    { "id": "zonaflegrea", "nome": "A.C. Zona Flegrea", "partecipanti": "Roby", "crediti": 52, "rosa": [
+      ["P","Martinez Jo.","Inter",14,60,93],
+      ["P","Provedel","Inter",1,5,8],
+      ["P","Stankovic F.","Venezia",5,8,1],
+      ["D","Bastoni","Inter",13,39,41],
+      ["D","Bernasconi","Atalanta",5,14,1],
+      ["D","Favasuli","Napoli",6,16,6],
+      ["D","Gallo","Lecce",6,12,1],
+      ["D","Kaiki","Como",9,18,1],
+      ["D","Rrahmani","Napoli",15,52,16],
+      ["D","Spence","Inter",10,14,1],
+      ["D","Tavares N.","Lazio",9,50,12],
+      ["C","Bernardeschi","Bologna",12,35,1],
+      ["C","Ederson D.S.","Atalanta",13,43,1],
+      ["C","Goncalves P.","Fiorentina",11,35,1],
+      ["C","Isaksen","Lazio",8,21,1],
+      ["C","Milla","Como",7,25,4],
+      ["C","Saelemaekers","Milan",11,20,22],
+      ["C","Volpato","Sassuolo",9,21,2],
+      ["C","Zalewski","Atalanta",6,11,1],
+      ["A","Bowie","Sassuolo",12,33,1],
+      ["A","Castro S.","Roma",13,33,1],
+      ["A","Ghedjemis","Frosinone",11,30,1],
+      ["A","Malen","Roma",37,437,498],
+      ["A","Osmajic","Genoa",10,40,37],
+      ["A","Ramos G.","Milan",25,230,196] ] },
+    { "id": "backend", "nome": "Backend United", "partecipanti": "Raffaele & Pepsi", "crediti": 104, "rosa": [
+      ["P","Carnesecchi","Atalanta",16,56,103],
+      ["P","Palmisani","Frosinone",9,22,4],
+      ["P","Skorupski","Bologna",9,21,6],
+      ["D","Balerdi","Roma",8,20,1],
+      ["D","Bremer","Juventus",17,79,61],
+      ["D","Celik","Juventus",8,17,10],
+      ["D","Couto","Como",8,27,1],
+      ["D","Kolasinac","Atalanta",6,12,2],
+      ["D","N'Dicka","Roma",11,30,30],
+      ["D","Solet","Udinese",12,32,26],
+      ["D","Vojvoda","Udinese",8,18,1],
+      ["C","Alajbegovic","Juventus",11,40,7],
+      ["C","Bakola","Sassuolo",8,17,1],
+      ["C","Baturina","Como",21,191,138],
+      ["C","Calò","Frosinone",11,37,12],
+      ["C","Frattesi","Lazio",12,115,105],
+      ["C","Gonzalez N.","Juventus",13,47,5],
+      ["C","Perrone","Como",11,30,1],
+      ["C","Pisilli","Roma",9,27,1],
+      ["A","Adams A.","Venezia",12,30,10],
+      ["A","Maldini","Cagliari",11,50,37],
+      ["A","Mendy P.","Cagliari",8,20,1],
+      ["A","Noslin","Lazio",10,35,10],
+      ["A","Thuram","Inter",31,260,320],
+      ["A","Yeboah J.","Venezia",8,26,3] ] },
+    { "id": "dns", "nome": "DNS - Domenica Non Segno", "partecipanti": "Sergio Fiorentino & Elpagans", "crediti": 166, "rosa": [
+      ["P","Neto","Juventus",1,1,4],
+      ["P","Perri","Torino",9,15,5],
+      ["P","Vicario","Juventus",16,65,80],
+      ["D","Bracaglia","Frosinone",9,17,6],
+      ["D","Doig","Sassuolo",8,12,1],
+      ["D","Dragusin","Fiorentina",8,19,2],
+      ["D","Jimenez A.","Fiorentina",10,35,4],
+      ["D","Kamara H.","Udinese",10,15,2],
+      ["D","Marin R.","Napoli",2,13,11],
+      ["D","Tiago Gabriel","Lecce",9,21,10],
+      ["D","Wesley","Roma",18,91,50],
+      ["C","Adzic","Sassuolo",11,40,4],
+      ["C","Cristante","Roma",11,31,1],
+      ["C","De Bruyne","Napoli",17,80,50],
+      ["C","Fagioli","Fiorentina",8,21,1],
+      ["C","Konè M.","Roma",14,50,61],
+      ["C","Lobotka","Napoli",11,26,1],
+      ["C","Pulisic","Milan",25,155,180],
+      ["C","Samardzic","Atalanta",14,36,1],
+      ["A","Berardi","Sassuolo",18,100,86],
+      ["A","Hojlund","Napoli",27,233,140],
+      ["A","Krstovic","Atalanta",16,75,30],
+      ["A","Neres","Napoli",5,14,1],
+      ["A","Pinamonti","Lazio",10,36,11],
+      ["A","Scamacca","Atalanta",19,91,92] ] },
+    { "id": "futuro", "nome": "Futuro Nazionale", "partecipanti": "Roberto Vannacci", "crediti": 23, "rosa": [
+      ["P","Caprile","Cagliari",13,32,62],
+      ["P","Maignan","Milan",15,54,95],
+      ["P","Okoye","Udinese",8,25,49],
+      ["D","Akanji","Inter",14,40,32],
+      ["D","Coco","Torino",8,14,2],
+      ["D","De Winter","Milan",6,25,22],
+      ["D","Diego Carlos","Parma",8,15,2],
+      ["D","Ehizibue","Genoa",4,10,1],
+      ["D","Lucumì","Juventus",8,18,1],
+      ["D","Mina","Cagliari",9,16,13],
+      ["D","Siebert","Lecce",4,12,1],
+      ["C","Atta","Fiorentina",14,61,30],
+      ["C","Cissè A.","Milan",6,33,1],
+      ["C","Fitz-Jim","Torino",6,18,1],
+      ["C","Folorunsho","Monza",3,15,1],
+      ["C","McKennie","Juventus",15,61,71],
+      ["C","Njie","Fiorentina",7,33,5],
+      ["C","Paz N.","Como",29,235,188],
+      ["C","Rowe","Atalanta",9,35,4],
+      ["A","Beto","Fiorentina",13,49,15],
+      ["A","Davis K.","Udinese",19,111,90],
+      ["A","Kean","Como",23,130,100],
+      ["A","Laurientè","Sassuolo",16,71,98],
+      ["A","Santos A.","Napoli",13,36,12],
+      ["A","Varela G.","Monza",10,69,81] ] },
+    { "id": "orsonaldo", "nome": "Orsonaldo", "partecipanti": "Ciro & CM13", "crediti": 63, "rosa": [
+      ["P","Butez","Como",13,41,75],
+      ["P","Corvi","Parma",4,10,1],
+      ["P","Sanchez Ro.","Como",8,12,2],
+      ["D","Alaba","Udinese",10,24,11],
+      ["D","Doekhi","Lazio",8,13,9],
+      ["D","Hermoso","Roma",12,40,30],
+      ["D","Kalulu","Juventus",13,41,40],
+      ["D","Mangas","Monza",10,25,9],
+      ["D","Ramon","Como",12,34,22],
+      ["D","Ranieri L.","Fiorentina",3,13,2],
+      ["D","Zortea","Bologna",6,19,1],
+      ["C","Calhanoglu","Inter",27,214,205],
+      ["C","Cambiaghi","Bologna",8,23,26],
+      ["C","Chukwueze","Milan",10,24,31],
+      ["C","Jones C.","Inter",12,32,8],
+      ["C","Keita M.","Parma",6,15,11],
+      ["C","Orsolini","Bologna",23,138,80],
+      ["C","Politano","Napoli",11,41,2],
+      ["C","Vergara","Napoli",9,22,2],
+      ["A","De Ketelaere","Atalanta",15,64,65],
+      ["A","Diao","Como",14,68,71],
+      ["A","Dovbyk","Bologna",15,30,15],
+      ["A","Dybala","Roma",17,120,140],
+      ["A","Kvernadze","Frosinone",11,54,58],
+      ["A","Simeone","Torino",13,55,21] ] },
+    { "id": "scarsenal", "nome": "SCARSENAL", "partecipanti": "Pocho & Petrux", "crediti": 144, "rosa": [
+      ["P","De Gea","Fiorentina",10,26,30],
+      ["P","Mandas","Lazio",13,41,48],
+      ["P","Motta","Lazio",1,1,1],
+      ["D","Bellanova","Atalanta",5,16,14],
+      ["D","Bisseck","Inter",13,37,23],
+      ["D","Carlos Augusto","Inter",10,27,3],
+      ["D","Gila","Milan",13,30,41],
+      ["D","Molina N.","Roma",17,62,41],
+      ["D","Ostigard","Genoa",10,23,15],
+      ["D","Scalvini","Atalanta",10,23,9],
+      ["D","Zappacosta","Atalanta",7,12,12],
+      ["C","Bernabè","Parma",6,25,1],
+      ["C","Ekkelenkamp","Udinese",14,64,22],
+      ["C","Mandragora","Torino",12,40,14],
+      ["C","Mastantuono","Fiorentina",14,76,66],
+      ["C","Modric","Milan",12,40,2],
+      ["C","Rabiot","Milan",24,145,55],
+      ["C","Schmid","Frosinone",11,40,1],
+      ["C","Thorstvedt","Sassuolo",9,31,1],
+      ["A","Douvikas","Como",22,134,190],
+      ["A","Pellegrino M.","Fiorentina",16,50,28],
+      ["A","Piccoli","Bologna",9,40,115],
+      ["A","Raspadori","Atalanta",14,25,54],
+      ["A","Soulè","Roma",16,67,35],
+      ["A","Woltemade","Juventus",22,62,35] ] },
+    { "id": "veeam", "nome": "VEEAM FATT A QUAGL FC", "partecipanti": "Wasaberto & Veeamcenzo", "crediti": 7, "rosa": [
+      ["P","Falcone","Lecce",7,23,5],
+      ["P","Meret","Napoli",9,40,41],
+      ["P","Milinkovic-Savic V.","Napoli",7,13,20],
+      ["D","Birindelli","Monza",7,13,1],
+      ["D","Delprato","Parma",8,22,1],
+      ["D","Dimarco","Inter",29,210,106],
+      ["D","Pavlovic","Milan",13,50,32],
+      ["D","Spinazzola","Napoli",8,21,1],
+      ["D","Valeri","Parma",9,24,1],
+      ["D","Valle","Como",8,19,3],
+      ["D","Vasquez","Genoa",9,26,3],
+      ["C","Da Cunha","Como",17,60,41],
+      ["C","Diouf","Inter",11,64,36],
+      ["C","Gudmundsson","Lazio",13,30,1],
+      ["C","McTominay","Napoli",24,112,101],
+      ["C","Taylor K.","Lazio",13,42,1],
+      ["C","Zaccagni","Lazio",18,124,51],
+      ["C","Zaniolo","Udinese",16,54,11],
+      ["C","Zielinski","Inter",13,41,10],
+      ["A","Colombo","Genoa",10,43,13],
+      ["A","Esposito F.P.","Inter",18,116,312],
+      ["A","Esposito Se.","Sassuolo",14,42,21],
+      ["A","Kolo Muani","Juventus",23,122,101],
+      ["A","Lontani","Parma",6,16,1],
+      ["A","Yildiz","Juventus",20,70,79] ] }
+  ],
+  "competizioni": {
+    "coppa": { "nome": "Coppa", "fase": "Fase a gruppi", "gironi": { "A": ["scarsenal", "backend", "zonaflegrea", "veeam"], "B": ["vesuviani", "dns", "futuro", "orsonaldo"] } },
+    "campionato": { "nome": "Campionato", "squadre": ["orsonaldo", "backend", "scarsenal", "vesuviani", "dns", "futuro", "zonaflegrea", "veeam"] }
+  },
+  "giornate": [
+    { "comp": "campionato", "n": 1, "serieA": 6, "fase": null, "partite": [
+      { "casa": "zonaflegrea", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "scarsenal", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "veeam", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "dns", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 2, "serieA": 7, "fase": null, "partite": [
+      { "casa": "vesuviani", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "futuro", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "backend", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "orsonaldo", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 3, "serieA": 8, "fase": null, "partite": [
+      { "casa": "veeam", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "dns", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "zonaflegrea", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "backend", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 4, "serieA": 9, "fase": null, "partite": [
+      { "casa": "vesuviani", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "scarsenal", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "futuro", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "orsonaldo", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 5, "serieA": 10, "fase": null, "partite": [
+      { "casa": "vesuviani", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "veeam", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "dns", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "backend", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 6, "serieA": 11, "fase": null, "partite": [
+      { "casa": "futuro", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "scarsenal", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "dns", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "zonaflegrea", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 7, "serieA": 12, "fase": null, "partite": [
+      { "casa": "vesuviani", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "veeam", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "backend", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "orsonaldo", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 8, "serieA": 13, "fase": null, "partite": [
+      { "casa": "vesuviani", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "futuro", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "orsonaldo", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "backend", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 9, "serieA": 14, "fase": null, "partite": [
+      { "casa": "dns", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "zonaflegrea", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "veeam", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "scarsenal", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 10, "serieA": 15, "fase": null, "partite": [
+      { "casa": "vesuviani", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "futuro", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "scarsenal", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "orsonaldo", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 11, "serieA": 16, "fase": null, "partite": [
+      { "casa": "backend", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "dns", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "veeam", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "zonaflegrea", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 12, "serieA": 17, "fase": null, "partite": [
+      { "casa": "orsonaldo", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "scarsenal", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "zonaflegrea", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "futuro", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 13, "serieA": 18, "fase": null, "partite": [
+      { "casa": "vesuviani", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "backend", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "orsonaldo", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "veeam", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 14, "serieA": 19, "fase": null, "partite": [
+      { "casa": "scarsenal", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "dns", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "zonaflegrea", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "futuro", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 15, "serieA": 20, "fase": null, "partite": [
+      { "casa": "zonaflegrea", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "scarsenal", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "veeam", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "dns", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 16, "serieA": 21, "fase": null, "partite": [
+      { "casa": "vesuviani", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "futuro", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "backend", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "orsonaldo", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 17, "serieA": 22, "fase": null, "partite": [
+      { "casa": "veeam", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "dns", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "zonaflegrea", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "backend", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 18, "serieA": 23, "fase": null, "partite": [
+      { "casa": "vesuviani", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "scarsenal", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "futuro", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "orsonaldo", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 19, "serieA": 24, "fase": null, "partite": [
+      { "casa": "vesuviani", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "veeam", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "dns", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "backend", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 20, "serieA": 25, "fase": null, "partite": [
+      { "casa": "futuro", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "scarsenal", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "dns", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "zonaflegrea", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 21, "serieA": 26, "fase": null, "partite": [
+      { "casa": "vesuviani", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "veeam", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "backend", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "orsonaldo", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 22, "serieA": 27, "fase": null, "partite": [
+      { "casa": "vesuviani", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "futuro", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "orsonaldo", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "backend", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 23, "serieA": 28, "fase": null, "partite": [
+      { "casa": "dns", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "zonaflegrea", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "veeam", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "scarsenal", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 24, "serieA": 29, "fase": null, "partite": [
+      { "casa": "vesuviani", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "futuro", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "scarsenal", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "orsonaldo", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 25, "serieA": 30, "fase": null, "partite": [
+      { "casa": "backend", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "dns", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "veeam", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "zonaflegrea", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 26, "serieA": 31, "fase": null, "partite": [
+      { "casa": "orsonaldo", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "scarsenal", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "zonaflegrea", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "futuro", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 27, "serieA": 32, "fase": null, "partite": [
+      { "casa": "vesuviani", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "backend", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "orsonaldo", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "veeam", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 28, "serieA": 33, "fase": null, "partite": [
+      { "casa": "scarsenal", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "dns", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "zonaflegrea", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "futuro", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 29, "serieA": 34, "fase": null, "partite": [
+      { "casa": "zonaflegrea", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "scarsenal", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "veeam", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "dns", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 30, "serieA": 35, "fase": null, "partite": [
+      { "casa": "vesuviani", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "futuro", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "backend", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "orsonaldo", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 31, "serieA": 36, "fase": null, "partite": [
+      { "casa": "veeam", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "dns", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "zonaflegrea", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "backend", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 32, "serieA": 37, "fase": null, "partite": [
+      { "casa": "vesuviani", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "scarsenal", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "futuro", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "orsonaldo", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "campionato", "n": 33, "serieA": 38, "fase": null, "partite": [
+      { "casa": "vesuviani", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "veeam", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "dns", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "casa": "backend", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "coppa", "n": 1, "serieA": 27, "fase": "Fase a gruppi", "partite": [
+      { "g": "A", "casa": "veeam", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "g": "A", "casa": "scarsenal", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "g": "B", "casa": "dns", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "g": "B", "casa": "futuro", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "coppa", "n": 2, "serieA": 28, "fase": "Fase a gruppi", "partite": [
+      { "g": "A", "casa": "backend", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "g": "A", "casa": "zonaflegrea", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "g": "B", "casa": "vesuviani", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "g": "B", "casa": "orsonaldo", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "coppa", "n": 3, "serieA": 29, "fase": "Fase a gruppi", "partite": [
+      { "g": "A", "casa": "backend", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "g": "A", "casa": "scarsenal", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "g": "B", "casa": "orsonaldo", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "g": "B", "casa": "futuro", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "coppa", "n": 4, "serieA": 30, "fase": "Fase a gruppi", "partite": [
+      { "g": "A", "casa": "zonaflegrea", "fuori": "veeam", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "g": "A", "casa": "backend", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "g": "B", "casa": "vesuviani", "fuori": "dns", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "g": "B", "casa": "orsonaldo", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "coppa", "n": 5, "serieA": 31, "fase": "Fase a gruppi", "partite": [
+      { "g": "A", "casa": "veeam", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "g": "A", "casa": "scarsenal", "fuori": "zonaflegrea", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "g": "B", "casa": "futuro", "fuori": "vesuviani", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "g": "B", "casa": "dns", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "coppa", "n": 6, "serieA": 32, "fase": "Fase a gruppi", "partite": [
+      { "g": "A", "casa": "zonaflegrea", "fuori": "backend", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "g": "A", "casa": "veeam", "fuori": "scarsenal", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "g": "B", "casa": "vesuviani", "fuori": "orsonaldo", "gc": null, "gf": null, "pc": null, "pf": null },
+      { "g": "B", "casa": "dns", "fuori": "futuro", "gc": null, "gf": null, "pc": null, "pf": null } ] },
+    { "comp": "coppa", "n": 7, "serieA": null, "fase": null, "partite": [], "nota": "Il calendario di questa giornata sarà disponibile quando la fase precedente della competizione sarà conclusa." },
+    { "comp": "coppa", "n": 8, "serieA": null, "fase": null, "partite": [], "nota": "Il calendario di questa giornata sarà disponibile quando la fase precedente della competizione sarà conclusa." },
+    { "comp": "coppa", "n": 9, "serieA": null, "fase": null, "partite": [], "nota": "Il calendario di questa giornata sarà disponibile quando la fase precedente della competizione sarà conclusa." }
+  ],
+  "commenti": []
+}
+</script>
+
+<header class="topbar">
+  <div class="wrap bar">
+    <a class="brand" href="#home"><img src="img/lega.webp" alt="" width="34" height="34"><span>Fanta SMS Engineering</span></a>
+    <nav class="tabs" id="tabs" aria-label="Sezioni"></nav>
+  </div>
+</header>
+<div class="wrap">
+  <main id="app"></main>
+  <footer id="foot"></footer>
+</div>
+
+<script>
+const D = JSON.parse(document.getElementById('dati').textContent);
+const T = Object.fromEntries(D.squadre.map(s => [s.id, s]));
+
+// <compute>
+function giocata(m) { return m.gc != null && m.gf != null; }
+function classifica(ids, partite, criteri) {
+  const r = new Map(ids.map((id, i) => [id, { id, ord: i, g: 0, v: 0, n: 0, p: 0, gf: 0, gs: 0, pt: 0, ptt: 0 }]));
+  for (const m of partite) {
+    if (!giocata(m)) continue;
+    const a = r.get(m.casa), b = r.get(m.fuori);
+    if (!a || !b) continue;
+    a.g++; b.g++;
+    a.gf += m.gc; a.gs += m.gf; b.gf += m.gf; b.gs += m.gc;
+    a.ptt += m.pc || 0; b.ptt += m.pf || 0;
+    if (m.gc > m.gf) { a.v++; b.p++; a.pt += 3; }
+    else if (m.gc < m.gf) { b.v++; a.p++; b.pt += 3; }
+    else { a.n++; b.n++; a.pt++; b.pt++; }
+  }
+  const key = { pt: x => x.pt, dr: x => x.gf - x.gs, gf: x => x.gf, ptt: x => Math.round(x.ptt * 100) };
+  return [...r.values()].sort((x, y) => {
+    for (const c of criteri) { const d = key[c](y) - key[c](x); if (d) return d; }
+    return x.ord - y.ord;
+  });
+}
+// </compute>
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const num = n => n.toLocaleString('it-IT', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+const logo = id => `img/${id}.webp`;
+const SECTIONS = [['home', 'Home'], ['squadre', 'Squadre'], ['calendario', 'Calendario'], ['classifica', 'Classifica'], ['commenti', 'Commenti']];
+const S = { cal: 'campionato', cla: 'campionato' };
+const RUOLI = { P: 'Portieri', D: 'Difensori', C: 'Centrocampisti', A: 'Attaccanti' };
+const CELLA = 44; // le figurine di ogni squadra sono in un'unica immagine 5x5, nell'ordine della rosa
+const faccia = (id, i) => `background-image:url(img/rosa-${id}.webp);background-size:${5 * CELLA}px ${5 * CELLA}px;background-position:-${(i % 5) * CELLA}px -${Math.floor(i / 5) * CELLA}px`;
+const tmUrl = (nome, club) => 'https://www.google.com/search?q=' + encodeURIComponent(nome.replace(/\./g, '') + ' ' + club + ' calciatore transfermarkt');
+
+function partiteDi(comp) { return D.giornate.filter(g => g.comp === comp).flatMap(g => g.partite); }
+function statoGiornata(g) {
+  if (!g.partite.length) return 'attesa';
+  const n = g.partite.filter(giocata).length;
+  return n === g.partite.length ? 'giocata' : 'daGiocare';
+}
+function prossima(comp) { return D.giornate.find(g => g.comp === comp && statoGiornata(g) === 'daGiocare'); }
+
+function matchHtml(m) {
+  const c = T[m.casa], f = T[m.fuori];
+  const mid = giocata(m)
+    ? `<div class="score">${m.gc}<i>–</i>${m.gf}</div>${m.pc != null && m.pf != null ? `<div class="pts">${num(m.pc)} · ${num(m.pf)}</div>` : ''}`
+    : '<div class="vs">VS</div>';
+  return `<div class="match">
+    <div class="team home"><span>${esc(c.nome)}</span><img src="${logo(c.id)}" alt="" width="34" height="34"></div>
+    <div class="mid">${mid}</div>
+    <div class="team"><img src="${logo(f.id)}" alt="" width="34" height="34"><span>${esc(f.nome)}</span></div>
+  </div>`;
+}
+
+function giornataHtml(g) {
+  const st = statoGiornata(g);
+  const isNext = prossima(g.comp) === g;
+  const chip = st === 'giocata' ? '<span class="state done">Giocata</span>'
+    : isNext ? '<span class="state next">Prossima</span>'
+    : st === 'attesa' ? '<span class="state">In arrivo</span>' : '<span class="state">Da giocare</span>';
+  const tags = [g.serieA ? `${g.serieA}ª di Serie A` : '', g.fase || ''].filter(Boolean).map(t => `<span class="tag">${esc(t)}</span>`).join('');
+  let corpo;
+  if (!g.partite.length) {
+    corpo = `<div class="nota">${esc(g.nota || 'Calendario in arrivo.')}</div>`;
+  } else {
+    const gironi = [...new Set(g.partite.map(m => m.g).filter(Boolean))];
+    corpo = gironi.length
+      ? gironi.map(k => `<div class="girone">Gruppo ${esc(k)}</div>${g.partite.filter(m => m.g === k).map(matchHtml).join('')}`).join('')
+      : g.partite.map(matchHtml).join('');
+  }
+  return `<section class="gio"><div class="gio-h"><h3>${g.n}ª di Lega</h3>${tags}${chip}</div>${corpo}</section>`;
+}
+
+function tabellaHtml(righe) {
+  return `<div class="tablewrap"><table>
+    <thead><tr><th>Squadra</th><th>G</th><th>V</th><th>N</th><th>P</th><th>Gf</th><th>Gs</th><th>Pt</th><th>Pt totali</th></tr></thead>
+    <tbody>${righe.map((r, i) => `<tr>
+      <td><div class="cell"><span class="rk">${i + 1}</span><img src="${logo(r.id)}" alt="" width="28" height="28"><span class="n">${esc(T[r.id].nome)}</span></div></td>
+      <td>${r.g}</td><td>${r.v}</td><td>${r.n}</td><td>${r.p}</td><td>${r.gf}</td><td>${r.gs}</td>
+      <td class="pt">${r.pt}</td><td class="ptt">${num(r.ptt)}</td></tr>`).join('')}</tbody></table></div>`;
+}
+
+function classificheCoppa() {
+  const c = D.competizioni.coppa, pp = partiteDi('coppa');
+  return Object.entries(c.gironi).map(([k, ids]) => ({ k, righe: classifica(ids, pp.filter(m => m.g === k), D.criteri) }));
+}
+function classificaCampionato() {
+  return classifica(D.competizioni.campionato.squadre, partiteDi('campionato'), D.criteri);
+}
+
+function seg(act, cur) {
+  return `<div class="seg" role="group" aria-label="Competizione">${['campionato', 'coppa'].map(k =>
+    `<button type="button" data-act="${act}" data-v="${k}" aria-pressed="${cur === k}">${esc(D.competizioni[k].nome)}</button>`).join('')}</div>`;
+}
+
+const VIEWS = {
+  home() {
+    const camp = prossima('campionato'), coppa = prossima('coppa');
+    const ultimi = D.commenti[0];
+    const mini = (titolo, righe) => `<div class="mini"><h3>${esc(titolo)}</h3>${righe.map((r, i) =>
+      `<div class="r"><span class="rk">${i + 1}</span><img src="${logo(r.id)}" alt="" width="28" height="28"><span class="n">${esc(T[r.id].nome)}</span><b>${r.pt}</b></div>`).join('')}</div>`;
+    return `
+    <section class="hero">
+      <img src="img/lega.webp" alt="Stemma Fanta SMS Engineering" width="136" height="136">
+      <div>
+        <h1>${esc(D.lega.nome)}</h1>
+        <p>Lega di fantacalcio · stagione ${esc(D.lega.stagione)}</p>
+        <div class="chips"><span class="chip">${D.squadre.length} squadre</span><span class="chip">Campionato</span><span class="chip">Coppa · ${esc(D.competizioni.coppa.fase)}</span></div>
+      </div>
+    </section>
+    <section>
+      <div class="sec-h"><h2>Campionato</h2><p>Classifica e prossima giornata</p></div>
+      <div class="duo">
+        ${mini('Classifica', classificaCampionato())}
+        <div>${camp ? giornataHtml(camp) : '<div class="vuoto"><strong>Calendario non ancora inserito</strong>Le giornate del Campionato compaiono qui appena disponibili.</div>'}</div>
+      </div>
+    </section>
+    <section>
+      <div class="sec-h"><h2>Coppa</h2><p>Fase a gruppi</p></div>
+      <div class="duo">${classificheCoppa().map(({ k, righe }) => mini('Gruppo ' + k, righe)).join('')}</div>
+      ${coppa ? `<div style="margin-top:14px">${giornataHtml(coppa)}</div>` : ''}
+    </section>
+    ${ultimi ? `<section><div class="sec-h"><h2>Ultimo commento</h2></div>${postHtml(ultimi)}</section>` : ''}`;
+  },
+  squadre() {
+    const gruppo = id => Object.entries(D.competizioni.coppa.gironi).find(([, ids]) => ids.includes(id))?.[0];
+    return `<section><div class="sec-h"><h2>Squadre</h2><p>${D.squadre.length} partecipanti · tocca una squadra per vedere la rosa</p></div>
+      <div class="squadre">${D.squadre.map(s => `<a class="sq" href="#squadra-${s.id}">
+        <img src="${logo(s.id)}" alt="Stemma ${esc(s.nome)}" width="92" height="92">
+        <h3>${esc(s.nome)}</h3>
+        <div class="part">${esc(s.partecipanti)}</div>
+        <dl>${gruppo(s.id) ? `<div><dt>Coppa</dt><dd>Gruppo ${esc(gruppo(s.id))}</dd></div>` : ''}<div><dt>Crediti residui</dt><dd>${s.crediti}</dd></div></dl>
+        ${s.rosa.length ? '<div class="vai">Vedi la rosa →</div>' : ''}
+      </a>`).join('')}</div></section>`;
+  },
+  squadra(id) {
+    const s = T[id];
+    const speso = s.rosa.reduce((a, p) => a + p[5], 0);
+    const gr = Object.entries(D.competizioni.coppa.gironi).find(([, ids]) => ids.includes(id))?.[0];
+    const reparti = Object.entries(RUOLI).map(([r, nome]) => {
+      const righe = s.rosa.map((p, i) => ({ p, i })).filter(x => x.p[0] === r);
+      return `<section class="reparto"><div class="rh"><h3><span class="badge ${r}">${r}</span>${nome}</h3><div class="nums"><span>Q.att.</span><span>FVMp</span><span>Pagato</span></div></div>
+        ${righe.map(({ p, i }) => `<div class="pl"><span class="ph" style="${faccia(id, i)}" role="img" aria-label="Figurina ${esc(p[1])}"></span>
+          <div class="nm"><a href="${tmUrl(p[1], p[2])}" target="_blank" rel="noopener">${esc(p[1])} ↗</a><div class="cl">${esc(p[2])}</div></div>
+          <div class="nums"><span>${p[3]}</span><span>${p[4]}</span><span class="pg">${p[5]}</span></div></div>`).join('')}</section>`;
+    }).join('');
+    return `<section>
+      <a class="back" href="#squadre">← Tutte le squadre</a>
+      <div class="sq-head"><img src="${logo(id)}" alt="Stemma ${esc(s.nome)}" width="96" height="96">
+        <div><h2>${esc(s.nome)}</h2><p>${esc(s.partecipanti)}${gr ? ` · Coppa, Gruppo ${esc(gr)}` : ''}</p></div></div>
+      <div class="stats"><div><b>${s.rosa.length}</b>Giocatori</div><div><b>${speso}</b>Crediti spesi</div><div><b>${s.crediti}</b>Crediti residui</div></div>
+    </section>
+    <div>${reparti}<p class="fonte">Q.att. quotazione attuale · Pagato crediti spesi all'asta. Il nome apre una ricerca su Transfermarkt con la storia del giocatore. Figurine dall'app fantacalcio.it.</p></div>`;
+  },
+  calendario() {
+    const gs = D.giornate.filter(g => g.comp === S.cal);
+    return `<section><div class="sec-h"><h2>Calendario</h2>${seg('cal', S.cal)}</div>
+      ${gs.length ? gs.map(giornataHtml).join('') : `<div class="vuoto"><strong>Calendario non ancora inserito</strong>Le giornate del ${esc(D.competizioni[S.cal].nome)} compaiono qui appena disponibili.</div>`}</section>`;
+  },
+  classifica() {
+    const leg = '<p class="legenda">G giocate · V vinte · N pareggiate · P perse · Gf gol fatti · Gs gol subiti · Pt punti · Pt totali somma dei fantapunti</p>';
+    const corpo = S.cla === 'coppa'
+      ? classificheCoppa().map(({ k, righe }) => `<h3 class="tbl-h">Gruppo ${esc(k)}</h3>${tabellaHtml(righe)}`).join('')
+      : tabellaHtml(classificaCampionato());
+    return `<section><div class="sec-h"><h2>Classifica</h2>${seg('cla', S.cla)}</div>${corpo}${leg}</section>`;
+  },
+  commenti() {
+    return `<section><div class="sec-h"><h2>Commenti di giornata</h2><p>Articoli e video</p></div>
+      ${D.commenti.length ? D.commenti.map(postHtml).join('') : '<div class="vuoto"><strong>Il primo commento arriva dopo la 1ª giornata</strong>Qui trovi il resoconto scritto e il video di ogni turno.</div>'}</section>`;
+  }
+};
+
+function postHtml(p) {
+  const d = p.data ? new Date(p.data + 'T12:00:00').toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+  return `<article class="post"><h3>${esc(p.titolo)}</h3>
+    <div class="meta">${[p.giornata, d].filter(Boolean).map(esc).join(' · ')}</div>
+    ${(p.testo || []).map(t => `<p>${esc(t)}</p>`).join('')}
+    ${p.video && /^https:\/\//.test(p.video.url) ? `<a class="video" href="${esc(p.video.url)}" target="_blank" rel="noopener">${esc(p.video.titolo || 'Guarda il video')}</a>` : ''}</article>`;
+}
+
+function current() {
+  const t = location.hash.slice(1);
+  if (t.startsWith('squadra-') && T[t.slice(8)]) return t;
+  return SECTIONS.some(s => s[0] === t) ? t : 'home';
+}
+function render() {
+  const cur = current();
+  const voce = cur.startsWith('squadra-') ? 'squadre' : cur;
+  document.getElementById('tabs').innerHTML = SECTIONS.map(([k, l]) => `<a href="#${k}"${k === voce ? ' aria-current="page"' : ''}>${l}</a>`).join('');
+  document.getElementById('app').innerHTML = cur.startsWith('squadra-') ? VIEWS.squadra(cur.slice(8)) : VIEWS[cur]();
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('button[data-act]');
+  if (!b) return;
+  S[b.dataset.act] = b.dataset.v;
+  render();
+});
+window.addEventListener('hashchange', () => { render(); window.scrollTo(0, 0); });
+document.getElementById('foot').textContent = `Dati dalla lega su ${D.lega.fonte} · aggiornato al ${new Date(D.aggiornato + 'T12:00:00').toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })}`;
+render();
+</script>
+</body>
+</html>
