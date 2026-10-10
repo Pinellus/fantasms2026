@@ -487,7 +487,7 @@ async function avvio() {
     document.getElementById('app').innerHTML = '<div class="vuoto"><strong>Dati non disponibili</strong>Non riesco a leggere dati/lega.json. Se hai aperto index.html dal computer, usa il sito pubblicato su GitHub Pages.</div>';
     return;
   }
-  document.getElementById('foot').textContent = `Dati dalla lega su ${D.lega.fonte} · aggiornato al ${new Date(D.aggiornato + 'T12:00:00').toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })}`;
+  document.getElementById('foot').innerHTML = `Dati dalla lega su ${D.lega.fonte} · aggiornato al ${new Date(D.aggiornato + 'T12:00:00').toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })}<br>Sito ideato e curato da <a href="https://pinellus.github.io/fantasms2026" target="_blank" rel="noopener">Pinellus</a>`;
   render();
 }
 avvio();

@@ -44,3 +44,6 @@ I risultati sono in `dati/lega.json`, nell'elenco `giornate`. In ogni partita co
 Classifica e statistiche si ricalcolano da sole. L'ordine degli spareggi è in `criteri` (`pt` punti, `dr` differenza reti, `gf` gol fatti, `ptt` punti totali).
 
 Dati e figurine provengono dall'app di fantacalcio.it.
+
+## Credits
+Sito ideato e curato da **Pinellus** · https://pinellus.github.io/fantasms2026
