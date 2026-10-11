@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Fanta SMS Engineering · Schermo</title>
+<link rel="icon" href="img/lega.webp" type="image/webp">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Condensed:wght@500;600;700&display=swap">
+<style>
+/* Pagina per i monitor: pensata per 16:9 (1080p o 4K). Tutte le misure sono in rem e il rem segue l'altezza dello schermo. */
+:root {
+  --bg: #0a111f; --surface: #111a2d; --surface2: #17223a; --line: #233352; --fg: #e9f0fc; --muted: #92a3c1;
+  --accent: #4b93ff; --accent-ink: #06142e; --warm: #ff9033; --good: #3fd08a; --bad: #ff5d6c;
+  --f-display: 'Saira Condensed', 'Arial Narrow', Arial, sans-serif;
+  --f-body: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+* { box-sizing: border-box; }
+html { font-size: calc(100vh / 45); }
+body { margin: 0; height: 100vh; overflow: hidden; background: radial-gradient(120% 90% at 20% 0%, #14234a 0%, var(--bg) 55%); color: var(--fg); font: 400 1rem/1.35 var(--f-body); cursor: none; }
+img { display: block; }
+h1, h2, h3, p { margin: 0; }
+.app { height: 100vh; display: grid; grid-template-rows: auto 1fr auto; }
+
+/* testata */
+.top { display: flex; align-items: center; gap: 1.2rem; padding: 1rem 2.4rem .8rem; border-bottom: 1px solid var(--line); }
+.top img { width: 3.4rem; height: 3.4rem; border-radius: .6rem; }
+.top .brand { font: 700 2rem/1 var(--f-display); letter-spacing: .05em; text-transform: uppercase; }
+.top .quando { margin-left: auto; text-align: right; font: 600 1.3rem/1.2 var(--f-display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.top .ora { font: 700 2.2rem/1 var(--f-display); color: var(--fg); letter-spacing: .04em; }
+.dots { display: flex; gap: .45rem; margin-left: 1.6rem; }
+.dots i { width: .7rem; height: .7rem; border-radius: 50%; background: var(--line); }
+.dots i.on { background: var(--accent); }
+
+/* diapositive */
+.stage { position: relative; min-height: 0; }
+.slide { position: absolute; inset: 0; overflow: hidden; padding: 1rem 2.4rem .8rem; opacity: 0; visibility: hidden; transition: opacity .6s ease, visibility .6s; display: flex; flex-direction: column; }
+.slide.on { opacity: 1; visibility: visible; }
+.slide h2 { font: 700 2.4rem/1.1 var(--f-display); letter-spacing: .04em; text-transform: uppercase; }
+.slide .sub { color: var(--muted); font: 600 1.4rem/1.2 var(--f-display); letter-spacing: .1em; text-transform: uppercase; margin: .1rem 0 .8rem; }
+.accent { color: var(--accent); }
+
+/* risultati */
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(34rem, 1fr)); gap: 1.6rem; flex: 1; align-content: start; }
+.blocco h3 { font: 700 1.5rem/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; color: var(--warm); margin-bottom: .7rem; }
+.riga { display: grid; grid-template-columns: minmax(0, 1fr) 9rem minmax(0, 1fr); align-items: center; gap: 1rem; background: var(--surface); border: 1px solid var(--line); border-radius: .8rem; padding: .45rem 1.2rem; margin-bottom: .6rem; }
+.riga .sq { display: flex; align-items: center; gap: .9rem; font: 600 1.7rem/1.1 var(--f-display); text-transform: uppercase; letter-spacing: .02em; min-width: 0; }
+.riga .sq.c { justify-content: flex-end; text-align: right; }
+.riga .sq img { width: 3.2rem; height: 3.2rem; flex: none; border-radius: .5rem; }
+.riga .sq.vince { color: var(--fg); } .riga .sq:not(.vince) { color: #c3cfe6; }
+.riga .sc { text-align: center; }
+.riga .sc b { font: 700 2.7rem/1 var(--f-display); letter-spacing: .04em; }
+.riga .sc small { display: block; color: var(--muted); font: 500 1rem/1.2 var(--f-body); margin-top: .15rem; }
+.riga .sc .vs { font: 700 2rem/1 var(--f-display); color: var(--muted); letter-spacing: .1em; }
+.riga.perdente .sq:not(.vince) { opacity: .72; }
+
+/* classifica */
+table { width: 100%; border-collapse: collapse; font: 600 1.7rem/1 var(--f-display); letter-spacing: .03em; }
+th { text-align: center; color: var(--muted); font-size: 1.2rem; letter-spacing: .1em; text-transform: uppercase; padding: .5rem .5rem .7rem; border-bottom: 1px solid var(--line); }
+th:nth-child(2), td:nth-child(2) { text-align: left; }
+td { text-align: center; padding: .32rem .5rem; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+td .sq { display: flex; align-items: center; gap: 1rem; text-transform: uppercase; }
+td .sq img { width: 2.5rem; height: 2.5rem; border-radius: .4rem; }
+td.pos { width: 3.2rem; color: var(--muted); }
+td.pt { color: var(--accent); font-size: 1.9rem; font-weight: 700; }
+tr:first-child td { background: rgba(75,147,255,.10); }
+tr:first-child td.pos { color: var(--warm); }
+.due { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.due h3 { font: 700 1.6rem/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; color: var(--warm); margin-bottom: .6rem; }
+.due table { font-size: 1.5rem; } .due td.pt { font-size: 1.8rem; } .due td .sq img { width: 2.4rem; height: 2.4rem; }
+
+/* partita singola */
+.match { flex: 1; display: grid; grid-template-rows: auto 1fr; gap: .9rem; min-height: 0; }
+.mt { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 2rem; }
+.mt .lato { display: flex; flex-direction: column; align-items: center; gap: .5rem; text-align: center; min-width: 0; }
+.mt .lato img { width: 8rem; height: 8rem; border-radius: 1.2rem; }
+.mt .lato .n { font: 700 2.2rem/1.05 var(--f-display); text-transform: uppercase; letter-spacing: .03em; }
+.mt .lato .p { color: var(--muted); font: 600 1.2rem/1.2 var(--f-display); letter-spacing: .1em; text-transform: uppercase; }
+.mt .mid { text-align: center; }
+.mt .mid b { font: 700 8.5rem/1 var(--f-display); letter-spacing: .03em; }
+.mt .mid .vs { font: 700 5rem/1 var(--f-display); color: var(--muted); letter-spacing: .1em; }
+.mt .mid small { display: block; color: var(--muted); font: 600 1.6rem/1.2 var(--f-display); letter-spacing: .1em; margin-top: .4rem; text-transform: uppercase; }
+.ev { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-content: start; }
+.ev ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: .4rem; }
+.ev ul.molti { grid-template-columns: 1fr 1fr; }
+.ev li { background: var(--surface); border: 1px solid var(--line); border-radius: .6rem; padding: .35rem .9rem; font: 500 1.4rem/1.2 var(--f-body); display: flex; align-items: center; gap: .7rem; }
+.ev .d li { flex-direction: row-reverse; text-align: right; }
+.ev .nulla { color: var(--muted); font-size: 1.3rem; padding: .4rem 0; }
+.ev li span.i { font-size: 1.6rem; }
+
+/* striscia */
+.ticker { position: relative; z-index: 2; display: flex; align-items: stretch; background: #060b16; border-top: 2px solid var(--accent); height: 3.6rem; }
+.ticker .lab { flex: none; display: flex; align-items: center; padding: 0 1.4rem; background: var(--accent); color: var(--accent-ink); font: 700 1.5rem/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; }
+.ticker .vp { flex: 1; overflow: hidden; position: relative; }
+.ticker .rail { position: absolute; left: 0; top: 0; bottom: 0; display: flex; align-items: center; white-space: nowrap; will-change: transform; animation: scorri var(--dur, 60s) linear infinite; }
+.ticker .it { display: inline-flex; align-items: center; gap: .7rem; padding-right: 3.2rem; font: 500 1.5rem/1 var(--f-body); }
+.ticker .it img { width: 2.1rem; height: 2.1rem; border-radius: .35rem; }
+.ticker .it b { font: 700 1.5rem/1 var(--f-display); text-transform: uppercase; letter-spacing: .05em; color: var(--warm); }
+.ticker .it em { font-style: normal; font-weight: 600; }
+@keyframes scorri { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.avviso { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: var(--muted); font: 600 2rem/1.3 var(--f-display); }
+@media (prefers-reduced-motion: reduce) { .slide { transition: none; } }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <img src="img/lega.webp" alt="">
+    <div class="brand">Fanta SMS Engineering</div>
+    <div class="dots" id="dots"></div>
+    <div class="quando"><div class="ora" id="ora"></div><div id="data"></div></div>
+  </header>
+  <main class="stage" id="stage"><div class="avviso">Caricamento…</div></main>
+  <footer class="ticker"><div class="lab">Conferenza stampa</div><div class="vp"><div class="rail" id="rail"></div></div></footer>
+</div>
+
+<script>
+/* Parametri nell'indirizzo:  ?durata=10  secondi per diapositiva  ·  ?sa=7  forza la giornata di Serie A  ·  ?striscia=0  nasconde la striscia
+   Tasti: ← → cambiano diapositiva · spazio ferma/riprende · F schermo intero */
+const P = new URLSearchParams(location.search);
+const DURATA = Math.max(3, +P.get('durata') || 10) * 1000;
+let D = null, T = {}, slides = [], idx = 0, pausa = false, timer = null;
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const num = n => Number(n).toLocaleString('it-IT', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+const logo = id => `img/${id}.webp`;
+
+/* --- calcolo (stesso del sito) --- */
+function giocata(m) { return m.gc != null && m.gf != null; }
+function classifica(ids, partite, criteri) {
+  const r = new Map(ids.map((id, i) => [id, { id, ord: i, g: 0, v: 0, n: 0, p: 0, gf: 0, gs: 0, pt: 0, ptt: 0 }]));
+  for (const m of partite) {
+    if (!giocata(m)) continue;
+    const a = r.get(m.casa), b = r.get(m.fuori);
+    if (!a || !b) continue;
+    a.g++; b.g++;
+    a.gf += m.gc; a.gs += m.gf; b.gf += m.gf; b.gs += m.gc;
+    a.ptt += m.pc || 0; b.ptt += m.pf || 0;
+    if (m.gc > m.gf) { a.v++; b.p++; a.pt += 3; }
+    else if (m.gc < m.gf) { b.v++; a.p++; b.pt += 3; }
+    else { a.n++; b.n++; a.pt++; b.pt++; }
+  }
+  const key = { pt: x => x.pt, dr: x => x.gf - x.gs, gf: x => x.gf, ptt: x => Math.round(x.ptt * 100) };
+  return [...r.values()].sort((x, y) => {
+    for (const c of criteri) { const d = key[c](y) - key[c](x); if (d) return d; }
+    return x.ord - y.ord;
+  });
+}
+const partiteDi = comp => D.giornate.filter(g => g.comp === comp).flatMap(g => g.partite);
+
+/* --- conferenza stampa: stessi fogli del sito --- */
+function parseCsv(t) {
+  const righe = []; let r = [], c = '', q = false;
+  for (let i = 0; i < t.length; i++) {
+    const ch = t[i];
+    if (q) { if (ch === '"') { if (t[i + 1] === '"') { c += '"'; i++; } else q = false; } else c += ch; }
+    else if (ch === '"') q = true;
+    else if (ch === ',') { r.push(c); c = ''; }
+    else if (ch === '\n' || ch === '\r') { if (ch === '\r' && t[i + 1] === '\n') i++; r.push(c); c = ''; righe.push(r); r = []; }
+    else c += ch;
+  }
+  if (c || r.length) { r.push(c); righe.push(r); }
+  return righe.filter(x => x.some(v => v.trim()));
+}
+function leggiOra(v) {
+  let m = String(v).trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:[ ,]+(\d{1,2}):(\d{2})(?::(\d{2}))?)?/);
+  if (m) return Date.UTC(+m[3], +m[2] - 1, +m[1], +(m[4] || 0), +m[5] || 0, +(m[6] || 0));
+  m = String(v).trim().match(/^(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2})(?::(\d{2}))?)?/);
+  return m ? Date.UTC(+m[1], +m[2] - 1, +m[3], +(m[4] || 0), +(m[5] || 0), +(m[6] || 0)) : NaN;
+}
+async function caricaDichiarazioni(squadre) {
+  const tutte = await Promise.all(squadre.filter(s => s.csv).map(async s => {
+    try {
+      const r = await fetch(s.csv, { cache: 'no-cache' });
+      if (!r.ok) return [];
+      const righe = parseCsv(await r.text());
+      const h = (righe.shift() || []).map(x => x.toLowerCase());
+      const col = (re, def) => { const i = h.findIndex(x => re.test(x)); return i < 0 ? def : i; };
+      const iTxt = col(/commento|dichiaraz|testo|messaggio/, 1), iTit = col(/titolo/, -1);
+      return righe.map(x => ({ sq: s.id, ts: leggiOra(x[0]), testo: (x[iTxt] || '').trim(), titolo: iTit < 0 ? '' : (x[iTit] || '').trim() }))
+        .filter(x => x.testo && !isNaN(x.ts));
+    } catch (e) { return []; }
+  }));
+  return tutte.flat().sort((a, b) => b.ts - a.ts);
+}
+const pulito = s => s.replace(/\[([^\]]+)\]\(https?:[^)]*\)/g, '$1').replace(/\*\*?/g, '').replace(/\s+/g, ' ').trim();
+const tronca = (s, n) => s.length <= n ? s : s.slice(0, n).replace(/\s+\S*$/, '') + '…';
+
+/* --- turni: ogni giornata di Serie A con le partite di Campionato e di Coppa che ci cadono --- */
+function turni() {
+  const cal = D.calendarioSerieA || [];
+  return cal.map(c => ({ sa: c.n, data: c.data, gs: D.giornate.filter(g => g.serieA === c.n && g.partite.length) })).filter(t => t.gs.length);
+}
+const haRisultati = t => t.gs.some(g => g.partite.some(giocata));
+function sceltaTurno(ts) {
+  const forz = +P.get('sa');
+  if (forz) { const t = ts.find(x => x.sa === forz); if (t) return t; }
+  const giocati = ts.filter(haRisultati);
+  if (giocati.length) return giocati[giocati.length - 1];
+  const oggi = new Date().toLocaleDateString('sv-SE');
+  return ts.find(t => t.data >= oggi) || ts[ts.length - 1];
+}
+const nomeComp = g => g.comp === 'coppa' ? 'Coppa' : 'Campionato';
+const dataLunga = d => new Date(d + 'T12:00:00').toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' });
+
+/* --- diapositive --- */
+function rigaHtml(m) {
+  const c = T[m.casa], f = T[m.fuori], g = giocata(m);
+  const vc = g && m.gc > m.gf, vf = g && m.gf > m.gc;
+  const mid = g ? `<b>${m.gc} – ${m.gf}</b>${m.pc != null && m.pf != null ? `<small>${num(m.pc)} · ${num(m.pf)}</small>` : ''}` : '<span class="vs">VS</span>';
+  return `<div class="riga"><div class="sq c${vc || !g || m.gc === m.gf ? ' vince' : ''}"><span>${esc(c.nome)}</span><img src="${logo(c.id)}" alt=""></div>
+    <div class="sc">${mid}</div>
+    <div class="sq${vf || !g || m.gc === m.gf ? ' vince' : ''}"><img src="${logo(f.id)}" alt=""><span>${esc(f.nome)}</span></div></div>`;
+}
+function slideRisultati(t, titolo) {
+  return `<h2>${titolo}</h2><div class="sub">${esc(dataLunga(t.data))} · ${t.sa}ª di Serie A</div>
+    <div class="cols">${t.gs.map(g => `<section class="blocco"><h3>${g.n}ª di Lega · ${nomeComp(g)}${g.fase ? ' · ' + esc(g.fase) : ''}</h3>${g.partite.map(rigaHtml).join('')}</section>`).join('')}</div>`;
+}
+function tabClassifica(righe, ridotta) {
+  const th = ridotta ? ['', 'Squadra', 'G', 'V', 'N', 'P', 'DR', 'Pt'] : ['', 'Squadra', 'G', 'V', 'N', 'P', 'Gf', 'Gs', 'DR', 'Pt', 'Pt totali'];
+  return `<table><thead><tr>${th.map(x => `<th>${x}</th>`).join('')}</tr></thead><tbody>${righe.map((r, i) => {
+    const dr = r.gf - r.gs;
+    return `<tr><td class="pos">${i + 1}</td><td><div class="sq"><img src="${logo(r.id)}" alt="">${esc(T[r.id].nome)}</div></td><td>${r.g}</td><td>${r.v}</td><td>${r.n}</td><td>${r.p}</td>${
+      ridotta ? '' : `<td>${r.gf}</td><td>${r.gs}</td>`}<td>${dr > 0 ? '+' + dr : dr}</td><td class="pt">${r.pt}</td>${ridotta ? '' : `<td>${num(r.ptt)}</td>`}</tr>`;
+  }).join('')}</tbody></table>`;
+}
+function slideClassificaCamp() {
+  return `<h2>Classifica <span class="accent">Campionato</span></h2><div class="sub">${(n => n ? 'Dopo la ' + n + 'ª giornata' : 'Si parte presto')(Math.max(...D.giornate.filter(g => g.comp === 'campionato').map(g => g.partite.filter(giocata).length ? g.n : 0)))}</div>
+    ${tabClassifica(classifica(D.competizioni.campionato.squadre, partiteDi('campionato'), D.criteri))}`;
+}
+function slideClassificaCoppa() {
+  const pp = partiteDi('coppa'), gir = D.competizioni.coppa.gironi;
+  return `<h2>Classifica <span class="accent">Coppa</span></h2><div class="sub">${esc(D.competizioni.coppa.fase)}</div>
+    <div class="due">${Object.entries(gir).map(([k, ids]) => `<div><h3>Gruppo ${esc(k)}</h3>${tabClassifica(classifica(ids, pp.filter(m => m.g === k), D.criteri), true)}</div>`).join('')}</div>`;
+}
+const EV = {
+  gol: ['⚽', n => n], rig: ['⚽', n => `${n} <small>(rigore)</small>`], ag: ['⚽', n => `${n} <small>(autogol)</small>`],
+  esp: ['🟥', n => `${n} <small>espulso</small>`], amm: ['🟨', n => n], rp: ['🧤', n => `${n} <small>para un rigore</small>`],
+  rs: ['❌', n => `${n} <small>sbaglia un rigore</small>`], ass: ['👟', n => `${n} <small>assist</small>`]
+};
+const PESO = { gol: 0, rig: 0, ag: 0, rp: 1, esp: 2, rs: 3, ass: 4, amm: 5 };
+function eventiLato(m, lato) {
+  const l = (m.ev || []).filter(e => e[0] === lato && EV[e[1]]).sort((a, b) => PESO[a[1]] - PESO[b[1]]);
+  return l.length ? `<ul class="${l.length > 3 ? 'molti' : ''}">${l.map(e => `<li><span class="i">${EV[e[1]][0]}</span><span>${EV[e[1]][1](esc(e[2]))}</span></li>`).join('')}</ul>` : '<div class="nulla">—</div>';
+}
+function slidePartita(g, m, i, tot, t) {
+  const c = T[m.casa], f = T[m.fuori], gg = giocata(m);
+  return `<h2>${g.n}ª di Lega · <span class="accent">${nomeComp(g)}</span>${m.g ? ' · Gruppo ' + esc(m.g) : ''}</h2><div class="sub">${esc(dataLunga(t.data))} · partita ${i} di ${tot}</div>
+    <div class="match"><div class="mt">
+      <div class="lato"><img src="${logo(c.id)}" alt=""><div class="n">${esc(c.nome)}</div><div class="p">${esc(c.partecipanti)}</div></div>
+      <div class="mid">${gg ? `<b>${m.gc} – ${m.gf}</b>${m.pc != null && m.pf != null ? `<small>Fantapunti ${num(m.pc)} · ${num(m.pf)}</small>` : ''}` : '<div class="vs">VS</div><small>Da giocare</small>'}</div>
+      <div class="lato"><img src="${logo(f.id)}" alt=""><div class="n">${esc(f.nome)}</div><div class="p">${esc(f.partecipanti)}</div></div>
+    </div>
+    ${gg ? `<div class="ev"><div class="s">${eventiLato(m, 'c')}</div><div class="d">${eventiLato(m, 'f')}</div></div>` : ''}</div>`;
+}
+function costruisci() {
+  const ts = turni();
+  const t = sceltaTurno(ts);
+  const lista = [];
+  const giocato = haRisultati(t);
+  lista.push(slideRisultati(t, giocato ? 'Risultati della <span class="accent">giornata</span>' : 'Prossima <span class="accent">giornata</span>'));
+  lista.push(slideClassificaCamp());
+  if (partiteDi('coppa').some(giocata) || t.gs.some(g => g.comp === 'coppa')) lista.push(slideClassificaCoppa());
+  if (giocato) t.gs.forEach(g => g.partite.forEach((m, i) => { if (giocata(m)) lista.push(slidePartita(g, m, i + 1, g.partite.length, t)); }));
+  const prossimo = ts.find(x => x.sa > t.sa);
+  if (giocato && prossimo) lista.push(slideRisultati(prossimo, 'Prossimo <span class="accent">turno</span>'));
+  return lista;
+}
+
+/* --- carosello --- */
+function mostra(i) {
+  const el = document.querySelectorAll('.slide');
+  if (!el.length) return;
+  idx = (i + el.length) % el.length;
+  el.forEach((s, k) => s.classList.toggle('on', k === idx));
+  document.querySelectorAll('#dots i').forEach((d, k) => d.classList.toggle('on', k === idx));
+}
+function riavvia() { clearInterval(timer); timer = setInterval(() => { if (!pausa) mostra(idx + 1); }, DURATA); }
+function disegna() {
+  slides = costruisci();
+  document.getElementById('stage').innerHTML = slides.map(h => `<section class="slide">${h}</section>`).join('');
+  document.getElementById('dots').innerHTML = slides.map(() => '<i></i>').join('');
+  mostra(Math.min(idx, slides.length - 1));
+}
+function striscia(dich) {
+  const tk = document.querySelector('.ticker'), rail = document.getElementById('rail');
+  if (P.get('striscia') === '0') { tk.style.display = 'none'; return; }
+  const voci = dich.slice(0, 12).map(x => {
+    const t = pulito(x.titolo), txt = tronca(pulito(x.testo), t ? 110 : 150);
+    return `<span class="it"><img src="${logo(x.sq)}" alt=""><b>${esc(T[x.sq].nome)}</b>${t ? `<em>${esc(t)}.</em>` : ''}<span>${esc(txt)}</span></span>`;
+  });
+  const html = voci.length ? voci.join('') : '<span class="it"><span>La conferenza stampa è aperta: ogni squadra può commentare la giornata dal proprio modulo.</span></span>';
+  rail.innerHTML = html + html; // doppia copia: lo scorrimento riparte senza stacco
+  const w = rail.scrollWidth / 2, vel = 110 * parseFloat(getComputedStyle(document.documentElement).fontSize) / 24; // px al secondo, in proporzione allo schermo
+  rail.style.setProperty('--dur', Math.max(20, w / vel) + 's');
+  rail.style.animation = 'none'; void rail.offsetWidth; rail.style.animation = '';
+}
+function orologio() {
+  const n = new Date();
+  document.getElementById('ora').textContent = n.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+  document.getElementById('data').textContent = n.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' });
+}
+async function carica(primo) {
+  try {
+    const r = await fetch('dati/lega.json', { cache: 'no-cache' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const d = await r.json();
+    const dich = await caricaDichiarazioni(d.squadre);
+    D = d; T = Object.fromEntries(D.squadre.map(s => [s.id, s]));
+    disegna(); striscia(dich);
+    if (primo) riavvia();
+  } catch (e) {
+    if (primo) document.getElementById('stage').innerHTML = '<div class="avviso">Dati non disponibili.<br>Apri la pagina dal sito pubblicato.</div>';
+  }
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') { mostra(idx + 1); riavvia(); }
+  else if (e.key === 'ArrowLeft') { mostra(idx - 1); riavvia(); }
+  else if (e.key === ' ') { pausa = !pausa; e.preventDefault(); }
+  else if (e.key.toLowerCase() === 'f') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+});
+let nascondi; document.addEventListener('mousemove', () => { document.body.style.cursor = 'default'; clearTimeout(nascondi); nascondi = setTimeout(() => document.body.style.cursor = 'none', 2500); });
+orologio(); setInterval(orologio, 15000);
+carica(true); setInterval(() => carica(false), 60000); // ogni minuto rilegge risultati e dichiarazioni
+</script>
+</body>
+</html>

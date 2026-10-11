@@ -49,6 +49,19 @@ Ogni squadra scrive da un proprio modulo Google: la squadra è «bloccata» perc
 
 Il commento va alla giornata in base all'ora di invio. Ogni giornata di Lega comincia quando finisce la precedente e si chiude il venerdì alle 00:00 dopo il suo turno di Serie A (le date, in `giornate[].data`, sono quelle della domenica): i commenti di martedì-giovedì restano quindi sulla giornata appena giocata, e da venerdì vanno alla successiva. Nelle settimane con turno infrasettimanale la giornata si chiude prima, quando parte la successiva. `lega.oreChiusura` (96 di default) sposta la chiusura. Per togliere un commento, cancella la riga nel foglio.
 
+## Schermo per i monitor (tv.html)
+Pagina a parte, non collegata al sito: `https://pinellus.github.io/fantasms2026/tv.html`. Legge gli stessi file del sito (`dati/lega.json` e i fogli delle dichiarazioni), quindi si aggiorna con lui; si rilegge da sola ogni minuto.
+Ogni 10 secondi cambia diapositiva: risultati della giornata, classifica Campionato, classifica Coppa, una diapositiva per ogni partita giocata (con i marcatori) e il prossimo turno. In basso scorre la striscia con le ultime dichiarazioni.
+Prima dei risultati mostra la prossima giornata. Dopo il primo risultato inserito passa alla giornata in corso.
+- `?durata=15` secondi per diapositiva · `?sa=7` forza una giornata di Serie A · `?striscia=0` nasconde la striscia
+- Tasti: ← → cambia diapositiva, spazio ferma, F schermo intero. Il cursore sparisce dopo qualche secondo.
+
+Marcatori ed eventi si inseriscono in `dati/lega.json`, nella partita, con un elenco `ev` di terne [lato, tipo, giocatore]. Lato `c` casa o `f` fuori. Tipi: `gol`, `rig` (gol su rigore), `ag` (autogol), `rp` (rigore parato), `rs` (rigore sbagliato), `esp` (espulso), `amm` (ammonito), `ass` (assist). Esempio:
+```
+"gc": 2, "gf": 1, "pc": 78.5, "pf": 71,
+"ev": [["c","gol","Lautaro"], ["c","rp","Meret"], ["f","gol","Dybala"], ["f","esp","Rabiot"]]
+```
+
 ## Aggiornare risultati e classifica
 I risultati sono in `dati/lega.json`, nell'elenco `giornate`. In ogni partita compila `gc` e `gf` (gol casa e fuori) e `pc` e `pf` (fantapunti casa e fuori), per esempio `"gc": 2, "gf": 1, "pc": 75.5, "pf": 70`.
 Classifica e statistiche si ricalcolano da sole. L'ordine degli spareggi è in `criteri` (`pt` punti, `dr` differenza reti, `gf` gol fatti, `ptt` punti totali).
