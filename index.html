@@ -376,7 +376,7 @@ function parseCsv(t) {
 }
 // Orario del foglio (fuso Italia) letto come "ora di parete": giorno/mese/anno ore:minuti:secondi, oppure ISO.
 function leggiOra(v) {
-  let m = String(v).trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:[ ,]+(\d{1,2}):(\d{2})(?::(\d{2}))?)?/);
+  let m = String(v).trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:[ ,]+(\d{1,2})[:.](\d{2})(?:[:.](\d{2}))?)?/);
   if (m) return Date.UTC(+m[3], +m[2] - 1, +m[1], +(m[4] || 0), +m[5] || 0, +(m[6] || 0));
   m = String(v).trim().match(/^(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2})(?::(\d{2}))?)?/);
   return m ? Date.UTC(+m[1], +m[2] - 1, +m[3], +(m[4] || 0), +(m[5] || 0), +(m[6] || 0)) : NaN;

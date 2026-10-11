@@ -163,7 +163,7 @@ function parseCsv(t) {
   return righe.filter(x => x.some(v => v.trim()));
 }
 function leggiOra(v) {
-  let m = String(v).trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:[ ,]+(\d{1,2}):(\d{2})(?::(\d{2}))?)?/);
+  let m = String(v).trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:[ ,]+(\d{1,2})[:.](\d{2})(?:[:.](\d{2}))?)?/);
   if (m) return Date.UTC(+m[3], +m[2] - 1, +m[1], +(m[4] || 0), +m[5] || 0, +(m[6] || 0));
   m = String(v).trim().match(/^(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2})(?::(\d{2}))?)?/);
   return m ? Date.UTC(+m[1], +m[2] - 1, +m[3], +(m[4] || 0), +(m[5] || 0), +(m[6] || 0)) : NaN;
@@ -236,9 +236,10 @@ function slideClassificaCoppa() {
 const EV = {
   gol: ['⚽', n => n], rig: ['⚽', n => `${n} <small>(rigore)</small>`], ag: ['⚽', n => `${n} <small>(autogol)</small>`],
   esp: ['🟥', n => `${n} <small>espulso</small>`], amm: ['🟨', n => n], rp: ['🧤', n => `${n} <small>para un rigore</small>`],
-  rs: ['❌', n => `${n} <small>sbaglia un rigore</small>`], ass: ['👟', n => `${n} <small>assist</small>`]
+  rs: ['❌', n => `${n} <small>sbaglia un rigore</small>`], ass: ['👟', n => `${n} <small>assist</small>`],
+  pm: ['⭐', n => `${n} <small>player of the match</small>`], cs: ['🧤', n => `${n} <small>porta inviolata</small>`]
 };
-const PESO = { gol: 0, rig: 0, ag: 0, rp: 1, esp: 2, rs: 3, ass: 4, amm: 5 };
+const PESO = { gol: 0, rig: 0, ag: 0, rp: 1, esp: 2, rs: 3, ass: 4, pm: 5, cs: 6, amm: 7 };
 function eventiLato(m, lato) {
   const l = (m.ev || []).filter(e => e[0] === lato && EV[e[1]]).sort((a, b) => PESO[a[1]] - PESO[b[1]]);
   return l.length ? `<ul class="${l.length > 3 ? 'molti' : ''}">${l.map(e => `<li><span class="i">${EV[e[1]][0]}</span><span>${EV[e[1]][1](esc(e[2]))}</span></li>`).join('')}</ul>` : '<div class="nulla">—</div>';
