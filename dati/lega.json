@@ -1869,10 +1869,62 @@
     {
      "casa": "dns",
      "fuori": "backend",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 1,
+     "gf": 2,
+     "pc": 71.5,
+     "pf": 73.5,
+     "ev": [
+      [
+       "c",
+       "gol",
+       "De Bruyne"
+      ],
+      [
+       "c",
+       "pm",
+       "De Bruyne"
+      ],
+      [
+       "c",
+       "amm",
+       "Konè M."
+      ],
+      [
+       "c",
+       "amm",
+       "Berardi"
+      ],
+      [
+       "f",
+       "gol",
+       "Thuram"
+      ],
+      [
+       "f",
+       "ass",
+       "Noslin"
+      ],
+      [
+       "f",
+       "ass",
+       "Noslin"
+      ],
+      [
+       "f",
+       "ass",
+       "Mendy P."
+      ],
+      [
+       "f",
+       "pm",
+       "Noslin"
+      ],
+      [
+       "f",
+       "amm",
+       "Baturina"
+      ]
+     ]
     }
    ],
    "data": "2026-10-11"
