@@ -105,6 +105,10 @@ main { padding-block: 22px 40px; display: grid; gap: 28px; }
 .vs { font: 600 13px/1 var(--f-display); letter-spacing: .14em; color: var(--muted); }
 .score { font: 700 24px/1 var(--f-display); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .score i { font-style: normal; color: var(--muted); padding-inline: 3px; }
+.share { margin-top: 4px; background: none; border: 0; padding: 3px 8px; border-radius: 999px; color: var(--muted); opacity: .65; cursor: pointer; line-height: 0; }
+.share svg { width: 14px; height: 14px; }
+.share:hover, .share:focus-visible { opacity: 1; color: var(--accent); }
+#toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: 999px; font-size: 14px; z-index: 50; max-width: 90vw; }
 .pts { margin-top: 3px; font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .nota { display: flex; gap: 12px; align-items: center; padding: 16px; color: var(--muted); font-size: 14px; }
 .vuoto { padding: 22px 18px; border: 1px dashed var(--line); border-radius: 12px; color: var(--muted); }
@@ -299,10 +303,10 @@ function statoGiornata(g) {
 }
 function prossima(comp) { return D.giornate.find(g => g.comp === comp && statoGiornata(g) === 'daGiocare'); }
 
-function matchHtml(m) {
+function matchHtml(m, g, i) {
   const c = T[m.casa], f = T[m.fuori];
   const mid = giocata(m)
-    ? `<div class="score">${m.gc}<i>–</i>${m.gf}</div>${m.pc != null && m.pf != null ? `<div class="pts">${num(m.pc)} · ${num(m.pf)}</div>` : ''}`
+    ? `<div class="score">${m.gc}<i>–</i>${m.gf}</div>${m.pc != null && m.pf != null ? `<div class="pts">${num(m.pc)} · ${num(m.pf)}</div>` : ''}<button class="share" data-share="${g.comp}|${g.n}|${i}" title="Condividi nelle stories" aria-label="Condividi nelle stories"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg></button>`
     : '<div class="vs">VS</div>';
   return `<div class="match">
     <div class="team home"><span>${esc(c.nome)}</span><img src="${logo(c.id)}" alt="" width="34" height="34"></div>
@@ -324,8 +328,8 @@ function giornataHtml(g) {
   } else {
     const gironi = [...new Set(g.partite.map(m => m.g).filter(Boolean))];
     corpo = gironi.length
-      ? gironi.map(k => `<div class="girone">Gruppo ${esc(k)}</div>${g.partite.filter(m => m.g === k).map(matchHtml).join('')}`).join('')
-      : g.partite.map(matchHtml).join('');
+      ? gironi.map(k => `<div class="girone">Gruppo ${esc(k)}</div>${g.partite.filter(m => m.g === k).map(m => matchHtml(m, g, g.partite.indexOf(m))).join('')}`).join('')
+      : g.partite.map((m, i) => matchHtml(m, g, i)).join('');
   }
   return `<section class="gio" id="g-${g.comp}-${g.n}"><div class="gio-h"><h3>${g.n}ª di Lega</h3>${tags}${chip}</div>${corpo}</section>`;
 }
@@ -614,6 +618,155 @@ function render() {
   document.getElementById('app').innerHTML = cur.startsWith('squadra-') ? VIEWS.squadra(cur.slice(8)) : VIEWS[cur]();
   if (S.ancora) { const el = document.getElementById(S.ancora); S.ancora = null; if (el) el.scrollIntoView(); }
 }
+/* Immagine per le stories (1080x1920): risultato, tabellino e conferenza stampa dei due allenatori */
+const STORY = (() => {
+  const W = 1080, H = 1920;
+  const PESO = { gol: 0, rig: 0, ag: 0, rp: 1, esp: 2, rs: 3, ass: 4, pm: 5, cs: 6, amm: 7 };
+  const NOTA = { rig: 'rigore', ag: 'autogol', esp: 'espulso', rp: 'para un rigore', rs: 'sbaglia un rigore', ass: 'assist', pm: 'player of the match', cs: 'porta inviolata' };
+  const F_DISP = '"Saira Condensed","Arial Narrow",Arial,sans-serif', F_BODY = '"IBM Plex Sans",Arial,sans-serif';
+  const num = n => Number(n).toLocaleString('it-IT', { maximumFractionDigits: 1 });
+
+  function tondo(c, img, cx, cy, r) {
+    c.save(); c.beginPath(); c.arc(cx, cy, r, 0, 7); c.closePath(); c.clip();
+    if (img && img.naturalWidth) c.drawImage(img, cx - r, cy - r, 2 * r, 2 * r);
+    c.restore();
+    c.lineWidth = 4; c.strokeStyle = 'rgba(255,255,255,.18)'; c.beginPath(); c.arc(cx, cy, r, 0, 7); c.stroke();
+  }
+  function righe(c, testo, maxW, maxRighe) {
+    const out = []; let riga = '';
+    for (const w of testo.split(/\s+/)) {
+      const prova = riga ? riga + ' ' + w : w;
+      if (c.measureText(prova).width > maxW && riga) { out.push(riga); riga = w; } else riga = prova;
+    }
+    if (riga) out.push(riga);
+    if (out.length > maxRighe) {
+      out.length = maxRighe; let u = out[maxRighe - 1];
+      while (c.measureText(u + '…').width > maxW && u.includes(' ')) u = u.slice(0, u.lastIndexOf(' '));
+      out[maxRighe - 1] = u.replace(/[,;:.\s]+$/, '') + '…';
+    }
+    return out;
+  }
+  function icona(c, t, x, y) { // x,y = centro
+    c.save(); c.translate(x, y);
+    if (t === 'amm' || t === 'esp') { c.fillStyle = t === 'amm' ? '#ffd23f' : '#ee3b3b'; c.beginPath(); c.roundRect(-11, -16, 22, 32, 4); c.fill(); }
+    else if (t === 'gol' || t === 'rig' || t === 'ag') {
+      c.fillStyle = '#fff'; c.beginPath(); c.arc(0, 0, 17, 0, 7); c.fill();
+      c.fillStyle = '#111a2d'; c.beginPath(); for (let i = 0; i < 5; i++) { const a = -Math.PI / 2 + i * 2 * Math.PI / 5; c.lineTo(Math.cos(a) * 8, Math.sin(a) * 8); } c.closePath(); c.fill();
+      if (t === 'ag') { c.strokeStyle = '#ee3b3b'; c.lineWidth = 4; c.beginPath(); c.arc(0, 0, 21, 0, 7); c.stroke(); }
+    } else {
+      const lett = { cs: 'P', rp: 'P', rs: '✕', ass: 'A', pm: '★' }[t] || '•';
+      c.fillStyle = { cs: '#3ecf8e', rp: '#3ecf8e', rs: '#ee3b3b', ass: '#4b93ff', pm: '#ff9033' }[t] || '#92a3c1';
+      c.beginPath(); c.arc(0, 0, 17, 0, 7); c.fill();
+      c.fillStyle = '#06142e'; c.font = `700 22px ${F_BODY}`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(lett, 0, 1);
+    }
+    c.restore();
+  }
+  function eventi(m, lato) {
+    const mappa = new Map();
+    (m.ev || []).filter(e => e[0] === lato && PESO[e[1]] != null).forEach(e => { const k = e[1] + '|' + e[2]; mappa.set(k, (mappa.get(k) || 0) + 1); });
+    return [...mappa].map(([k, n]) => { const [t, nome] = k.split('|'); return { t, nome, n }; }).sort((a, b) => PESO[a.t] - PESO[b.t]);
+  }
+
+  /* o = { g, m, T, logo: id => Image, lega: Image, dich: { casa, fuori } (ognuna {titolo, testo} o null), comp } */
+  function disegna(o) {
+    const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+    const c = cv.getContext('2d'), { m, T } = o, casa = T[m.casa], fuori = T[m.fuori];
+    const grad = c.createLinearGradient(0, 0, 0, H); grad.addColorStop(0, '#14234a'); grad.addColorStop(.45, '#0a111f'); grad.addColorStop(1, '#070c18');
+    c.fillStyle = grad; c.fillRect(0, 0, W, H);
+    const glow = c.createRadialGradient(200, 100, 0, 200, 100, 900); glow.addColorStop(0, 'rgba(75,147,255,.28)'); glow.addColorStop(1, 'rgba(75,147,255,0)');
+    c.fillStyle = glow; c.fillRect(0, 0, W, H);
+    c.textBaseline = 'alphabetic';
+
+    // testata
+    tondo(c, o.lega, 540, 282, 50);
+    c.textAlign = 'center'; c.fillStyle = '#eaf2ff'; c.font = `700 58px ${F_DISP}`; c.fillText('FANTA SMS ENGINEERING', 540, 405);
+    c.fillStyle = '#ff9033'; c.font = `600 36px ${F_DISP}`; c.fillText(o.titolo.toUpperCase(), 540, 452);
+
+    // squadre e risultato
+    const vinceC = m.gc > m.gf || (m.gc === m.gf && m.pc > m.pf), pari = m.gc === m.gf;
+    for (const [sq, img, cx, vince] of [[casa, o.logo(casa.id), 215, vinceC || pari], [fuori, o.logo(fuori.id), 865, !vinceC || pari]]) {
+      tondo(c, img, cx, 610, 112);
+      c.fillStyle = vince ? '#ffffff' : '#92a3c1'; c.font = `700 44px ${F_DISP}`; c.textAlign = 'center';
+      righe(c, sq.nome.toUpperCase(), 380, 2).forEach((r, i) => c.fillText(r, cx, 785 + i * 46));
+    }
+    c.fillStyle = '#ffffff'; c.font = `700 150px ${F_DISP}`; c.textAlign = 'center'; c.fillText(`${m.gc}–${m.gf}`, 540, 650);
+    if (m.pc != null) { c.fillStyle = '#92a3c1'; c.font = `500 46px ${F_BODY}`; c.fillText(`${num(m.pc)} · ${num(m.pf)}`, 540, 715); }
+
+    // tabellino
+    c.strokeStyle = '#233352'; c.lineWidth = 2; c.beginPath(); c.moveTo(70, 905); c.lineTo(1010, 905); c.stroke();
+    c.fillStyle = '#4b93ff'; c.font = `700 36px ${F_DISP}`; c.textAlign = 'center'; c.fillText('IL TABELLINO', 540, 960);
+    let yMax = 1000;
+    for (const [lato, x0] of [['c', 70], ['f', 560]]) {
+      let y = 990;
+      const ev = eventi(m, lato).slice(0, 7);
+      if (!ev.length) { c.fillStyle = '#92a3c1'; c.font = `500 32px ${F_BODY}`; c.textAlign = 'left'; c.fillText('—', x0, y + 30); y += 52; }
+      ev.forEach(e => {
+        icona(c, e.t, x0 + 20, y + 24);
+        c.textAlign = 'left'; c.fillStyle = '#eaf2ff'; c.font = `600 34px ${F_BODY}`;
+        const nome = e.nome + (e.n > 1 ? ` ×${e.n}` : ''); c.fillText(nome, x0 + 56, y + 36);
+        const w = c.measureText(nome).width;
+        if (NOTA[e.t]) { c.fillStyle = '#92a3c1'; c.font = `400 26px ${F_BODY}`; c.fillText(NOTA[e.t], x0 + 56 + w + 12, y + 36); }
+        y += 52;
+      });
+      yMax = Math.max(yMax, y);
+    }
+
+    // conferenza stampa
+    const voci = [[casa, o.dich.casa], [fuori, o.dich.fuori]].filter(v => v[1]);
+    let fine = yMax;
+    if (voci.length) {
+      let y = yMax + 50;
+      c.fillStyle = '#ff9033'; c.font = `700 36px ${F_DISP}`; c.textAlign = 'center'; c.fillText('CONFERENZA STAMPA', 540, y); y += 24;
+      const libero = 1640 - y, righeMax = voci.length === 1 ? 5 : (libero / 2 >= 200 ? 3 : 2);
+      for (const [sq, d] of voci) {
+        c.font = `italic 400 30px ${F_BODY}`;
+        const testo = righe(c, '«' + d.testo.replace(/\s+/g, ' ').trim() + '»', 800, righeMax);
+        const h = 84 + testo.length * 38;
+        c.fillStyle = '#111a2d'; c.beginPath(); c.roundRect(70, y, 940, h, 24); c.fill();
+        c.strokeStyle = '#233352'; c.lineWidth = 2; c.stroke();
+        tondo(c, o.logo(sq.id), 130, y + 46, 30);
+        c.textAlign = 'left'; c.fillStyle = '#ff9033'; c.font = `700 32px ${F_DISP}`; c.fillText(sq.nome.toUpperCase(), 180, y + 57);
+        c.fillStyle = '#eaf2ff'; c.font = `italic 400 30px ${F_BODY}`;
+        testo.forEach((r, i) => c.fillText(r, 100, y + 106 + i * 38));
+        y += h + 20;
+      }
+      fine = y;
+    }
+
+    // firma
+    c.textAlign = 'center'; c.fillStyle = '#92a3c1'; c.font = `500 28px ${F_BODY}`; c.fillText('pinellus.github.io/fantasms2026', 540, fine + 30);
+    return cv;
+  }
+  return { disegna, W, H };
+})();
+
+/* --- Condividi nelle stories --- */
+if (!CanvasRenderingContext2D.prototype.roundRect) CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) { this.moveTo(x + r, y); this.arcTo(x + w, y, x + w, y + h, r); this.arcTo(x + w, y + h, x, y + h, r); this.arcTo(x, y + h, x, y, r); this.arcTo(x, y, x + w, y, r); this.closePath(); };
+function avviso(t) { let e = document.getElementById('toast'); if (!e) { e = document.createElement('div'); e.id = 'toast'; document.body.appendChild(e); } e.textContent = t; e.hidden = false; clearTimeout(avviso.t); avviso.t = setTimeout(() => { e.hidden = true; }, 3500); }
+const caricaImg = src => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.onerror = () => r(i); i.src = src; });
+async function condividi(btn) {
+  const [comp, n, i] = btn.dataset.share.split('|');
+  const g = D.giornate.find(x => x.comp === comp && x.n === +n), m = g && g.partite[+i];
+  if (!m || !giocata(m)) return;
+  btn.disabled = true;
+  try {
+    try { await Promise.all(['700 58px "Saira Condensed"', '600 34px "IBM Plex Sans"', 'italic 400 30px "IBM Plex Sans"'].map(f => document.fonts.load(f))); } catch (e) {}
+    const imgs = {}; await Promise.all(D.squadre.map(async s => { imgs[s.id] = await caricaImg(logo(s.id)); }));
+    const lega = await caricaImg('img/lega.webp');
+    const ultima = id => (comp === 'campionato' ? (D.dichiarazioni || []).find(x => x.sq === id && x.n === g.n) : null) || null;
+    const cv = STORY.disegna({ g, m, T, logo: id => imgs[id], lega, titolo: `${g.n}ª di Lega · ${comp === 'coppa' ? 'Coppa' : 'Campionato'}`, dich: { casa: ultima(m.casa), fuori: ultima(m.fuori) } });
+    const blob = await new Promise(r => cv.toBlob(r, 'image/png'));
+    const nome = `fanta-sms-${m.casa}-${m.fuori}-${comp}${g.n}.png`, file = new File([blob], nome, { type: 'image/png' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try { await navigator.share({ files: [file], title: `${T[m.casa].nome} ${m.gc}–${m.gf} ${T[m.fuori].nome}` }); } catch (e) { if (e.name !== 'AbortError') throw e; }
+    } else {
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nome; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+      avviso('Immagine scaricata: puoi pubblicarla nelle stories.');
+    }
+  } catch (e) { avviso('Non sono riuscito a creare l\'immagine.'); }
+  btn.disabled = false;
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-share]'); if (b) condividi(b); });
 document.addEventListener('change', e => { if (e.target.id === 'sa') { S.sa = +e.target.value; render(); } });
 document.addEventListener('change', e => { if (e.target.id === 'gio') { S.gio = +e.target.value; render(); } });
 document.addEventListener('input', e => {
