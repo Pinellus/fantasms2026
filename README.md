@@ -56,7 +56,7 @@ Prima dei risultati mostra la prossima giornata. Dopo il primo risultato inserit
 - `?durata=15` secondi per diapositiva · `?sa=7` forza una giornata di Serie A · `?striscia=0` nasconde la striscia
 - Tasti: ← → cambia diapositiva, spazio ferma, F schermo intero. Il cursore sparisce dopo qualche secondo.
 
-Marcatori ed eventi si inseriscono in `dati/lega.json`, nella partita, con un elenco `ev` di terne [lato, tipo, giocatore]. Lato `c` casa o `f` fuori. Tipi: `gol`, `rig` (gol su rigore), `ag` (autogol), `rp` (rigore parato), `rs` (rigore sbagliato), `esp` (espulso), `amm` (ammonito), `ass` (assist), `pm` (player of the match), `cs` (portiere imbattuto). Esempio:
+I marcatori sono solo i gol di fantacalcio: nella partita ci sono tanti gol (`gol`, `rig`, `ag`) quanti sono `gc` e `gf`, quindi 0 gol per chi segna 0. Marcatori ed eventi si inseriscono in `dati/lega.json`, nella partita, con un elenco `ev` di terne [lato, tipo, giocatore]. Lato `c` casa o `f` fuori. Tipi: `gol`, `rig` (gol su rigore), `ag` (autogol), `rp` (rigore parato), `rs` (rigore sbagliato), `esp` (espulso), `amm` (ammonito), `ass` (assist), `pm` (player of the match), `cs` (portiere imbattuto). Esempio:
 ```
 "gc": 2, "gf": 1, "pc": 78.5, "pf": 71,
 "ev": [["c","gol","Lautaro"], ["c","rp","Meret"], ["f","gol","Dybala"], ["f","esp","Rabiot"]]
