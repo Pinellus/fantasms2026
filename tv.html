@@ -352,6 +352,13 @@ document.addEventListener('keydown', e => {
 });
 let nascondi; document.addEventListener('mousemove', () => { document.body.style.cursor = 'default'; clearTimeout(nascondi); nascondi = setTimeout(() => document.body.style.cursor = 'none', 2500); });
 orologio(); setInterval(orologio, 15000);
+/* Aggiornamento automatico della pagina: se la versione pubblicata cambia, si ricarica da sola (così il TV non resta con codice vecchio) */
+(function () {
+  let base = null;
+  const leggi = () => fetch(location.pathname, { cache: 'no-cache' }).then(r => r.ok ? r.text() : null).catch(() => null);
+  const controlla = () => leggi().then(t => { if (!t) return; if (base === null) base = t; else if (t !== base) location.reload(); });
+  controlla(); setInterval(controlla, 300000); // ogni 5 minuti
+})();
 carica(true); setInterval(() => carica(false), 60000); // ogni minuto rilegge risultati e dichiarazioni
 </script>
 </body>
