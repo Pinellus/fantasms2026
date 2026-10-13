@@ -92,12 +92,11 @@ tr:first-child td.pos { color: var(--warm); }
 .ticker { position: relative; z-index: 2; display: flex; align-items: stretch; background: #060b16; border-top: 2px solid var(--accent); height: 3.6rem; }
 .ticker .lab { flex: none; display: flex; align-items: center; padding: 0 1.4rem; background: var(--accent); color: var(--accent-ink); font: 700 1.5rem/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; }
 .ticker .vp { flex: 1; overflow: hidden; position: relative; }
-.ticker .rail { backface-visibility: hidden; position: absolute; left: 0; top: 0; bottom: 0; display: flex; align-items: center; white-space: nowrap; will-change: transform; animation: scorri var(--dur, 60s) linear infinite; }
-.ticker .it { display: inline-flex; align-items: center; gap: .7rem; padding-right: 3.2rem; font: 500 1.5rem/1 var(--f-body); }
+.ticker .rail { backface-visibility: hidden; position: absolute; left: 0; top: 0; bottom: 0; display: flex; align-items: center; white-space: nowrap; will-change: transform; }
+.ticker .it { flex: none; display: inline-flex; align-items: center; gap: .7rem; padding-right: 3.2rem; font: 500 1.5rem/1 var(--f-body); }
 .ticker .it img { width: 2.1rem; height: 2.1rem; border-radius: 50%; }
 .ticker .it b { font: 700 1.5rem/1 var(--f-display); text-transform: uppercase; letter-spacing: .05em; color: var(--warm); }
 .ticker .it em { font-style: normal; font-weight: 600; }
-@keyframes scorri { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
 .avviso { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: var(--muted); font: 600 2rem/1.3 var(--f-display); }
 @media (prefers-reduced-motion: reduce) { .slide { transition: none; } }
 
@@ -293,27 +292,36 @@ function disegna() {
   document.getElementById('dots').innerHTML = slides.map(() => '<i></i>').join('');
   mostra(Math.min(idx, slides.length - 1));
 }
-let sigStriscia = null, inAttesa = null;
-function applicaStriscia(p) {
+/* Striscia: invece di una fascia lunghissima animata dal CSS (decine di migliaia di pixel, pesante per il browser del TV)
+   tiene sempre solo poche voci: quando una esce a sinistra la toglie, e a destra ne aggiunge un'altra. La posizione dipende dal tempo, quindi non perde fluidità. */
+let sigStriscia = null, voci = [], kv = 0, xs = 0, t0s = 0, velS = 110, avviata = false;
+function riempiStriscia() {
+  const rail = document.getElementById('rail'), larg = rail.parentNode.clientWidth;
+  for (let n = 0; n < 60 && rail.offsetWidth - xs < larg * 1.5 + 100; n++) { rail.insertAdjacentHTML('beforeend', voci[kv % voci.length]); kv++; }
+}
+function passoStriscia(t) {
+  requestAnimationFrame(passoStriscia);
   const rail = document.getElementById('rail');
-  rail.innerHTML = p.html + p.html; // doppia copia: lo scorrimento riparte senza stacco
-  const w = rail.scrollWidth / 2, vel = 110 * parseFloat(getComputedStyle(document.documentElement).fontSize) / 24; // px al secondo, in proporzione allo schermo
-  rail.style.setProperty('--dur', Math.max(20, w / vel) + 's');
-  rail.style.animation = 'none'; void rail.offsetWidth; rail.style.animation = '';
+  const dt = t0s ? Math.min(t - t0s, 100) : 0; t0s = t;
+  xs += velS * dt / 1000;
+  let f = rail.firstElementChild;
+  while (f && f.offsetWidth <= xs) { xs -= f.offsetWidth; rail.removeChild(f); f = rail.firstElementChild; }
+  riempiStriscia();
+  rail.style.transform = 'translate3d(' + (-xs) + 'px,0,0)';
 }
 function striscia(dich) {
-  const tk = document.querySelector('.ticker'), rail = document.getElementById('rail');
+  const tk = document.querySelector('.ticker');
   if (P.get('striscia') === '0') { tk.style.display = 'none'; return; }
-  const voci = dich.slice(0, 12).map(x => {
+  const lista = dich.slice(0, 12).map(x => {
     const t = pulito(x.titolo), txt = tronca(pulito(x.testo), t ? 110 : 150);
     return `<span class="it"><img src="${logo(x.sq)}" alt=""><b>${esc(T[x.sq].nome)}</b>${t ? `<em>${esc(t)}.</em>` : ''}<span>${esc(txt)}</span></span>`;
   });
-  const html = voci.length ? voci.join('') : '<span class="it"><span>La conferenza stampa è aperta: ogni squadra può commentare la giornata dal proprio modulo.</span></span>';
-  if (html === sigStriscia) { inAttesa = null; return; } // niente di nuovo: la striscia non si tocca
-  const primo = sigStriscia === null;
-  sigStriscia = html;
-  if (primo) { applicaStriscia({ html }); rail.addEventListener('animationiteration', () => { if (inAttesa) { const p = inAttesa; inAttesa = null; applicaStriscia(p); } }); }
-  else inAttesa = { html }; // il testo nuovo entra a fine giro, senza scatti
+  if (!lista.length) lista.push('<span class="it"><span>La conferenza stampa è aperta: ogni squadra può commentare la giornata dal proprio modulo.</span></span>');
+  velS = 110 * parseFloat(getComputedStyle(document.documentElement).fontSize) / 24; // px al secondo, in proporzione allo schermo
+  const sig = lista.join('');
+  if (sig === sigStriscia) return; // niente di nuovo: la striscia non si tocca
+  sigStriscia = sig; voci = lista; kv = 0; // le voci nuove entrano da destra quando quelle già in vista sono uscite
+  if (!avviata) { avviata = true; requestAnimationFrame(passoStriscia); }
 }
 function orologio() {
   const n = new Date();
