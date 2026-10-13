@@ -1809,10 +1809,62 @@
     {
      "casa": "veeam",
      "fuori": "orsonaldo",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 1,
+     "gf": 3,
+     "pc": 68.5,
+     "pf": 78,
+     "ev": [
+      [
+       "c",
+       "gol",
+       "Kolo Muani"
+      ],
+      [
+       "c",
+       "cs",
+       "Meret"
+      ],
+      [
+       "c",
+       "amm",
+       "Pavlovic"
+      ],
+      [
+       "c",
+       "amm",
+       "Vasquez"
+      ],
+      [
+       "f",
+       "rig",
+       "Calhanoglu"
+      ],
+      [
+       "f",
+       "gol",
+       "Orsolini"
+      ],
+      [
+       "f",
+       "ag",
+       "Vasquez"
+      ],
+      [
+       "f",
+       "pm",
+       "Ramon"
+      ],
+      [
+       "f",
+       "cs",
+       "Butez"
+      ],
+      [
+       "f",
+       "amm",
+       "Diao"
+      ]
+     ]
     },
     {
      "casa": "dns",
