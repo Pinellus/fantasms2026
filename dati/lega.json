@@ -1779,10 +1779,32 @@
     {
      "casa": "scarsenal",
      "fuori": "futuro",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 3,
+     "gf": 0,
+     "pc": 78.5,
+     "pf": 64.5,
+     "ev": [
+      [
+       "c",
+       "gol",
+       "Ekkelenkamp"
+      ],
+      [
+       "c",
+       "gol",
+       "Rabiot"
+      ],
+      [
+       "f",
+       "amm",
+       "McKennie"
+      ],
+      [
+       "f",
+       "amm",
+       "De Winter"
+      ]
+     ]
     },
     {
      "casa": "veeam",
