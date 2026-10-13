@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-10-10",
+ "aggiornato": "2026-10-13",
  "lega": {
   "nome": "Fanta SMS Engineering",
   "stagione": "2026/27",
@@ -1729,10 +1729,62 @@
     {
      "casa": "zonaflegrea",
      "fuori": "vesuviani",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 0,
+     "gf": 2,
+     "pc": 60,
+     "pf": 76,
+     "ev": [
+      [
+       "c",
+       "gol",
+       "Tavares N."
+      ],
+      [
+       "c",
+       "gol",
+       "Isaksen"
+      ],
+      [
+       "c",
+       "cs",
+       "Martinez Jo."
+      ],
+      [
+       "c",
+       "amm",
+       "Rrahmani"
+      ],
+      [
+       "c",
+       "amm",
+       "Ramos G."
+      ],
+      [
+       "c",
+       "esp",
+       "Malen"
+      ],
+      [
+       "f",
+       "gol",
+       "Kessiè"
+      ],
+      [
+       "f",
+       "gol",
+       "Lang"
+      ],
+      [
+       "f",
+       "cs",
+       "Gollini"
+      ],
+      [
+       "f",
+       "amm",
+       "Provstgaard"
+      ]
+     ]
     },
     {
      "casa": "scarsenal",
