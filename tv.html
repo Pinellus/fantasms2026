@@ -92,12 +92,12 @@ tr:first-child td.pos { color: var(--warm); }
 .ticker { position: relative; z-index: 2; display: flex; align-items: stretch; background: #060b16; border-top: 2px solid var(--accent); height: 3.6rem; }
 .ticker .lab { flex: none; display: flex; align-items: center; padding: 0 1.4rem; background: var(--accent); color: var(--accent-ink); font: 700 1.5rem/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; }
 .ticker .vp { flex: 1; overflow: hidden; position: relative; }
-.ticker .rail { position: absolute; left: 0; top: 0; bottom: 0; display: flex; align-items: center; white-space: nowrap; will-change: transform; animation: scorri var(--dur, 60s) linear infinite; }
+.ticker .rail { backface-visibility: hidden; position: absolute; left: 0; top: 0; bottom: 0; display: flex; align-items: center; white-space: nowrap; will-change: transform; animation: scorri var(--dur, 60s) linear infinite; }
 .ticker .it { display: inline-flex; align-items: center; gap: .7rem; padding-right: 3.2rem; font: 500 1.5rem/1 var(--f-body); }
 .ticker .it img { width: 2.1rem; height: 2.1rem; border-radius: 50%; }
 .ticker .it b { font: 700 1.5rem/1 var(--f-display); text-transform: uppercase; letter-spacing: .05em; color: var(--warm); }
 .ticker .it em { font-style: normal; font-weight: 600; }
-@keyframes scorri { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes scorri { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
 .avviso { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: var(--muted); font: 600 2rem/1.3 var(--f-display); }
 @media (prefers-reduced-motion: reduce) { .slide { transition: none; } }
 
@@ -177,18 +177,19 @@ function leggiOra(v) {
   m = String(v).trim().match(/^(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2})(?::(\d{2}))?)?/);
   return m ? Date.UTC(+m[1], +m[2] - 1, +m[3], +(m[4] || 0), +(m[5] || 0), +(m[6] || 0)) : NaN;
 }
+const cacheDich = {};
 async function caricaDichiarazioni(squadre) {
   const tutte = await Promise.all(squadre.filter(s => s.csv).map(async s => {
     try {
       const r = await fetch(s.csv, { cache: 'no-cache' });
-      if (!r.ok) return [];
+      if (!r.ok) return cacheDich[s.id] || [];
       const righe = parseCsv(await r.text());
       const h = (righe.shift() || []).map(x => x.toLowerCase());
       const col = (re, def) => { const i = h.findIndex(x => re.test(x)); return i < 0 ? def : i; };
       const iTxt = col(/commento|dichiaraz|testo|messaggio/, 1), iTit = col(/titolo/, -1);
-      return righe.map(x => ({ sq: s.id, ts: leggiOra(x[0]), testo: (x[iTxt] || '').trim(), titolo: iTit < 0 ? '' : (x[iTit] || '').trim() }))
+      return cacheDich[s.id] = righe.map(x => ({ sq: s.id, ts: leggiOra(x[0]), testo: (x[iTxt] || '').trim(), titolo: iTit < 0 ? '' : (x[iTit] || '').trim() }))
         .filter(x => x.testo && !isNaN(x.ts));
-    } catch (e) { return []; }
+    } catch (e) { return cacheDich[s.id] || []; }
   }));
   return tutte.flat().sort((a, b) => b.ts - a.ts);
 }
@@ -292,6 +293,14 @@ function disegna() {
   document.getElementById('dots').innerHTML = slides.map(() => '<i></i>').join('');
   mostra(Math.min(idx, slides.length - 1));
 }
+let sigStriscia = null, inAttesa = null;
+function applicaStriscia(p) {
+  const rail = document.getElementById('rail');
+  rail.innerHTML = p.html + p.html; // doppia copia: lo scorrimento riparte senza stacco
+  const w = rail.scrollWidth / 2, vel = 110 * parseFloat(getComputedStyle(document.documentElement).fontSize) / 24; // px al secondo, in proporzione allo schermo
+  rail.style.setProperty('--dur', Math.max(20, w / vel) + 's');
+  rail.style.animation = 'none'; void rail.offsetWidth; rail.style.animation = '';
+}
 function striscia(dich) {
   const tk = document.querySelector('.ticker'), rail = document.getElementById('rail');
   if (P.get('striscia') === '0') { tk.style.display = 'none'; return; }
@@ -300,24 +309,28 @@ function striscia(dich) {
     return `<span class="it"><img src="${logo(x.sq)}" alt=""><b>${esc(T[x.sq].nome)}</b>${t ? `<em>${esc(t)}.</em>` : ''}<span>${esc(txt)}</span></span>`;
   });
   const html = voci.length ? voci.join('') : '<span class="it"><span>La conferenza stampa è aperta: ogni squadra può commentare la giornata dal proprio modulo.</span></span>';
-  rail.innerHTML = html + html; // doppia copia: lo scorrimento riparte senza stacco
-  const w = rail.scrollWidth / 2, vel = 110 * parseFloat(getComputedStyle(document.documentElement).fontSize) / 24; // px al secondo, in proporzione allo schermo
-  rail.style.setProperty('--dur', Math.max(20, w / vel) + 's');
-  rail.style.animation = 'none'; void rail.offsetWidth; rail.style.animation = '';
+  if (html === sigStriscia) { inAttesa = null; return; } // niente di nuovo: la striscia non si tocca
+  const primo = sigStriscia === null;
+  sigStriscia = html;
+  if (primo) { applicaStriscia({ html }); rail.addEventListener('animationiteration', () => { if (inAttesa) { const p = inAttesa; inAttesa = null; applicaStriscia(p); } }); }
+  else inAttesa = { html }; // il testo nuovo entra a fine giro, senza scatti
 }
 function orologio() {
   const n = new Date();
   document.getElementById('ora').textContent = n.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
   document.getElementById('data').textContent = n.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' });
 }
+let sigDati = null;
 async function carica(primo) {
   try {
     const r = await fetch('dati/lega.json', { cache: 'no-cache' });
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const d = await r.json();
     const dich = await caricaDichiarazioni(d.squadre);
+    const sig = JSON.stringify(d);
     D = d; T = Object.fromEntries(D.squadre.map(s => [s.id, s]));
-    disegna(); striscia(dich);
+    if (sig !== sigDati) { sigDati = sig; disegna(); } // le diapositive si rifanno solo se i dati sono cambiati
+    striscia(dich);
     if (primo) riavvia();
   } catch (e) {
     if (primo) document.getElementById('stage').innerHTML = '<div class="avviso">Dati non disponibili.<br>Apri la pagina dal sito pubblicato.</div>';
