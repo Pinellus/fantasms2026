@@ -107,6 +107,9 @@ main { padding-block: 22px 40px; display: grid; gap: 28px; }
 .score i { font-style: normal; color: var(--muted); padding-inline: 3px; }
 .share { margin-top: 4px; background: none; border: 0; padding: 3px 8px; border-radius: 999px; color: var(--muted); opacity: .65; cursor: pointer; line-height: 0; }
 .share svg { width: 14px; height: 14px; }
+.share.bordo { border: 1px solid var(--line); padding: 5px 9px; opacity: .85; vertical-align: middle; margin-left: 6px; }
+.gio-h .share.bordo { margin-left: auto; }
+.gio-h .share.bordo + .state { margin-left: 0; }
 .share:hover, .share:focus-visible { opacity: 1; color: var(--accent); }
 #toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: 999px; font-size: 14px; z-index: 50; max-width: 90vw; }
 .pts { margin-top: 3px; font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
@@ -306,7 +309,7 @@ function prossima(comp) { return D.giornate.find(g => g.comp === comp && statoGi
 function matchHtml(m, g, i) {
   const c = T[m.casa], f = T[m.fuori];
   const mid = giocata(m)
-    ? `<div class="score">${m.gc}<i>–</i>${m.gf}</div>${m.pc != null && m.pf != null ? `<div class="pts">${num(m.pc)} · ${num(m.pf)}</div>` : ''}<button class="share" data-share="${g.comp}|${g.n}|${i}" title="Condividi nelle stories" aria-label="Condividi nelle stories"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg></button>`
+    ? `<div class="score">${m.gc}<i>–</i>${m.gf}</div>${m.pc != null && m.pf != null ? `<div class="pts">${num(m.pc)} · ${num(m.pf)}</div>` : ''}<button class="share" data-share="m|${g.comp}|${g.n}|${i}" title="Condividi nelle stories" aria-label="Condividi nelle stories"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg></button>`
     : '<div class="vs">VS</div>';
   return `<div class="match">
     <div class="team home"><span>${esc(c.nome)}</span><img src="${logo(c.id)}" alt="" width="34" height="34"></div>
@@ -331,7 +334,9 @@ function giornataHtml(g) {
       ? gironi.map(k => `<div class="girone">Gruppo ${esc(k)}</div>${g.partite.filter(m => m.g === k).map(m => matchHtml(m, g, g.partite.indexOf(m))).join('')}`).join('')
       : g.partite.map((m, i) => matchHtml(m, g, i)).join('');
   }
-  return `<section class="gio" id="g-${g.comp}-${g.n}"><div class="gio-h"><h3>${g.n}ª di Lega</h3>${tags}${chip}</div>${corpo}</section>`;
+  const ic = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg>';
+  const cond = g.partite.some(giocata) ? `<button class="share bordo" data-share="g|${g.comp}|${g.n}" title="Condividi la giornata nelle stories" aria-label="Condividi la giornata nelle stories">${ic}</button>` : '';
+  return `<section class="gio" id="g-${g.comp}-${g.n}"><div class="gio-h"><h3>${g.n}ª di Lega</h3>${tags}${cond}${chip}</div>${corpo}</section>`;
 }
 
 function tabellaHtml(righe) {
@@ -544,7 +549,8 @@ const VIEWS = {
       ? classificheCoppa().map(({ k, righe }) => `<h3 class="tbl-h">Gruppo ${esc(k)}</h3>${tabellaHtml(righe)}`).join('')
       : tabellaHtml(classificaCampionato());
     const vista = seg('vista', S.vista, [['compatta', 'Compatta'], ['dettaglio', 'Dettaglio']], 'Vista');
-    return `<section><div class="sec-h"><h2>Classifica</h2><div class="ctrl">${seg('cla', S.cla)}${vista}</div></div>${corpo}${leg}</section>`;
+    const cond = S.cla === 'campionato' && partiteDi('campionato').some(giocata) ? '<button class="share bordo" data-share="c|campionato" title="Condividi la classifica nelle stories" aria-label="Condividi la classifica nelle stories"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg></button>' : '';
+    return `<section><div class="sec-h"><h2>Classifica ${cond}</h2><div class="ctrl">${seg('cla', S.cla)}${vista}</div></div>${corpo}${leg}</section>`;
   },
   commenti() {
     return `${conferenzaHtml()}<section><div class="sec-h"><h2>Commenti di giornata</h2><p>Articoli e video</p></div>
@@ -618,6 +624,7 @@ function render() {
   document.getElementById('app').innerHTML = cur.startsWith('squadra-') ? VIEWS.squadra(cur.slice(8)) : VIEWS[cur]();
   if (S.ancora) { const el = document.getElementById(S.ancora); S.ancora = null; if (el) el.scrollIntoView(); }
 }
+/* Immagine per le stories (1080x1920): risultato, tabellino e conferenza stampa dei due allenatori */
 /* Immagine per le stories (1080x1920): risultato, tabellino e conferenza stampa dei due allenatori */
 const STORY = (() => {
   const W = 1080, H = 1920;
@@ -737,7 +744,97 @@ const STORY = (() => {
     c.textAlign = 'center'; c.fillStyle = '#92a3c1'; c.font = `500 28px ${F_BODY}`; c.fillText('pinellus.github.io/fantasms2026', 540, fine + 30);
     return cv;
   }
-  return { disegna, W, H };
+
+  /* --- giornata intera --- */
+  function sfondo(c) {
+    const grad = c.createLinearGradient(0, 0, 0, H); grad.addColorStop(0, '#14234a'); grad.addColorStop(.45, '#0a111f'); grad.addColorStop(1, '#070c18');
+    c.fillStyle = grad; c.fillRect(0, 0, W, H);
+    const glow = c.createRadialGradient(200, 100, 0, 200, 100, 900); glow.addColorStop(0, 'rgba(75,147,255,.28)'); glow.addColorStop(1, 'rgba(75,147,255,0)');
+    c.fillStyle = glow; c.fillRect(0, 0, W, H); c.textBaseline = 'alphabetic';
+  }
+  function testata(c, o, sub) {
+    tondo(c, o.lega, 540, 282, 50);
+    c.textAlign = 'center'; c.fillStyle = '#eaf2ff'; c.font = `700 58px ${F_DISP}`; c.fillText('FANTA SMS ENGINEERING', 540, 405);
+    c.fillStyle = '#ff9033'; c.font = `600 36px ${F_DISP}`; c.fillText(o.titolo.toUpperCase(), 540, 452);
+    if (sub) { c.fillStyle = '#92a3c1'; c.font = `500 28px ${F_BODY}`; c.fillText(sub, 540, 494); }
+  }
+  function adatta(c, testo, maxW, px, min, peso, fam) {
+    for (let p = px; p >= min; p -= 2) { c.font = `${peso} ${p}px ${fam}`; if (c.measureText(testo).width <= maxW) return p; }
+    c.font = `${peso} ${min}px ${fam}`; return min;
+  }
+  function marcatori(m, lato) {
+    return [...new Set((m.ev || []).filter(e => e[0] === lato && ['gol', 'rig', 'ag'].includes(e[1])).map(e => e[2] + (e[1] === 'ag' ? ' (aut.)' : '')))].join(' · ');
+  }
+  function giornata(o) {
+    const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+    const c = cv.getContext('2d'), { g, T } = o, ps = g.partite.filter(m => m.gc != null);
+    sfondo(c); testata(c, o, g.serieA ? `${g.serieA}ª di Serie A · risultati` : 'Risultati');
+    const rowH = Math.min(220, 900 / Math.max(ps.length, 1)); let y = 560;
+    for (const m of ps) {
+      const casa = T[m.casa], fuori = T[m.fuori], pari = m.gc === m.gf, vc = pari || m.gc > m.gf, vf = pari || m.gf > m.gc;
+      c.fillStyle = '#111a2d'; c.beginPath(); c.roundRect(60, y, 960, rowH - 18, 26); c.fill(); c.strokeStyle = '#233352'; c.lineWidth = 2; c.stroke();
+      const cy = y + (rowH - 18) * .42;
+      tondo(c, o.logo(casa.id), 140, cy, 46); tondo(c, o.logo(fuori.id), 940, cy, 46);
+      c.textAlign = 'left'; c.fillStyle = vc ? '#fff' : '#92a3c1'; c.font = `700 34px ${F_DISP}`;
+      righe(c, casa.nome.toUpperCase(), 230, 2).forEach((r, i, a) => c.fillText(r, 205, cy + 12 - (a.length - 1) * 19 + i * 38));
+      c.textAlign = 'right'; c.fillStyle = vf ? '#fff' : '#92a3c1';
+      righe(c, fuori.nome.toUpperCase(), 230, 2).forEach((r, i, a) => c.fillText(r, 875, cy + 12 - (a.length - 1) * 19 + i * 38));
+      c.textAlign = 'center'; c.fillStyle = '#fff'; c.font = `700 84px ${F_DISP}`; c.fillText(`${m.gc}–${m.gf}`, 540, cy + 22);
+      if (m.pc != null) { c.fillStyle = '#92a3c1'; c.font = `500 26px ${F_BODY}`; c.fillText(`${num(m.pc)} · ${num(m.pf)}`, 540, cy + 62); }
+      const ys = y + rowH - 18 - 22;
+      for (const [lato, x, al] of [['c', 100, 'left'], ['f', 980, 'right']]) {
+        const t = marcatori(m, lato); if (!t) continue;
+        c.textAlign = al; c.fillStyle = '#c9d6ee'; c.font = `500 23px ${F_BODY}`;
+        let u = '⚽ ' + t; while (c.measureText(u).width > 432 && u.includes('·')) u = u.slice(0, u.lastIndexOf('·')).trim() + ' …';
+        c.fillText(u, x, ys);
+      }
+      y += rowH;
+    }
+    // in evidenza
+    const punt = ps.flatMap(m => [{ s: T[m.casa], p: m.pc }, { s: T[m.fuori], p: m.pf }]).filter(x => x.p != null);
+    if (punt.length) {
+      const best = punt.reduce((a, b) => b.p > a.p ? b : a), worst = punt.reduce((a, b) => b.p < a.p ? b : a);
+      y += 8;
+      [['MIGLIOR PUNTEGGIO', best, 60], ['PEGGIOR PUNTEGGIO', worst, 550]].forEach(([tit, x, x0]) => {
+        c.fillStyle = '#111a2d'; c.beginPath(); c.roundRect(x0, y, 470, 150, 22); c.fill(); c.strokeStyle = '#233352'; c.lineWidth = 2; c.stroke();
+        c.textAlign = 'left'; c.fillStyle = '#ff9033'; c.font = `700 26px ${F_DISP}`; c.fillText(tit, x0 + 26, y + 40);
+        tondo(c, o.logo(x.s.id), x0 + 70, y + 98, 34);
+        c.fillStyle = '#fff'; c.font = `700 52px ${F_DISP}`; c.fillText(num(x.p), x0 + 128, y + 112);
+        const px = adatta(c, x.s.nome.toUpperCase(), 190, 28, 18, 600, F_DISP); c.fillStyle = '#c9d6ee'; c.textAlign = 'right'; c.fillText(x.s.nome.toUpperCase(), x0 + 446, y + 112);
+      });
+      y += 150;
+    }
+    c.textAlign = 'center'; c.fillStyle = '#92a3c1'; c.font = `500 28px ${F_BODY}`; c.fillText('pinellus.github.io/fantasms2026', 540, y + 50);
+    return cv;
+  }
+
+  /* --- classifica --- */
+  function classificaStory(o) {
+    const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+    const c = cv.getContext('2d'), { T, righeCl } = o;
+    sfondo(c); testata(c, o, o.sub);
+    const x = { pos: 105, logo: 188, nome: 246, g: 640, dr: 745, ptt: 890, pt: 985 };
+    c.fillStyle = '#92a3c1'; c.font = `700 24px ${F_DISP}`;
+    c.textAlign = 'left'; c.fillText('SQUADRA', x.nome, 560);
+    c.textAlign = 'right'; c.fillText('G', x.g, 560); c.fillText('DR', x.dr, 560); c.fillText('PT TOT.', x.ptt, 560); c.fillText('PT', x.pt, 560);
+    const h = Math.min(122, 960 / righeCl.length); let y = 580;
+    righeCl.forEach((r, i) => {
+      const sq = T[r.id], cy = y + (h - 12) / 2;
+      c.fillStyle = i === 0 ? '#16284a' : '#111a2d'; c.beginPath(); c.roundRect(60, y, 960, h - 12, 22); c.fill();
+      c.strokeStyle = i === 0 ? '#4b93ff' : '#233352'; c.lineWidth = i === 0 ? 3 : 2; c.stroke();
+      c.textAlign = 'center'; c.fillStyle = i === 0 ? '#ff9033' : '#92a3c1'; c.font = `700 48px ${F_DISP}`; c.fillText(String(i + 1), x.pos, cy + 17);
+      tondo(c, o.logo(r.id), x.logo, cy, 36);
+      c.textAlign = 'left'; c.fillStyle = '#fff'; adatta(c, sq.nome.toUpperCase(), 365, 38, 22, 700, F_DISP); c.fillText(sq.nome.toUpperCase(), x.nome, cy + 13);
+      c.textAlign = 'right'; c.fillStyle = '#c9d6ee'; c.font = `600 34px ${F_BODY}`;
+      c.fillText(String(r.g), x.g, cy + 12); c.fillText((r.gf - r.gs > 0 ? '+' : '') + (r.gf - r.gs), x.dr, cy + 12);
+      c.fillStyle = '#92a3c1'; c.font = `500 30px ${F_BODY}`; c.fillText(num(r.ptt), x.ptt, cy + 11);
+      c.fillStyle = '#4b93ff'; c.font = `700 62px ${F_DISP}`; c.fillText(String(r.pt), x.pt, cy + 20);
+      y += h;
+    });
+    c.textAlign = 'center'; c.fillStyle = '#92a3c1'; c.font = `500 28px ${F_BODY}`; c.fillText('pinellus.github.io/fantasms2026', 540, y + 36);
+    return cv;
+  }
+  return { disegna, giornata, classifica: classificaStory, W, H };
 })();
 
 /* --- Condividi nelle stories --- */
@@ -745,20 +842,30 @@ if (!CanvasRenderingContext2D.prototype.roundRect) CanvasRenderingContext2D.prot
 function avviso(t) { let e = document.getElementById('toast'); if (!e) { e = document.createElement('div'); e.id = 'toast'; document.body.appendChild(e); } e.textContent = t; e.hidden = false; clearTimeout(avviso.t); avviso.t = setTimeout(() => { e.hidden = true; }, 3500); }
 const caricaImg = src => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.onerror = () => r(i); i.src = src; });
 async function condividi(btn) {
-  const [comp, n, i] = btn.dataset.share.split('|');
-  const g = D.giornate.find(x => x.comp === comp && x.n === +n), m = g && g.partite[+i];
-  if (!m || !giocata(m)) return;
+  const [tipo, comp, n, i] = btn.dataset.share.split('|');
+  const g = tipo === 'c' ? null : D.giornate.find(x => x.comp === comp && x.n === +n), m = g && tipo === 'm' ? g.partite[+i] : null;
+  if (tipo === 'm' && (!m || !giocata(m))) return;
   btn.disabled = true;
   try {
     try { await Promise.all(['700 58px "Saira Condensed"', '600 34px "IBM Plex Sans"', 'italic 400 30px "IBM Plex Sans"'].map(f => document.fonts.load(f))); } catch (e) {}
     const imgs = {}; await Promise.all(D.squadre.map(async s => { imgs[s.id] = await caricaImg(logo(s.id)); }));
-    const lega = await caricaImg('img/lega.webp');
-    const ultima = id => (comp === 'campionato' ? (D.dichiarazioni || []).find(x => x.sq === id && x.n === g.n) : null) || null;
-    const cv = STORY.disegna({ g, m, T, logo: id => imgs[id], lega, titolo: `${g.n}ª di Lega · ${comp === 'coppa' ? 'Coppa' : 'Campionato'}`, dich: { casa: ultima(m.casa), fuori: ultima(m.fuori) } });
-    const blob = await new Promise(r => cv.toBlob(r, 'image/png'));
-    const nome = `fanta-sms-${m.casa}-${m.fuori}-${comp}${g.n}.png`, file = new File([blob], nome, { type: 'image/png' });
+    const lega = await caricaImg('img/lega.webp'), logoDi = id => imgs[id], nomeComp = comp === 'coppa' ? 'Coppa' : 'Campionato';
+    let cv, nome, titolo;
+    if (tipo === 'm') {
+      const ultima = id => (comp === 'campionato' ? (D.dichiarazioni || []).find(x => x.sq === id && x.n === g.n) : null) || null;
+      cv = STORY.disegna({ g, m, T, logo: logoDi, lega, titolo: `${g.n}ª di Lega · ${nomeComp}`, dich: { casa: ultima(m.casa), fuori: ultima(m.fuori) } });
+      nome = `fanta-sms-${m.casa}-${m.fuori}-${comp}${g.n}.png`; titolo = `${T[m.casa].nome} ${m.gc}–${m.gf} ${T[m.fuori].nome}`;
+    } else if (tipo === 'g') {
+      cv = STORY.giornata({ g, T, logo: logoDi, lega, titolo: `${g.n}ª di Lega · ${nomeComp}` });
+      nome = `fanta-sms-${comp}${g.n}-risultati.png`; titolo = `${g.n}ª di Lega · risultati`;
+    } else {
+      const righeCl = classificaCampionato();
+      cv = STORY.classifica({ T, righeCl, logo: logoDi, lega, titolo: 'Classifica Campionato', sub: `Dopo la ${Math.max(...righeCl.map(r => r.g))}ª giornata` });
+      nome = 'fanta-sms-classifica.png'; titolo = 'Classifica Campionato';
+    }
+    const blob = await new Promise(r => cv.toBlob(r, 'image/png')), file = new File([blob], nome, { type: 'image/png' });
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      try { await navigator.share({ files: [file], title: `${T[m.casa].nome} ${m.gc}–${m.gf} ${T[m.fuori].nome}` }); } catch (e) { if (e.name !== 'AbortError') throw e; }
+      try { await navigator.share({ files: [file], title: titolo }); } catch (e) { if (e.name !== 'AbortError') throw e; }
     } else {
       const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nome; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
       avviso('Immagine scaricata: puoi pubblicarla nelle stories.');
