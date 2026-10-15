@@ -61,8 +61,8 @@ a { color: var(--accent); }
 .tabs a[aria-current="page"] { color: var(--fg); border-bottom-color: var(--accent); }
 /* telefono: le 5 voci stanno tutte nella riga, senza scorrimento */
 @media (max-width: 560px) {
-  .tabs { flex: 1 1 100%; overflow: visible; }
-  .tabs a { flex: 1 1 0; min-width: 0; text-align: center; padding: 10px 2px 10px; font-size: clamp(11.5px, 3.4vw, 14px); letter-spacing: .03em; }
+  .tabs { flex: 1 1 100%; overflow-x: auto; gap: 0; }
+  .tabs a { flex: 1 0 auto; text-align: center; padding: 10px clamp(4px, 1.8vw, 8px) 10px; font-size: clamp(11px, 3.2vw, 13px); letter-spacing: .02em; white-space: nowrap; }
   .brand { padding-bottom: 4px; }
 }
 
