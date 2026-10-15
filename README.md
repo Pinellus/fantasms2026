@@ -68,6 +68,8 @@ Classifica e statistiche si ricalcolano da sole. L'ordine degli spareggi è in `
 
 Il calendario ufficiale della Serie A 2026/27 è in `dati/lega.json`, nell'elenco `calendarioSerieA` (38 giornate con data e partite). Ogni giornata di Campionato e Coppa rimanda alla giornata reale con un link.
 
+I risultati reali della Serie A stanno nella stessa lista: ogni partita è `[casa, fuori, gol casa, gol fuori]` (gli ultimi due si omettono se la partita non è ancora giocata). **Regola di lavoro: ogni volta che si inseriscono i risultati della lega dagli screenshot, si aggiornano anche i risultati della Serie A giocati fino a quel momento** (fonte: Sky Sport; controllare che le coppie casa-fuori coincidano con il calendario e aggiornare `aggiornato`).
+
 Dati e figurine provengono dall'app di fantacalcio.it.
 
 ## Credits
