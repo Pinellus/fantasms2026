@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-10-13",
+ "aggiornato": "2026-10-15",
  "lega": {
   "nome": "Fanta SMS Engineering",
   "stagione": "2026/27",
@@ -3543,43 +3543,63 @@
    "partite": [
     [
      "Atalanta",
-     "Sassuolo"
+     "Sassuolo",
+     2,
+     1
     ],
     [
      "Bologna",
-     "Lazio"
+     "Lazio",
+     0,
+     1
     ],
     [
      "Frosinone",
-     "Juventus"
+     "Juventus",
+     0,
+     1
     ],
     [
      "Genoa",
-     "Napoli"
+     "Napoli",
+     0,
+     2
     ],
     [
      "Inter",
-     "Monza"
+     "Monza",
+     4,
+     1
     ],
     [
      "Parma",
-     "Cagliari"
+     "Cagliari",
+     0,
+     1
     ],
     [
      "Roma",
-     "Fiorentina"
+     "Fiorentina",
+     4,
+     0
     ],
     [
      "Torino",
-     "Milan"
+     "Milan",
+     1,
+     2
     ],
     [
      "Udinese",
-     "Como"
+     "Como",
+     1,
+     1
     ],
     [
      "Venezia",
-     "Lecce"
+     "Lecce",
+     0,
+     2
     ]
    ]
   },
@@ -3589,43 +3609,63 @@
    "partite": [
     [
      "Atalanta",
-     "Bologna"
+     "Bologna",
+     1,
+     0
     ],
     [
      "Cagliari",
-     "Inter"
+     "Inter",
+     0,
+     1
     ],
     [
      "Fiorentina",
-     "Frosinone"
+     "Frosinone",
+     0,
+     3
     ],
     [
      "Juventus",
-     "Parma"
+     "Parma",
+     2,
+     0
     ],
     [
      "Lazio",
-     "Genoa"
+     "Genoa",
+     1,
+     0
     ],
     [
      "Lecce",
-     "Roma"
+     "Roma",
+     0,
+     4
     ],
     [
      "Milan",
-     "Venezia"
+     "Venezia",
+     2,
+     0
     ],
     [
      "Monza",
-     "Udinese"
+     "Udinese",
+     2,
+     3
     ],
     [
      "Napoli",
-     "Como"
+     "Como",
+     1,
+     2
     ],
     [
      "Sassuolo",
-     "Torino"
+     "Torino",
+     2,
+     1
     ]
    ]
   },
@@ -3635,43 +3675,63 @@
    "partite": [
     [
      "Bologna",
-     "Sassuolo"
+     "Sassuolo",
+     2,
+     2
     ],
     [
      "Cagliari",
-     "Lecce"
+     "Lecce",
+     1,
+     0
     ],
     [
      "Fiorentina",
-     "Torino"
+     "Torino",
+     1,
+     2
     ],
     [
      "Frosinone",
-     "Venezia"
+     "Venezia",
+     3,
+     2
     ],
     [
      "Genoa",
-     "Como"
+     "Como",
+     1,
+     4
     ],
     [
      "Inter",
-     "Napoli"
+     "Napoli",
+     3,
+     2
     ],
     [
      "Juventus",
-     "Milan"
+     "Milan",
+     1,
+     1
     ],
     [
      "Parma",
-     "Monza"
+     "Monza",
+     1,
+     1
     ],
     [
      "Roma",
-     "Atalanta"
+     "Atalanta",
+     2,
+     1
     ],
     [
      "Udinese",
-     "Lazio"
+     "Lazio",
+     1,
+     2
     ]
    ]
   },
@@ -3681,43 +3741,63 @@
    "partite": [
     [
      "Atalanta",
-     "Cagliari"
+     "Cagliari",
+     1,
+     2
     ],
     [
      "Como",
-     "Parma"
+     "Parma",
+     2,
+     1
     ],
     [
      "Genoa",
-     "Frosinone"
+     "Frosinone",
+     1,
+     1
     ],
     [
      "Inter",
-     "Udinese"
+     "Udinese",
+     5,
+     3
     ],
     [
      "Lazio",
-     "Milan"
+     "Milan",
+     2,
+     2
     ],
     [
      "Lecce",
-     "Monza"
+     "Monza",
+     3,
+     2
     ],
     [
      "Napoli",
-     "Bologna"
+     "Bologna",
+     1,
+     0
     ],
     [
      "Sassuolo",
-     "Juventus"
+     "Juventus",
+     3,
+     2
     ],
     [
      "Torino",
-     "Roma"
+     "Roma",
+     0,
+     2
     ],
     [
      "Venezia",
-     "Fiorentina"
+     "Fiorentina",
+     2,
+     4
     ]
    ]
   },
@@ -3727,43 +3807,63 @@
    "partite": [
     [
      "Bologna",
-     "Torino"
+     "Torino",
+     1,
+     1
     ],
     [
      "Fiorentina",
-     "Napoli"
+     "Napoli",
+     1,
+     1
     ],
     [
      "Frosinone",
-     "Como"
+     "Como",
+     2,
+     0
     ],
     [
      "Juventus",
-     "Atalanta"
+     "Atalanta",
+     2,
+     0
     ],
     [
      "Milan",
-     "Lecce"
+     "Lecce",
+     3,
+     0
     ],
     [
      "Monza",
-     "Sassuolo"
+     "Sassuolo",
+     2,
+     1
     ],
     [
      "Parma",
-     "Genoa"
+     "Genoa",
+     2,
+     1
     ],
     [
      "Roma",
-     "Inter"
+     "Inter",
+     2,
+     2
     ],
     [
      "Udinese",
-     "Cagliari"
+     "Cagliari",
+     0,
+     1
     ],
     [
      "Venezia",
-     "Lazio"
+     "Lazio",
+     0,
+     2
     ]
    ]
   },
@@ -3773,43 +3873,63 @@
    "partite": [
     [
      "Atalanta",
-     "Venezia"
+     "Venezia",
+     3,
+     1
     ],
     [
      "Cagliari",
-     "Juventus"
+     "Juventus",
+     1,
+     1
     ],
     [
      "Como",
-     "Roma"
+     "Roma",
+     0,
+     0
     ],
     [
      "Genoa",
-     "Fiorentina"
+     "Fiorentina",
+     2,
+     1
     ],
     [
      "Inter",
-     "Parma"
+     "Parma",
+     3,
+     0
     ],
     [
      "Lazio",
-     "Monza"
+     "Monza",
+     3,
+     1
     ],
     [
      "Lecce",
-     "Bologna"
+     "Bologna",
+     1,
+     2
     ],
     [
      "Napoli",
-     "Frosinone"
+     "Frosinone",
+     3,
+     0
     ],
     [
      "Sassuolo",
-     "Milan"
+     "Milan",
+     1,
+     1
     ],
     [
      "Torino",
-     "Udinese"
+     "Udinese",
+     2,
+     1
     ]
    ]
   },

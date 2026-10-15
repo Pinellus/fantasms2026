@@ -236,6 +236,10 @@ footer { border-top: 1px solid var(--line); padding-block: 18px 28px; color: var
 .sa-m span:first-child { text-align: right; font-weight: 600; }
 .sa-m span:last-child { font-weight: 600; }
 .sa-m i { text-align: center; color: var(--muted); font-style: normal; }
+.sa-m.fin { grid-template-columns: minmax(0, 1fr) 54px minmax(0, 1fr); }
+.sa-m.fin span { font-weight: 500; color: var(--muted); }
+.sa-m.fin span.w { font-weight: 700; color: var(--fg); }
+.sa-m i.sc { font-weight: 700; color: var(--fg); background: var(--surface2); border-radius: 6px; padding: 3px 0; font-variant-numeric: tabular-nums; }
 .sa-lega { margin-top: 12px; color: var(--muted); font-size: 14px; }
 .sa-lega a { color: var(--accent); }
 .cerca { position: relative; margin-bottom: 16px; }
@@ -452,9 +456,9 @@ function serieAHtml() {
       <select id="sa" aria-label="Giornata di Serie A">${cal.map(x => `<option value="${x.n}"${x.n === r.n ? ' selected' : ''}>${x.n}ª giornata · ${new Date(x.data + 'T12:00:00').toLocaleDateString('it-IT', { day: 'numeric', month: 'short' })}</option>`).join('')}</select>
       <button type="button" data-act="sa" data-v="${r.n + 1}"${r.n >= cal.length ? ' disabled' : ''} aria-label="Giornata successiva">→</button></div>
     <section class="gio"><div class="gio-h"><h3>${r.n}ª di Serie A</h3><span class="tag">${esc(data)}</span></div>
-      ${r.partite.map(([a, b]) => `<div class="sa-m"><span>${esc(a)}</span><i>–</i><span>${esc(b)}</span></div>`).join('')}</section>
+      ${r.partite.map(([a, b, x, y]) => { const g = x != null; return `<div class="sa-m${g ? ' fin' : ''}"><span${g && x > y ? ' class="w"' : ''}>${esc(a)}</span>${g ? `<i class="sc">${x}–${y}</i>` : '<i>–</i>'}<span${g && y > x ? ' class="w"' : ''}>${esc(b)}</span></div>`; }).join('')}</section>
     <p class="sa-lega">${lega.length ? 'Nella nostra lega: ' + lega.map(g => `<a href="#lega-${g.comp}-${g.n}">${g.n}ª di Lega · ${g.comp === 'coppa' ? 'Coppa' : 'Campionato'}</a>`).join(' · ') : 'Questa giornata non è in programma nella nostra lega.'}</p>
-    <p class="fonte">Calendario ufficiale Serie A Enilive 2026/27. Le date sono quelle indicate per ogni giornata; gli orari delle singole partite possono variare.</p>`;
+    <p class="fonte">Calendario ufficiale Serie A Enilive 2026/27. Le date sono quelle indicate per ogni giornata; gli orari delle singole partite possono variare. Risultati aggiornati a fine giornata.</p>`;
 }
 
 const norm = x => String(x).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
