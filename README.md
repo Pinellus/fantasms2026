@@ -72,5 +72,8 @@ I risultati reali della Serie A stanno nella stessa lista: ogni partita è `[cas
 
 Dati e figurine provengono dall'app di fantacalcio.it.
 
+## Statistiche
+La pagina `#stats` (sottomenu della Classifica) si calcola da sola dai risultati e dagli eventi già presenti: andamento della classifica (posizione e punti per giornata), «fortuna» (punti reali meno punti attesi, confrontando i gol di ogni giornata con quelli di tutte le altre squadre), record, classifiche per evento (marcatori, assist, ammoniti...) e gol per reparto. Non servono dati in più. I voti dei singoli giocatori (file di fantacalcio.it) sono per uso personale e non vanno pubblicati nel sito né nel repository.
+
 ## Credits
 Sito ideato e curato da **Pinellus** · https://pinellus.github.io/fantasms2026

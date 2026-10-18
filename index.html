@@ -124,6 +124,57 @@ main { padding-block: 22px 40px; display: grid; gap: 28px; }
 .seg button + button { border-left: 1px solid var(--line); }
 .seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
 
+/* sottomenu classifica / statistiche */
+.seg a { display: inline-block; font: 600 14px/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; padding: 10px 16px; color: var(--muted); text-decoration: none; }
+.seg a + a { border-left: 1px solid var(--line); }
+.seg a[aria-current="page"] { background: var(--accent); color: var(--accent-ink); }
+
+/* statistiche */
+.st-sez { margin-top: 26px; }
+.st-sez > h3 { font: 600 14px/1 var(--f-display); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 4px; }
+.st-sez > p.sub { margin: 0 0 12px; color: var(--muted); font-size: 14px; }
+.st-card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+.st-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.ch { width: 100%; height: auto; display: block; overflow: visible; }
+.ch text { fill: var(--muted); font: 500 12px var(--f-body); }
+.ch .grid { stroke: var(--line); stroke-width: 1; }
+.ch .ln { fill: none; stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; transition: opacity .15s; }
+.ch .dim { opacity: .16; }
+.lg-wrap { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.lg { display: inline-flex; align-items: center; gap: 6px; font: 500 13px/1 var(--f-body); color: var(--fg); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 6px 10px 6px 7px; cursor: pointer; max-width: 100%; }
+.lg i { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.lg span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 150px; }
+.lg[aria-pressed="true"] { background: var(--surface2); border-color: var(--accent); }
+.nota { color: var(--muted); font-size: 13px; margin: 10px 0 0; }
+.fo { display: grid; grid-template-columns: 22px minmax(0, 1fr) 38px 46px 70px 46px; gap: 6px; align-items: center; padding: 9px 0; }
+.fo + .fo { border-top: 1px solid var(--line); }
+.fo.h { color: var(--muted); font: 600 11px/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; padding-top: 0; }
+.fo img { width: 22px; height: 22px; }
+.fo .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+.fo .v { text-align: right; font-variant-numeric: tabular-nums; }
+.fo .bar { position: relative; height: 16px; }
+.fo .bar::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--line); }
+.fo .bar b { position: absolute; top: 3px; bottom: 3px; border-radius: 3px; }
+.fo .sg { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+.rec { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
+.rec > div { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.rec small { display: block; color: var(--muted); font: 600 12px/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; }
+.rec .big { display: flex; align-items: center; gap: 10px; margin-top: 8px; font: 600 26px/1 var(--f-display); }
+.rec .big img { width: 30px; height: 30px; }
+.rec .big span { font: 500 13px/1.3 var(--f-body); color: var(--muted); }
+.boards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+.board { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.board h4 { margin: 0 0 6px; font: 600 15px/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; }
+.board .r { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 6px 0; }
+.board .r + .r { border-top: 1px solid var(--line); }
+.board .r img { width: 22px; height: 22px; }
+.board .r span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.board .r b { font-variant-numeric: tabular-nums; }
+.rep { display: grid; grid-template-columns: 110px minmax(0, 1fr) 36px; gap: 10px; align-items: center; padding: 6px 0; }
+.rep .t { height: 14px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+.rep .t b { display: block; height: 100%; background: var(--accent); border-radius: 4px; }
+@media (max-width: 480px) { .fo { gap: 5px; } .fo .bar { height: 14px; } .rep { grid-template-columns: 96px minmax(0, 1fr) 30px; } }
+
 /* tabelle */
 .tbl-h { font: 600 14px/1 var(--f-display); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 18px 0 8px; }
 .tbl-h:first-child { margin-top: 0; }
@@ -477,6 +528,69 @@ function cercaHtml(q) {
       <a class="di" href="#squadra-${s.id}"><img src="${logo(s.id)}" alt="" width="28" height="28"><span>${esc(s.nome)}</span></a></div>`).join('')}</div>`;
 }
 
+// <stats>
+const COLORI = { vesuviani: '#4b93ff', zonaflegrea: '#16b88a', backend: '#ef5350', dns: '#f2a900', futuro: '#a779ff', orsonaldo: '#ec5fb0', scarsenal: '#ff7b2e', veeam: '#8bc34a' };
+function giornateGiocate(comp) { return D.giornate.filter(g => g.comp === comp && statoGiornata(g) === 'giocata'); }
+function andamento() {
+  const ids = D.competizioni.campionato.squadre, gg = giornateGiocate('campionato');
+  const serie = ids.map(id => ({ id, pos: [], pt: [] }));
+  let acc = [];
+  for (const g of gg) {
+    acc = acc.concat(g.partite);
+    classifica(ids, acc, D.criteri).forEach((r, i) => { const o = serie.find(x => x.id === r.id); o.pos.push(i + 1); o.pt.push(r.pt); });
+  }
+  return { nums: gg.map(g => g.n), serie };
+}
+// Punti attesi: in ogni giornata confronto i gol di una squadra con quelli di ognuna delle altre (3 vittoria, 1 pari, 0 sconfitta) e faccio la media.
+function fortuna() {
+  const ids = D.competizioni.campionato.squadre, ris = new Map(ids.map(id => [id, { id, reali: 0, attesi: 0 }]));
+  for (const g of giornateGiocate('campionato')) {
+    const gol = {};
+    for (const m of g.partite) {
+      gol[m.casa] = m.gc; gol[m.fuori] = m.gf;
+      ris.get(m.casa).reali += m.gc > m.gf ? 3 : m.gc === m.gf ? 1 : 0;
+      ris.get(m.fuori).reali += m.gf > m.gc ? 3 : m.gc === m.gf ? 1 : 0;
+    }
+    for (const i of ids) {
+      let t = 0;
+      for (const j of ids) if (i !== j) t += gol[i] > gol[j] ? 3 : gol[i] === gol[j] ? 1 : 0;
+      ris.get(i).attesi += t / (ids.length - 1);
+    }
+  }
+  return [...ris.values()].map(r => ({ ...r, f: r.reali - r.attesi })).sort((a, b) => b.f - a.f);
+}
+function recordStats() {
+  const v = [];
+  for (const g of D.giornate) for (const m of g.partite) if (giocata(m) && m.pc != null && m.pf != null) {
+    v.push({ id: m.casa, p: m.pc, contro: m.fuori, g, gol: m.gc, golC: m.gf }, { id: m.fuori, p: m.pf, contro: m.casa, g, gol: m.gf, golC: m.gc });
+  }
+  if (!v.length) return null;
+  const max = v.reduce((a, b) => b.p > a.p ? b : a), min = v.reduce((a, b) => b.p < a.p ? b : a);
+  const scarto = v.map(x => ({ ...x, d: x.p - v.find(y => y !== x && y.id === x.contro && y.g === x.g && y.contro === x.id).p })).reduce((a, b) => b.d > a.d ? b : a);
+  const gol = v.reduce((a, b) => (b.gol + b.golC) > (a.gol + a.golC) ? b : a);
+  return { max, min, scarto, gol };
+}
+function statsEventi() {
+  const ruolo = {};
+  for (const s of D.squadre) { ruolo[s.id] = {}; for (const p of s.rosa) ruolo[s.id][p[1]] = p[0]; }
+  const T_ = { gol: ['gol', 'rig'], ass: ['ass'], amm: ['amm'], esp: ['esp'], cs: ['cs'], rp: ['rp'], pm: ['pm'], ag: ['ag'] };
+  const cont = {}, reparto = { P: 0, D: 0, C: 0, A: 0, '?': 0 };
+  for (const k in T_) cont[k] = new Map();
+  for (const g of D.giornate) for (const m of g.partite) if (giocata(m)) for (const [lato, tipo, nome] of (m.ev || [])) {
+    const lista = Object.keys(T_).find(k => T_[k].includes(tipo));
+    if (!lista) continue;
+    const lui = lato === 'c' ? m.casa : m.fuori, altro = lato === 'c' ? m.fuori : m.casa;
+    let team = tipo === 'ag' ? altro : lui;
+    const alt = team === lui ? altro : lui;
+    if (!(nome in ruolo[team]) && nome in ruolo[alt]) team = alt;
+    const key = team + '|' + nome, o = cont[lista].get(key) || { team, nome, n: 0 };
+    o.n++; cont[lista].set(key, o);
+    if (lista === 'gol') reparto[ruolo[team][nome] || '?']++;
+  }
+  return { cont, reparto };
+}
+// </stats>
+
 const VIEWS = {
   home() {
     const camp = prossima('campionato'), coppa = prossima('coppa');
@@ -554,7 +668,67 @@ const VIEWS = {
       : tabellaHtml(classificaCampionato());
     const vista = seg('vista', S.vista, [['compatta', 'Compatta'], ['dettaglio', 'Dettaglio']], 'Vista');
     const cond = S.cla === 'campionato' && partiteDi('campionato').some(giocata) ? '<button class="share bordo" data-share="c|campionato" title="Condividi la classifica nelle stories" aria-label="Condividi la classifica nelle stories"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg></button>' : '';
-    return `<section><div class="sec-h"><h2>Classifica ${cond}</h2><div class="ctrl">${seg('cla', S.cla)}${vista}</div></div>${corpo}${leg}</section>`;
+    const sub = '<div class="seg" role="group" aria-label="Sezione"><a href="#classifica" aria-current="page">Classifica</a><a href="#stats">Statistiche</a></div>';
+    return `<section><div class="sec-h"><h2>Classifica ${cond}</h2><div class="ctrl">${sub}</div></div><div class="ctrl" style="margin-bottom:12px">${seg('cla', S.cla)}${vista}</div>${corpo}${leg}</section>`;
+  },
+  stats() {
+    const sub = `<div class="seg" role="group" aria-label="Sezione"><a href="#classifica">Classifica</a><a href="#stats" aria-current="page">Statistiche</a></div>`;
+    const gg = giornateGiocate('campionato'), ev = statsEventi(), rec = recordStats();
+    const ids = D.competizioni.campionato.squadre;
+    if (!gg.length && !rec) return `<section><div class="sec-h"><h2>Statistiche</h2>${sub}</div><div class="vuoto"><strong>Le statistiche si accendono dopo la prima giornata</strong>Andamento, fortuna e classifiche dei marcatori compaiono appena ci sono i risultati.</div></section>`;
+    const fmt = (n, d = 1) => n.toLocaleString('it-IT', { minimumFractionDigits: d, maximumFractionDigits: d });
+    const sg = n => (n > 0.005 ? '+' : n < -0.005 ? '−' : '') + fmt(Math.abs(n));
+    // ---- andamento ----
+    const A = andamento(), modo = S.stm === 'pt' ? 'pt' : 'pos', hi = T[S.sthi] ? S.sthi : '';
+    const W = 640, H = 300, L = 30, R = 40, TT = 16, B = 30, nS = ids.length;
+    const maxPt = Math.max(3, ...A.serie.flatMap(x => x.pt)), maxT = Math.ceil(maxPt / 3) * 3;
+    const px = i => A.nums.length < 2 ? L + (W - L - R) / 2 : L + i * (W - L - R) / (A.nums.length - 1);
+    const py = v => modo === 'pos' ? TT + (v - 1) * (H - TT - B) / (nS - 1) : TT + (H - TT - B) * (1 - v / maxT);
+    const ticks = modo === 'pos' ? Array.from({ length: nS }, (_, i) => i + 1) : Array.from({ length: maxT / 3 + 1 }, (_, i) => i * 3);
+    let svg = `<svg class="ch" viewBox="0 0 ${W} ${H}" role="img" aria-label="${modo === 'pos' ? 'Posizione in classifica' : 'Punti'} dopo ogni giornata"><defs>${ids.map(id => `<clipPath id="cp-${id}"><circle cx="0" cy="0" r="11"/></clipPath>`).join('')}</defs>`;
+    svg += ticks.map(t => `<line class="grid" x1="${L}" x2="${W - R + 10}" y1="${py(t)}" y2="${py(t)}"/><text x="${L - 8}" y="${py(t) + 4}" text-anchor="end">${t}</text>`).join('');
+    svg += A.nums.map((n, i) => `<text x="${px(i)}" y="${H - 8}" text-anchor="middle">${n}ª</text>`).join('');
+    const ordine = [...A.serie].sort((a, b) => (a.id === hi) - (b.id === hi));
+    for (const x of ordine) {
+      const v = modo === 'pos' ? x.pos : x.pt, col = COLORI[x.id], dim = hi && hi !== x.id ? ' dim' : '';
+      const pts = v.map((y, i) => `${px(i).toFixed(1)},${py(y).toFixed(1)}`).join(' ');
+      svg += `<g class="serie${dim}"><polyline class="ln" points="${pts}" stroke="${col}"${hi === x.id ? ' style="stroke-width:4.2"' : ''}/>${v.map((y, i) => `<circle cx="${px(i).toFixed(1)}" cy="${py(y).toFixed(1)}" r="3.6" fill="${col}"/>`).join('')}`;
+      if (modo === 'pos') { const i = v.length - 1; svg += `<g transform="translate(${(px(i) + 22).toFixed(1)},${py(v[i]).toFixed(1)})"><circle r="12" fill="${col}"/><image href="${logo(x.id)}" x="-11" y="-11" width="22" height="22" clip-path="url(#cp-${x.id})"/></g>`; }
+      svg += '</g>';
+    }
+    svg += '</svg>';
+    const leg = A.serie.map(x => `<button type="button" class="lg" data-act="sthi" data-v="${x.id}" aria-pressed="${hi === x.id}"><i style="background:${COLORI[x.id]}"></i><span>${esc(T[x.id].nome)}</span></button>`).join('');
+    const andH = gg.length ? `<div class="st-card"><div class="st-top"><span class="nota" style="margin:0">${A.nums.length === 1 ? 'Dopo la 1ª giornata. Il grafico prende forma dalla 2ª.' : `Dopo ${A.nums.length} giornate di Campionato`}</span>${seg('stm', modo, [['pos', 'Posizione'], ['pt', 'Punti']], 'Grafico')}</div>${svg}<div class="lg-wrap">${leg}</div><p class="nota">Tocca una squadra per metterla in evidenza.</p></div>` : '';
+    // ---- fortuna ----
+    const F = fortuna(), mx = Math.max(1, ...F.map(r => Math.abs(r.f)));
+    const forH = F.length && gg.length ? `<div class="st-card"><div class="fo h"><span></span><span>Squadra</span><span class="v">Reali</span><span class="v">Attesi</span><span></span><span class="v">+/−</span></div>${F.map(r => {
+      const w = Math.abs(r.f) / mx * 50, pos = r.f >= 0.005;
+      return `<div class="fo"><img src="${logo(r.id)}" alt="" width="22" height="22"><span class="n">${esc(T[r.id].nome)}</span><span class="v">${r.reali}</span><span class="v">${fmt(r.attesi)}</span>
+        <span class="bar"><b style="${pos ? 'left:50%' : 'right:50%'};width:${w}%;background:${pos ? '#2fb67c' : '#e5584f'}"></b></span><span class="sg" style="color:${pos ? '#2fb67c' : r.f < -0.005 ? '#e5584f' : 'var(--muted)'}">${sg(r.f)}</span></div>`;
+    }).join('')}<p class="nota">Punti attesi: i punti che avresti fatto se, in ogni giornata, avessi affrontato tutte le altre 7 squadre (i tuoi gol contro i loro: 3 vittoria, 1 pari, 0 sconfitta). La colonna +/− è la fortuna, cioè punti reali − punti attesi: se è positiva, il calendario ti ha aiutato; se è negativa, ti ha penalizzato.</p></div>` : '';
+    // ---- record ----
+    const pun = x => `${fmt(x.p)}`;
+    const recH = rec ? `<div class="rec">
+      <div><small>Miglior punteggio</small><div class="big"><img src="${logo(rec.max.id)}" alt="">${pun(rec.max)}</div><span class="nota" style="display:block;margin-top:6px">${esc(T[rec.max.id].nome)} · ${rec.max.g.n}ª di ${rec.max.g.comp === 'coppa' ? 'Coppa' : 'Lega'}</span></div>
+      <div><small>Peggior punteggio</small><div class="big"><img src="${logo(rec.min.id)}" alt="">${pun(rec.min)}</div><span class="nota" style="display:block;margin-top:6px">${esc(T[rec.min.id].nome)} · ${rec.min.g.n}ª di ${rec.min.g.comp === 'coppa' ? 'Coppa' : 'Lega'}</span></div>
+      <div><small>Vittoria più larga</small><div class="big"><img src="${logo(rec.scarto.id)}" alt="">+${fmt(rec.scarto.d)}</div><span class="nota" style="display:block;margin-top:6px">${esc(T[rec.scarto.id].nome)} su ${esc(T[rec.scarto.contro].nome)}</span></div>
+      <div><small>Partita con più gol</small><div class="big"><img src="${logo(rec.gol.id)}" alt="">${rec.gol.gol + rec.gol.golC}</div><span class="nota" style="display:block;margin-top:6px">${esc(T[rec.gol.id].nome)} ${rec.gol.gol}–${rec.gol.golC} ${esc(T[rec.gol.contro].nome)}</span></div></div>` : '';
+    // ---- classifiche per evento ----
+    const TIT = [['gol', 'Capocannonieri', 'gol, rigori compresi'], ['ass', 'Assist'], ['cs', 'Porte inviolate'], ['pm', 'Player of the match'], ['amm', 'Ammoniti'], ['esp', 'Espulsi'], ['rp', 'Rigori parati'], ['ag', 'Autogol']];
+    const bds = TIT.map(([k, t, n]) => {
+      const l = [...ev.cont[k].values()].sort((a, b) => b.n - a.n || a.nome.localeCompare(b.nome)).slice(0, 5);
+      return l.length ? `<div class="board"><h4>${t}</h4>${l.map(o => `<div class="r"><img src="${logo(o.team)}" alt="" width="22" height="22"><span>${esc(o.nome)}</span><b>${o.n}</b></div>`).join('')}${n ? `<p class="nota" style="margin:6px 0 0">${n}</p>` : ''}</div>` : '';
+    }).join('');
+    // ---- gol per reparto ----
+    const totG = Object.values(ev.reparto).reduce((a, b) => a + b, 0);
+    const repH = totG ? `<div class="st-card">${Object.entries(RUOLI).map(([r, nome]) => `<div class="rep"><span><span class="badge ${r}">${r}</span> ${nome}</span><span class="t"><b style="width:${ev.reparto[r] / totG * 100}%"></b></span><b>${ev.reparto[r]}</b></div>`).join('')}<p class="nota">Da quale reparto arrivano i gol di fantacalcio (rigori compresi, autogol esclusi), in Campionato e Coppa.</p></div>` : '';
+    const sez = (t, sotto, h) => h ? `<div class="st-sez"><h3>${t}</h3>${sotto ? `<p class="sub">${sotto}</p>` : ''}${h}</div>` : '';
+    return `<section><div class="sec-h"><h2>Statistiche</h2>${sub}</div>
+      ${sez('Andamento', 'Come cambia la classifica giornata dopo giornata', andH)}
+      ${sez('Fortuna', 'Quanto ha inciso il calendario sui punti', forH)}
+      ${sez('Record', '', recH)}
+      ${sez('Protagonisti', 'Campionato e Coppa', bds ? `<div class="boards">${bds}</div>` : '')}
+      ${sez('Chi segna', 'Gol per reparto', repH)}</section>`;
   },
   commenti() {
     return `${conferenzaHtml()}<section><div class="sec-h"><h2>Commenti di giornata</h2><p>Articoli e video</p></div>
@@ -618,12 +792,13 @@ function applicaHash() {
 function current() {
   const t = location.hash.slice(1);
   if (/^(seriea-\d+|lega-(campionato|coppa)-\d+)$/.test(t)) return 'calendario';
+  if (t === 'stats') return 'stats';
   if (t.startsWith('squadra-') && T[t.slice(8)]) return t;
   return SECTIONS.some(s => s[0] === t) ? t : 'home';
 }
 function render() {
   const cur = current();
-  const voce = cur.startsWith('squadra-') ? 'squadre' : cur;
+  const voce = cur.startsWith('squadra-') ? 'squadre' : cur === 'stats' ? 'classifica' : cur;
   document.getElementById('tabs').innerHTML = SECTIONS.map(([k, l]) => `<a href="#${k}"${k === voce ? ' aria-current="page"' : ''}>${l}</a>`).join('');
   document.getElementById('app').innerHTML = cur.startsWith('squadra-') ? VIEWS.squadra(cur.slice(8)) : VIEWS[cur]();
   if (S.ancora) { const el = document.getElementById(S.ancora); S.ancora = null; if (el) el.scrollIntoView(); }
@@ -889,7 +1064,7 @@ document.addEventListener('input', e => {
 document.addEventListener('click', e => {
   const b = e.target.closest('button[data-act]');
   if (!b) return;
-  S[b.dataset.act] = b.dataset.act === 'sa' ? +b.dataset.v : b.dataset.v;
+  S[b.dataset.act] = b.dataset.act === 'sa' ? +b.dataset.v : (b.dataset.act === 'sthi' && S.sthi === b.dataset.v) ? '' : b.dataset.v;
   render();
 });
 window.addEventListener('hashchange', () => { applicaHash(); const anc = S.ancora; render(); if (!anc) window.scrollTo(0, 0); });
