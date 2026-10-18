@@ -88,6 +88,37 @@ tr:first-child td.pos { color: var(--warm); }
 .ev .nulla { color: var(--muted); font-size: 1.3rem; padding: .4rem 0; }
 .ev li span.i { font-size: 1.6rem; }
 
+/* statistiche */
+.ch { width: 100%; flex: 1; min-height: 0; display: block; }
+.ch text { fill: var(--muted); font: 600 24px 'Saira Condensed', 'Arial Narrow', Arial, sans-serif; letter-spacing: .04em; }
+.ch text.nm { fill: var(--fg); font-size: 30px; font-weight: 700; text-transform: uppercase; }
+.ch .grid { stroke: var(--line); stroke-width: 1.5; }
+.ch .ln { fill: none; stroke-width: 6; stroke-linejoin: round; stroke-linecap: round; }
+.ft { flex: 1; display: block; }
+.ftr { display: grid; grid-template-columns: 3.2rem minmax(0, 1fr) 5.5rem 5.5rem 20rem 6.5rem; grid-column-gap: 1.2rem; align-items: center; padding: .34rem 1.2rem; border-bottom: 1px solid var(--line); font: 600 1.6rem/1.1 var(--f-display); letter-spacing: .03em; text-transform: uppercase; }
+.ftr > span:nth-child(2) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ftr.h { color: var(--muted); font-size: 1.2rem; letter-spacing: .1em; padding-top: 0; }
+.ftr img { width: 2.5rem; height: 2.5rem; border-radius: 50%; }
+.ftr .v { text-align: right; font-variant-numeric: tabular-nums; }
+.ftr .bar { position: relative; height: 1.4rem; }
+.ftr .bar:before { content: ""; position: absolute; left: 50%; top: -.3rem; bottom: -.3rem; width: 2px; background: var(--line); }
+.ftr .bar b { position: absolute; top: .15rem; bottom: .15rem; border-radius: .3rem; }
+.ftr .sg { text-align: right; font-size: 2rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.tre { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-column-gap: 1.6rem; }
+.bd { background: var(--surface); border: 1px solid var(--line); border-radius: .8rem; overflow: hidden; }
+.bd h3 { font: 700 1.5rem/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; color: var(--warm); padding: .7rem 1.2rem; background: var(--surface2); border-bottom: 1px solid var(--line); }
+.bd .r { display: grid; grid-template-columns: 2.6rem minmax(0, 1fr) 3rem; grid-column-gap: .9rem; align-items: center; padding: .38rem 1.2rem; font: 600 1.6rem/1.1 var(--f-display); letter-spacing: .02em; }
+.bd .r + .r { border-top: 1px solid var(--line); }
+.bd .r img { width: 2.4rem; height: 2.4rem; border-radius: 50%; }
+.bd .r span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bd .r b { text-align: right; color: var(--accent); font-size: 2rem; }
+.quattro { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-column-gap: 1.2rem; margin-top: 1.2rem; }
+.rc { background: var(--surface); border: 1px solid var(--line); border-radius: .8rem; padding: .8rem 1.2rem; }
+.rc small { display: block; color: var(--muted); font: 600 1.1rem/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; }
+.rc .big { display: flex; align-items: center; margin-top: .5rem; font: 700 3.4rem/1 var(--f-display); }
+.rc .big img { width: 3rem; height: 3rem; border-radius: 50%; margin-right: .8rem; }
+.rc .d { color: var(--muted); font: 500 1.15rem/1.25 var(--f-body); margin-top: .4rem; }
+
 /* striscia */
 .ticker { position: relative; z-index: 2; display: flex; align-items: stretch; background: #060b16; border-top: 2px solid var(--accent); height: 3.6rem; }
 .ticker .lab { flex: none; display: flex; align-items: center; padding: 0 1.4rem; background: var(--accent); color: var(--accent-ink); font: 700 1.5rem/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; }
@@ -123,7 +154,7 @@ td .sq > * + * { margin-left: 1rem; }
 </div>
 
 <script>
-/* Parametri nell'indirizzo:  ?durata=10  secondi per diapositiva  ·  ?sa=7  forza la giornata di Serie A  ·  ?striscia=0  nasconde la striscia
+/* Parametri nell'indirizzo:  ?durata=10  secondi per diapositiva  ·  ?sa=7  forza la giornata di Serie A  ·  ?striscia=0  nasconde la striscia  ·  ?stats=0  toglie le diapositive di statistiche
    Tasti: ← → cambiano diapositiva · spazio ferma/riprende · F schermo intero */
 const P = new URLSearchParams(location.search);
 const DURATA = Math.max(3, +P.get('durata') || 10) * 1000;
@@ -263,6 +294,106 @@ function slidePartita(g, m, i, tot, t) {
     </div>
     ${gg ? `<div class="ev"><div class="s">${eventiLato(m, 'c')}</div><div class="d">${eventiLato(m, 'f')}</div></div>` : ''}</div>`;
 }
+/* --- statistiche (stessi calcoli della pagina #stats del sito, scritti senza sintassi recente per il vecchio browser) --- */
+const COLORI = { vesuviani: '#4b93ff', zonaflegrea: '#16b88a', backend: '#ef5350', dns: '#f2a900', futuro: '#a779ff', orsonaldo: '#ec5fb0', scarsenal: '#ff7b2e', veeam: '#8bc34a' };
+function giornateGiocate(comp) { return D.giornate.filter(g => g.comp === comp && g.partite.length && g.partite.every(giocata)); }
+function andamento() {
+  const ids = D.competizioni.campionato.squadre, gg = giornateGiocate('campionato');
+  const serie = ids.map(id => ({ id: id, pos: [] }));
+  let acc = [];
+  gg.forEach(g => {
+    acc = acc.concat(g.partite);
+    classifica(ids, acc, D.criteri).forEach((r, i) => { serie.filter(x => x.id === r.id)[0].pos.push(i + 1); });
+  });
+  return { nums: gg.map(g => g.n), serie: serie };
+}
+function fortuna() {
+  const ids = D.competizioni.campionato.squadre, ris = {};
+  ids.forEach(id => { ris[id] = { id: id, reali: 0, attesi: 0 }; });
+  giornateGiocate('campionato').forEach(g => {
+    const gol = {};
+    g.partite.forEach(m => {
+      gol[m.casa] = m.gc; gol[m.fuori] = m.gf;
+      ris[m.casa].reali += m.gc > m.gf ? 3 : m.gc === m.gf ? 1 : 0;
+      ris[m.fuori].reali += m.gf > m.gc ? 3 : m.gc === m.gf ? 1 : 0;
+    });
+    ids.forEach(i => {
+      let t = 0;
+      ids.forEach(j => { if (i !== j) t += gol[i] > gol[j] ? 3 : gol[i] === gol[j] ? 1 : 0; });
+      ris[i].attesi += t / (ids.length - 1);
+    });
+  });
+  return ids.map(id => { const r = ris[id]; r.f = r.reali - r.attesi; return r; }).sort((a, b) => b.f - a.f);
+}
+function recordStats() {
+  const v = [];
+  D.giornate.forEach(g => g.partite.forEach(m => {
+    if (giocata(m) && m.pc != null && m.pf != null) {
+      v.push({ id: m.casa, p: m.pc, contro: m.fuori, g: g, gol: m.gc, golC: m.gf, pc: m.pf }, { id: m.fuori, p: m.pf, contro: m.casa, g: g, gol: m.gf, golC: m.gc, pc: m.pc });
+    }
+  }));
+  if (!v.length) return null;
+  const mx = (arr, f) => arr.reduce((a, b) => f(b) > f(a) ? b : a);
+  return { max: mx(v, x => x.p), min: mx(v, x => -x.p), scarto: mx(v, x => x.p - x.pc), gol: mx(v, x => x.gol + x.golC) };
+}
+function classificheEventi() {
+  const ruolo = {};
+  D.squadre.forEach(s => { ruolo[s.id] = {}; s.rosa.forEach(p => { ruolo[s.id][p[1]] = p[0]; }); });
+  const GR = { gol: ['gol', 'rig'], ass: ['ass'], cs: ['cs'], pm: ['pm'], amm: ['amm'] }, cont = {};
+  Object.keys(GR).forEach(k => { cont[k] = {}; });
+  D.giornate.forEach(g => g.partite.forEach(m => { if (!giocata(m)) return; (m.ev || []).forEach(e => {
+    const k = Object.keys(GR).filter(x => GR[x].indexOf(e[1]) >= 0)[0];
+    if (!k) return;
+    const lui = e[0] === 'c' ? m.casa : m.fuori, altro = e[0] === 'c' ? m.fuori : m.casa;
+    const team = (e[2] in ruolo[lui]) || !(e[2] in ruolo[altro]) ? lui : altro;
+    const key = team + '|' + e[2];
+    if (!cont[k][key]) cont[k][key] = { team: team, nome: e[2], n: 0 };
+    cont[k][key].n++;
+  }); }));
+  const top = k => Object.keys(cont[k]).map(x => cont[k][x]).sort((a, b) => b.n - a.n || a.nome.localeCompare(b.nome)).slice(0, 5);
+  return { gol: top('gol'), ass: top('ass'), cs: top('cs'), pm: top('pm'), amm: top('amm') };
+}
+const sgn = n => (n > 0.005 ? '+' : n < -0.005 ? '−' : '') + Math.abs(n).toLocaleString('it-IT', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+
+function slideAndamento() {
+  const A = andamento(), ids = D.competizioni.campionato.squadre, n = ids.length;
+  const W = 1700, H = 600, L = 50, R = 470, TT = 30, B = 50;
+  const px = i => L + i * (W - L - R) / (A.nums.length - 1), py = v => TT + (v - 1) * (H - TT - B) / (n - 1);
+  let svg = '<svg class="ch" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMidYMid meet"><defs>' + ids.map(id => '<clipPath id="cp-' + id + '"><circle cx="0" cy="0" r="24"/></clipPath>').join('') + '</defs>';
+  for (let t = 1; t <= n; t++) svg += '<line class="grid" x1="' + L + '" x2="' + (W - R + 20) + '" y1="' + py(t) + '" y2="' + py(t) + '"/><text x="' + (L - 14) + '" y="' + (py(t) + 8) + '" text-anchor="end">' + t + '</text>';
+  svg += A.nums.map((nn, i) => '<text x="' + px(i) + '" y="' + (H - 12) + '" text-anchor="middle">' + nn + 'ª</text>').join('');
+  A.serie.forEach(x => {
+    const col = COLORI[x.id], pts = x.pos.map((y, i) => px(i).toFixed(1) + ',' + py(y).toFixed(1)).join(' '), last = x.pos.length - 1;
+    svg += '<g><polyline class="ln" points="' + pts + '" stroke="' + col + '"/>' + x.pos.map((y, i) => '<circle cx="' + px(i).toFixed(1) + '" cy="' + py(y).toFixed(1) + '" r="8" fill="' + col + '"/>').join('');
+    svg += '<g transform="translate(' + (px(last) + 44) + ',' + py(x.pos[last]) + ')"><circle r="27" fill="' + col + '"/><image href="' + logo(x.id) + '" x="-24" y="-24" width="48" height="48" clip-path="url(#cp-' + x.id + ')"/></g>';
+    svg += '<text class="nm" x="' + (px(last) + 84) + '" y="' + (py(x.pos[last]) + 10) + '">' + esc(tronca(T[x.id].nome.toUpperCase(), 18)) + '</text></g>';
+  });
+  svg += '</svg>';
+  return '<h2>Andamento <span class="accent">classifica</span></h2><div class="sub">Posizione dopo ogni giornata di Campionato</div>' + svg;
+}
+function slideFortuna() {
+  const F = fortuna(), mx = Math.max.apply(null, [1].concat(F.map(r => Math.abs(r.f))));
+  return '<h2>Fortuna o <span class="accent">sfortuna</span>?</h2><div class="sub">Punti reali contro punti attesi contro tutte le altre squadre</div><div class="ft">' +
+    '<div class="ftr h"><span></span><span>Squadra</span><span class="v">Reali</span><span class="v">Attesi</span><span></span><span class="v">+ / −</span></div>' +
+    F.map(r => {
+      const w = Math.abs(r.f) / mx * 50, pos = r.f >= 0.005, col = pos ? 'var(--good)' : r.f < -0.005 ? 'var(--bad)' : 'var(--muted)';
+      return '<div class="ftr"><img src="' + logo(r.id) + '" alt=""><span>' + esc(T[r.id].nome) + '</span><span class="v">' + r.reali + '</span><span class="v">' + r.attesi.toLocaleString('it-IT', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + '</span>' +
+        '<span class="bar"><b style="' + (pos ? 'left:50%' : 'right:50%') + ';width:' + w + '%;background:' + col + '"></b></span><span class="sg" style="color:' + col + '">' + sgn(r.f) + '</span></div>';
+    }).join('') + '</div>';
+}
+function slideProtagonisti() {
+  const E = classificheEventi(), R = recordStats();
+  const bd = (t, l) => l.length ? '<div class="bd"><h3>' + t + '</h3>' + l.map(o => '<div class="r"><img src="' + logo(o.team) + '" alt=""><span>' + esc(o.nome) + '</span><b>' + o.n + '</b></div>').join('') + '</div>' : '';
+  const sc = [['Capocannonieri', E.gol], ['Assist', E.ass], ['Porte inviolate', E.cs], ['Player of the match', E.pm], ['Ammoniti', E.amm]].filter(x => x[1].length).slice(0, 3);
+  const rc = (t, x, big, d) => '<div class="rc"><small>' + t + '</small><div class="big"><img src="' + logo(x.id) + '" alt="">' + big + '</div><div class="d">' + d + '</div></div>';
+  const rec = R ? '<div class="quattro">' +
+    rc('Miglior punteggio', R.max, num(R.max.p), esc(T[R.max.id].nome) + ' · ' + R.max.g.n + 'ª di Lega') +
+    rc('Peggior punteggio', R.min, num(R.min.p), esc(T[R.min.id].nome) + ' · ' + R.min.g.n + 'ª di Lega') +
+    rc('Vittoria più larga', R.scarto, '+' + num(R.scarto.p - R.scarto.pc), esc(T[R.scarto.id].nome) + ' su ' + esc(T[R.scarto.contro].nome)) +
+    rc('Partita con più gol', R.gol, R.gol.gol + R.gol.golC, esc(T[R.gol.id].nome) + ' ' + R.gol.gol + '–' + R.gol.golC + ' ' + esc(T[R.gol.contro].nome)) + '</div>' : '';
+  return '<h2>Protagonisti e <span class="accent">record</span></h2><div class="sub">Campionato e Coppa</div><div class="tre">' + sc.map(x => bd(x[0], x[1])).join('') + '</div>' + rec;
+}
+
 function costruisci() {
   const ts = turni();
   const t = sceltaTurno(ts);
@@ -271,6 +402,10 @@ function costruisci() {
   lista.push(slideRisultati(t, giocato ? 'Risultati della <span class="accent">giornata</span>' : 'Prossima <span class="accent">giornata</span>'));
   lista.push(slideClassificaCamp());
   if (partiteDi('coppa').some(giocata) || t.gs.some(g => g.comp === 'coppa')) lista.push(slideClassificaCoppa());
+  const conStats = P.get('stats') !== '0' && giornateGiocate('campionato').length > 0;
+  if (conStats && giornateGiocate('campionato').length > 1) lista.push(slideAndamento());
+  if (conStats) lista.push(slideFortuna());
+  if (conStats) lista.push(slideProtagonisti());
   if (giocato) t.gs.forEach(g => g.partite.forEach((m, i) => { if (giocata(m)) lista.push(slidePartita(g, m, i + 1, g.partite.length, t)); }));
   const prossimo = ts.find(x => x.sa > t.sa);
   if (giocato && prossimo) lista.push(slideRisultati(prossimo, 'Prossimo <span class="accent">turno</span>'));
