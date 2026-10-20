@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-10-15",
+ "aggiornato": "2026-10-20",
  "lega": {
   "nome": "Fanta SMS Engineering",
   "stagione": "2026/27",
@@ -1938,34 +1938,297 @@
     {
      "casa": "vesuviani",
      "fuori": "dns",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 4,
+     "gf": 1,
+     "pc": 86,
+     "pf": 67.5,
+     "ev": [
+      [
+       "c",
+       "gol",
+       "Raimondo"
+      ],
+      [
+       "c",
+       "gol",
+       "Raimondo"
+      ],
+      [
+       "c",
+       "gol",
+       "Raimondo"
+      ],
+      [
+       "c",
+       "gol",
+       "Provstgaard"
+      ],
+      [
+       "c",
+       "cs",
+       "Gollini"
+      ],
+      [
+       "c",
+       "ass",
+       "Barella"
+      ],
+      [
+       "c",
+       "ass",
+       "Moreira"
+      ],
+      [
+       "c",
+       "ass",
+       "Miranda J."
+      ],
+      [
+       "c",
+       "pm",
+       "Raimondo"
+      ],
+      [
+       "c",
+       "amm",
+       "Miranda J."
+      ],
+      [
+       "f",
+       "gol",
+       "Berardi"
+      ],
+      [
+       "f",
+       "rs",
+       "De Bruyne"
+      ],
+      [
+       "f",
+       "amm",
+       "Kamara H."
+      ]
+     ]
     },
     {
      "casa": "futuro",
      "fuori": "zonaflegrea",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 1,
+     "gf": 2,
+     "pc": 70.5,
+     "pf": 76,
+     "ev": [
+      [
+       "c",
+       "gol",
+       "Varela G."
+      ],
+      [
+       "c",
+       "ass",
+       "Varela G."
+      ],
+      [
+       "c",
+       "ass",
+       "Paz N."
+      ],
+      [
+       "c",
+       "pm",
+       "Paz N."
+      ],
+      [
+       "c",
+       "pm",
+       "Varela G."
+      ],
+      [
+       "c",
+       "amm",
+       "Paz N."
+      ],
+      [
+       "f",
+       "gol",
+       "Isaksen"
+      ],
+      [
+       "f",
+       "gol",
+       "Castro S."
+      ],
+      [
+       "f",
+       "rs",
+       "Ramos G."
+      ],
+      [
+       "f",
+       "ass",
+       "Tavares N."
+      ],
+      [
+       "f",
+       "pm",
+       "Isaksen"
+      ],
+      [
+       "f",
+       "amm",
+       "Ederson D.S."
+      ]
+     ]
     },
     {
      "casa": "backend",
      "fuori": "veeam",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 1,
+     "gf": 1,
+     "pc": 66,
+     "pf": 68,
+     "ev": [
+      [
+       "c",
+       "gol",
+       "Calò"
+      ],
+      [
+       "c",
+       "ass",
+       "Calò"
+      ],
+      [
+       "c",
+       "amm",
+       "Pisilli"
+      ],
+      [
+       "c",
+       "amm",
+       "Thuram"
+      ],
+      [
+       "f",
+       "ass",
+       "Valle"
+      ],
+      [
+       "f",
+       "ass",
+       "Zaccagni"
+      ],
+      [
+       "f",
+       "ass",
+       "Zielinski"
+      ],
+      [
+       "f",
+       "ass",
+       "Esposito Se."
+      ],
+      [
+       "f",
+       "amm",
+       "Valle"
+      ],
+      [
+       "f",
+       "amm",
+       "Zaccagni"
+      ],
+      [
+       "f",
+       "amm",
+       "Esposito F.P."
+      ]
+     ]
     },
     {
      "casa": "orsonaldo",
      "fuori": "scarsenal",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 3,
+     "gf": 1,
+     "pc": 78,
+     "pf": 69,
+     "ev": [
+      [
+       "c",
+       "gol",
+       "Simeone"
+      ],
+      [
+       "c",
+       "gol",
+       "Simeone"
+      ],
+      [
+       "c",
+       "pm",
+       "Simeone"
+      ],
+      [
+       "c",
+       "amm",
+       "Ramon"
+      ],
+      [
+       "f",
+       "gol",
+       "Rabiot"
+      ],
+      [
+       "f",
+       "ass",
+       "Rabiot"
+      ],
+      [
+       "f",
+       "ass",
+       "Bellanova"
+      ],
+      [
+       "f",
+       "ass",
+       "Carlos Augusto"
+      ],
+      [
+       "f",
+       "pm",
+       "Rabiot"
+      ],
+      [
+       "f",
+       "pm",
+       "Carlos Augusto"
+      ],
+      [
+       "f",
+       "amm",
+       "Rabiot"
+      ],
+      [
+       "f",
+       "amm",
+       "Mastantuono"
+      ],
+      [
+       "f",
+       "amm",
+       "Soulè"
+      ],
+      [
+       "f",
+       "amm",
+       "Ostigard"
+      ],
+      [
+       "f",
+       "amm",
+       "Carlos Augusto"
+      ]
+     ]
     }
    ],
    "data": "2026-10-18"
@@ -3939,43 +4202,63 @@
    "partite": [
     [
      "Bologna",
-     "Inter"
+     "Inter",
+     1,
+     3
     ],
     [
      "Fiorentina",
-     "Como"
+     "Como",
+     1,
+     3
     ],
     [
      "Frosinone",
-     "Sassuolo"
+     "Sassuolo",
+     4,
+     2
     ],
     [
      "Juventus",
-     "Lazio"
+     "Lazio",
+     0,
+     3
     ],
     [
      "Milan",
-     "Atalanta"
+     "Atalanta",
+     3,
+     2
     ],
     [
      "Monza",
-     "Cagliari"
+     "Cagliari",
+     4,
+     0
     ],
     [
      "Parma",
-     "Torino"
+     "Torino",
+     0,
+     3
     ],
     [
      "Roma",
-     "Genoa"
+     "Genoa",
+     2,
+     0
     ],
     [
      "Udinese",
-     "Lecce"
+     "Lecce",
+     0,
+     3
     ],
     [
      "Venezia",
-     "Napoli"
+     "Napoli",
+     1,
+     0
     ]
    ]
   },
