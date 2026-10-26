@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-10-20",
+ "aggiornato": "2026-10-26",
  "lega": {
   "nome": "Fanta SMS Engineering",
   "stagione": "2026/27",
@@ -2242,34 +2242,282 @@
     {
      "casa": "veeam",
      "fuori": "vesuviani",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 2,
+     "gf": 2,
+     "pc": 77,
+     "pf": 72.5,
+     "ev": [
+      [
+       "c",
+       "gol",
+       "McTominay"
+      ],
+      [
+       "c",
+       "gol",
+       "McTominay"
+      ],
+      [
+       "f",
+       "gol",
+       "Vlasic"
+      ],
+      [
+       "f",
+       "gol",
+       "Elmas"
+      ],
+      [
+       "f",
+       "amm",
+       "Provstgaard"
+      ],
+      [
+       "f",
+       "amm",
+       "Raimondo"
+      ]
+     ]
     },
     {
      "casa": "dns",
      "fuori": "futuro",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 3,
+     "gf": 3,
+     "pc": 78.5,
+     "pf": 78.5,
+     "ev": [
+      [
+       "c",
+       "gol",
+       "Pulisic"
+      ],
+      [
+       "c",
+       "gol",
+       "Krstovic"
+      ],
+      [
+       "c",
+       "gol",
+       "Krstovic"
+      ],
+      [
+       "c",
+       "cs",
+       "Vicario"
+      ],
+      [
+       "c",
+       "ass",
+       "Wesley"
+      ],
+      [
+       "c",
+       "ass",
+       "Krstovic"
+      ],
+      [
+       "c",
+       "pm",
+       "Pulisic"
+      ],
+      [
+       "c",
+       "amm",
+       "Bracaglia"
+      ],
+      [
+       "c",
+       "amm",
+       "Berardi"
+      ],
+      [
+       "f",
+       "gol",
+       "McKennie"
+      ],
+      [
+       "f",
+       "gol",
+       "Varela G."
+      ],
+      [
+       "f",
+       "gol",
+       "Fitz-Jim"
+      ],
+      [
+       "f",
+       "cs",
+       "Maignan"
+      ]
+     ]
     },
     {
      "casa": "zonaflegrea",
      "fuori": "scarsenal",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 3,
+     "gf": 3,
+     "pc": 79.5,
+     "pf": 81.5,
+     "ev": [
+      [
+       "c",
+       "rig",
+       "Bernardeschi"
+      ],
+      [
+       "c",
+       "rig",
+       "Ederson D.S."
+      ],
+      [
+       "c",
+       "ass",
+       "Kaiki"
+      ],
+      [
+       "c",
+       "ass",
+       "Ghedjemis"
+      ],
+      [
+       "c",
+       "ass",
+       "Ghedjemis"
+      ],
+      [
+       "c",
+       "ass",
+       "Ghedjemis"
+      ],
+      [
+       "c",
+       "ass",
+       "Malen"
+      ],
+      [
+       "c",
+       "pm",
+       "Ghedjemis"
+      ],
+      [
+       "c",
+       "amm",
+       "Bernardeschi"
+      ],
+      [
+       "c",
+       "amm",
+       "Ederson D.S."
+      ],
+      [
+       "f",
+       "gol",
+       "Douvikas"
+      ],
+      [
+       "f",
+       "gol",
+       "Douvikas"
+      ],
+      [
+       "f",
+       "gol",
+       "Soulè"
+      ],
+      [
+       "f",
+       "ass",
+       "Modric"
+      ],
+      [
+       "f",
+       "ass",
+       "Zappacosta"
+      ],
+      [
+       "f",
+       "pm",
+       "Douvikas"
+      ],
+      [
+       "f",
+       "amm",
+       "Modric"
+      ]
+     ]
     },
     {
      "casa": "backend",
      "fuori": "orsonaldo",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 3,
+     "gf": 2,
+     "pc": 79.5,
+     "pf": 76,
+     "ev": [
+      [
+       "c",
+       "gol",
+       "Balerdi"
+      ],
+      [
+       "c",
+       "gol",
+       "Balerdi"
+      ],
+      [
+       "c",
+       "gol",
+       "Thuram"
+      ],
+      [
+       "c",
+       "pm",
+       "Thuram"
+      ],
+      [
+       "c",
+       "pm",
+       "Balerdi"
+      ],
+      [
+       "c",
+       "amm",
+       "Couto"
+      ],
+      [
+       "c",
+       "amm",
+       "Balerdi"
+      ],
+      [
+       "f",
+       "cs",
+       "Butez"
+      ],
+      [
+       "f",
+       "ass",
+       "Politano"
+      ],
+      [
+       "f",
+       "ass",
+       "De Ketelaere"
+      ],
+      [
+       "f",
+       "ass",
+       "Simeone"
+      ],
+      [
+       "f",
+       "amm",
+       "Kvernadze"
+      ]
+     ]
     }
    ],
    "data": "2026-10-25"
@@ -4268,43 +4516,63 @@
    "partite": [
     [
      "Atalanta",
-     "Frosinone"
+     "Frosinone",
+     4,
+     4
     ],
     [
      "Cagliari",
-     "Bologna"
+     "Bologna",
+     0,
+     2
     ],
     [
      "Como",
-     "Sassuolo"
+     "Sassuolo",
+     2,
+     0
     ],
     [
      "Genoa",
-     "Venezia"
+     "Venezia",
+     1,
+     0
     ],
     [
      "Inter",
-     "Fiorentina"
+     "Fiorentina",
+     2,
+     1
     ],
     [
      "Lazio",
-     "Parma"
+     "Parma",
+     2,
+     1
     ],
     [
      "Lecce",
-     "Juventus"
+     "Juventus",
+     0,
+     2
     ],
     [
      "Napoli",
-     "Roma"
+     "Roma",
+     3,
+     3
     ],
     [
      "Torino",
-     "Monza"
+     "Monza",
+     3,
+     2
     ],
     [
      "Udinese",
-     "Milan"
+     "Milan",
+     0,
+     2
     ]
    ]
   },
