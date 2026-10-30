@@ -344,10 +344,14 @@ function classifica(ids, partite, criteri) {
     else { a.n++; b.n++; a.pt++; b.pt++; }
   }
   const key = { pt: x => x.pt, dr: x => x.gf - x.gs, gf: x => x.gf, ptt: x => Math.round(x.ptt * 100) };
-  return [...r.values()].sort((x, y) => {
+  const ord = [...r.values()].sort((x, y) => {
     for (const c of criteri) { const d = key[c](y) - key[c](x); if (d) return d; }
     return x.ord - y.ord;
   });
+  // posizione per punti: a pari punti stessa posizione (l'ordine di riga resta quello degli spareggi)
+  const giocato = ord.some(x => x.g > 0);
+  ord.forEach((x, i) => { x.pos = giocato ? 1 + ord.filter(y => y.pt > x.pt).length : i + 1; });
+  return ord;
 }
 // </compute>
 
@@ -407,13 +411,13 @@ function tabellaHtml(righe) {
     return `<div class="tablewrap"><table class="compatta">
       <thead><tr><th>Squadra</th><th>G</th><th>V-N-P</th><th>Pt</th></tr></thead>
       <tbody>${righe.map((r, i) => `<tr>
-        <td><div class="cell"><span class="rk">${i + 1}</span><img src="${logo(r.id)}" alt="" width="28" height="28"><span class="n">${esc(T[r.id].nome)}</span></div></td>
+        <td><div class="cell"><span class="rk">${r.pos}</span><img src="${logo(r.id)}" alt="" width="28" height="28"><span class="n">${esc(T[r.id].nome)}</span></div></td>
         <td>${r.g}</td><td>${r.v}-${r.n}-${r.p}</td><td class="pt">${r.pt}</td></tr>`).join('')}</tbody></table></div>`;
   }
   return `<div class="tablewrap"><table>
     <thead><tr><th>Squadra</th><th>G</th><th>V</th><th>N</th><th>P</th><th>Gf</th><th>Gs</th><th>Pt</th><th>Pt totali</th></tr></thead>
     <tbody>${righe.map((r, i) => `<tr>
-      <td><div class="cell"><span class="rk">${i + 1}</span><img src="${logo(r.id)}" alt="" width="28" height="28"><span class="n">${esc(T[r.id].nome)}</span></div></td>
+      <td><div class="cell"><span class="rk">${r.pos}</span><img src="${logo(r.id)}" alt="" width="28" height="28"><span class="n">${esc(T[r.id].nome)}</span></div></td>
       <td>${r.g}</td><td>${r.v}</td><td>${r.n}</td><td>${r.p}</td><td>${r.gf}</td><td>${r.gs}</td>
       <td class="pt">${r.pt}</td><td class="ptt">${num(r.ptt)}</td></tr>`).join('')}</tbody></table></div>`;
 }
@@ -604,7 +608,7 @@ const VIEWS = {
     const camp = prossima('campionato'), coppa = prossima('coppa');
     const ultimi = D.commenti[0];
     const mini = (titolo, righe) => `<div class="mini"><h3>${esc(titolo)}</h3>${righe.map((r, i) =>
-      `<div class="r"><span class="rk">${i + 1}</span><img src="${logo(r.id)}" alt="" width="28" height="28"><span class="n">${esc(T[r.id].nome)}</span><b>${r.pt}</b></div>`).join('')}</div>`;
+      `<div class="r"><span class="rk">${r.pos}</span><img src="${logo(r.id)}" alt="" width="28" height="28"><span class="n">${esc(T[r.id].nome)}</span><b>${r.pt}</b></div>`).join('')}</div>`;
     return `
     <section class="hero">
       <img src="img/lega.webp" alt="Stemma Fanta SMS Engineering" width="136" height="136">
@@ -1011,7 +1015,7 @@ const STORY = (() => {
       const sq = T[r.id], cy = y + (h - 12) / 2;
       c.fillStyle = i === 0 ? '#16284a' : '#111a2d'; c.beginPath(); c.roundRect(60, y, 960, h - 12, 22); c.fill();
       c.strokeStyle = i === 0 ? '#4b93ff' : '#233352'; c.lineWidth = i === 0 ? 3 : 2; c.stroke();
-      c.textAlign = 'center'; c.fillStyle = i === 0 ? '#ff9033' : '#92a3c1'; c.font = `700 48px ${F_DISP}`; c.fillText(String(i + 1), x.pos, cy + 17);
+      c.textAlign = 'center'; c.fillStyle = i === 0 ? '#ff9033' : '#92a3c1'; c.font = `700 48px ${F_DISP}`; c.fillText(String(r.pos), x.pos, cy + 17);
       tondo(c, o.logo(r.id), x.logo, cy, 36);
       c.textAlign = 'left'; c.fillStyle = '#fff'; adatta(c, sq.nome.toUpperCase(), 365, 38, 22, 700, F_DISP); c.fillText(sq.nome.toUpperCase(), x.nome, cy + 13);
       c.textAlign = 'right'; c.fillStyle = '#c9d6ee'; c.font = `600 34px ${F_BODY}`;

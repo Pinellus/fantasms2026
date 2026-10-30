@@ -64,7 +64,7 @@ I marcatori sono solo i gol di fantacalcio: nella partita ci sono tanti gol (`go
 
 ## Aggiornare risultati e classifica
 I risultati sono in `dati/lega.json`, nell'elenco `giornate`. In ogni partita compila `gc` e `gf` (gol casa e fuori) e `pc` e `pf` (fantapunti casa e fuori), per esempio `"gc": 2, "gf": 1, "pc": 75.5, "pf": 70`.
-Classifica e statistiche si ricalcolano da sole. L'ordine degli spareggi è in `criteri` (`pt` punti, `dr` differenza reti, `gf` gol fatti, `ptt` punti totali).
+Classifica e statistiche si ricalcolano da sole. A pari punti la posizione è la stessa (es. quattro squadre a 4 punti sono tutte quarte); l'ordine delle righe segue gli spareggi, che sono in `criteri` (`pt` punti, `dr` differenza reti, `gf` gol fatti, `ptt` punti totali).
 
 Il calendario ufficiale della Serie A 2026/27 è in `dati/lega.json`, nell'elenco `calendarioSerieA` (38 giornate con data e partite). Ogni giornata di Campionato e Coppa rimanda alla giornata reale con un link.
 

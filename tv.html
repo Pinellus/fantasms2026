@@ -180,10 +180,14 @@ function classifica(ids, partite, criteri) {
     else { a.n++; b.n++; a.pt++; b.pt++; }
   }
   const key = { pt: x => x.pt, dr: x => x.gf - x.gs, gf: x => x.gf, ptt: x => Math.round(x.ptt * 100) };
-  return [...r.values()].sort((x, y) => {
+  const ord = [...r.values()].sort((x, y) => {
     for (const c of criteri) { const d = key[c](y) - key[c](x); if (d) return d; }
     return x.ord - y.ord;
   });
+  // posizione per punti: a pari punti stessa posizione (l'ordine di riga resta quello degli spareggi)
+  const giocato = ord.some(x => x.g > 0);
+  ord.forEach((x, i) => { x.pos = giocato ? 1 + ord.filter(y => y.pt > x.pt).length : i + 1; });
+  return ord;
 }
 const partiteDi = comp => D.giornate.filter(g => g.comp === comp).flatMap(g => g.partite);
 
@@ -260,7 +264,7 @@ function tabClassifica(righe, ridotta) {
   const th = ridotta ? ['', 'Squadra', 'G', 'V', 'N', 'P', 'DR', 'Pt'] : ['', 'Squadra', 'G', 'V', 'N', 'P', 'Gf', 'Gs', 'DR', 'Pt', 'Pt totali'];
   return `<table><thead><tr>${th.map(x => `<th>${x}</th>`).join('')}</tr></thead><tbody>${righe.map((r, i) => {
     const dr = r.gf - r.gs;
-    return `<tr><td class="pos">${i + 1}</td><td><div class="sq"><img src="${logo(r.id)}" alt="">${esc(T[r.id].nome)}</div></td><td>${r.g}</td><td>${r.v}</td><td>${r.n}</td><td>${r.p}</td>${
+    return `<tr><td class="pos">${r.pos}</td><td><div class="sq"><img src="${logo(r.id)}" alt="">${esc(T[r.id].nome)}</div></td><td>${r.g}</td><td>${r.v}</td><td>${r.n}</td><td>${r.p}</td>${
       ridotta ? '' : `<td>${r.gf}</td><td>${r.gs}</td>`}<td>${dr > 0 ? '+' + dr : dr}</td><td class="pt">${r.pt}</td>${ridotta ? '' : `<td>${num(r.ptt)}</td>`}</tr>`;
   }).join('')}</tbody></table>`;
 }
