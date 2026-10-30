@@ -87,6 +87,7 @@ main { padding-block: 22px 40px; display: grid; gap: 28px; }
 /* giornate e partite */
 .gio { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
 .gio + .gio { margin-top: 14px; }
+.gio { scroll-margin-top: 76px; }
 .gio-h { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 12px 16px; background: var(--surface2); border-bottom: 1px solid var(--line); }
 .gio-h h3 { font-size: 22px; font-weight: 700; letter-spacing: .03em; margin-right: 4px; }
 .tag { font: 600 12px/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
@@ -802,6 +803,13 @@ function applicaHash() {
   S.ancora = null;
   if ((m = t.match(/^seriea-(\d+)$/))) { S.cal = 'seriea'; S.sa = +m[1]; }
   else if ((m = t.match(/^lega-(campionato|coppa)-(\d+)$/))) { S.cal = m[1]; S.ancora = `g-${m[1]}-${m[2]}`; }
+  else if (t === 'calendario') S.ancora = ancoraCorrente();
+}
+// apre il calendario sulla giornata in corso (la prima ancora da giocare del Campionato o della Coppa mostrati)
+function ancoraCorrente() {
+  if (S.cal !== 'campionato' && S.cal !== 'coppa') return null;
+  const g = prossima(S.cal);
+  return g ? `g-${g.comp}-${g.n}` : null;
 }
 function current() {
   const t = location.hash.slice(1);
@@ -1079,6 +1087,7 @@ document.addEventListener('click', e => {
   const b = e.target.closest('button[data-act]');
   if (!b) return;
   S[b.dataset.act] = b.dataset.act === 'sa' ? +b.dataset.v : (b.dataset.act === 'sthi' && S.sthi === b.dataset.v) ? '' : b.dataset.v;
+  if (b.dataset.act === 'cal') S.ancora = ancoraCorrente();
   render();
 });
 window.addEventListener('hashchange', () => { applicaHash(); const anc = S.ancora; render(); if (!anc) window.scrollTo(0, 0); });
