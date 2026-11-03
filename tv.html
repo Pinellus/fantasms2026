@@ -188,7 +188,7 @@ td .sq > * + * { margin-left: 1rem; }
 </div>
 
 <script>
-/* Parametri nell'indirizzo:  ?durata=10  secondi per diapositiva  ·  ?sa=7  forza la giornata di Serie A  ·  ?striscia=0  nasconde la striscia  ·  ?stats=0  toglie le diapositive di statistiche  ·  ?dich=0  toglie le pagine delle dichiarazioni (default: le ultime 8)
+/* Parametri nell'indirizzo:  ?durata=10  secondi per diapositiva  ·  ?sa=7  forza la giornata di Serie A  ·  ?striscia=0  nasconde la striscia  ·  ?stats=0  toglie le diapositive di statistiche  ·  ?dich=0  toglie le pagine delle dichiarazioni (default: le ultime 8; restano 10 s in piu')
    Tasti: ← → cambiano diapositiva · spazio ferma/riprende · F schermo intero */
 const P = new URLSearchParams(location.search);
 const DURATA = Math.max(3, +P.get('durata') || 10) * 1000;
@@ -518,7 +518,16 @@ function mostra(i) {
   el.forEach((s, k) => s.classList.toggle('on', k === idx));
   document.querySelectorAll('#dots i').forEach((d, k) => d.classList.toggle('on', k === idx));
 }
-function riavvia() { clearInterval(timer); timer = setInterval(() => { if (!pausa) mostra(idx + 1); }, DURATA); }
+/* le pagine della conferenza stampa restano piu' a lungo: +10 secondi, e un po' di piu' se il testo e' lungo (1 s ogni 50 caratteri oltre i 400, massimo +15) */
+function durataSlide() {
+  const el = document.querySelectorAll('.slide')[idx], inn = el && el.querySelector('.dc-body .in');
+  if (!inn) return DURATA;
+  return DURATA + 10000 + Math.min(15000, Math.max(0, inn.textContent.length - 400) * 20);
+}
+function riavvia() {
+  clearTimeout(timer);
+  timer = setTimeout(() => { if (!pausa) mostra(idx + 1); riavvia(); }, durataSlide());
+}
 function disegna() {
   slides = costruisci();
   document.getElementById('stage').innerHTML = slides.map(h => `<section class="slide">${h}</section>`).join('');
