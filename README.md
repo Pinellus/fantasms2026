@@ -72,6 +72,12 @@ I risultati reali della Serie A stanno nella stessa lista: ogni partita è `[cas
 
 Dati e figurine provengono dall'app di fantacalcio.it.
 
+### Pagine delle dichiarazioni sulla TV
+`tv.html` mostra le dichiarazioni della giornata in corso come pagine a tutto schermo (stile TG): titolo, testo grande, foto fumetto degli allenatori e il risultato commentato. Si appoggiano agli stessi fogli della conferenza stampa, quindi non c'è nulla da aggiornare a mano.
+- Foto: in `img/coach/` (512 px, webp). A ogni squadra si associano con il campo `foto` in `dati/lega.json` (una o due immagini). Senza foto compare lo stemma.
+- Il testo si rimpicciolisce da solo per starci; sopra gli 850 caratteri si divide in due pagine. Si mostrano al massimo le ultime 8 dichiarazioni (`?dich=8`); `?dich=0` le toglie.
+- Una dichiarazione compare solo quando la sua giornata ha dei risultati; il risultato mostrato è quello della squadra in Campionato.
+
 ## Statistiche
 La pagina `#stats` (sottomenu della Classifica) si calcola da sola dai risultati e dagli eventi già presenti: andamento della classifica (posizione e punti per giornata), «fortuna» (punti reali meno punti attesi, confrontando i gol di ogni giornata con quelli di tutte le altre squadre), record, classifiche per evento (marcatori, assist, ammoniti...) e gol per reparto. Non servono dati in più. I voti dei singoli giocatori (file di fantacalcio.it) sono per uso personale e non vanno pubblicati nel sito né nel repository.
 

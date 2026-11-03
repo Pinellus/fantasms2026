@@ -119,6 +119,36 @@ tr:first-child td.pos { color: var(--warm); }
 .rc .big img { width: 3rem; height: 3rem; border-radius: 50%; margin-right: .8rem; }
 .rc .d { color: var(--muted); font: 500 1.15rem/1.25 var(--f-body); margin-top: .4rem; }
 
+/* dichiarazioni: pagina a tutto schermo, stile TG */
+.dc { flex: 1; min-height: 0; min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) auto; gap: .9rem; }
+.dc-k { display: flex; align-items: center; gap: .7rem; font: 700 1.3rem/1 var(--f-display); letter-spacing: .2em; text-transform: uppercase; color: var(--warm); }
+.dc-k i { width: .7rem; height: .7rem; border-radius: 50%; background: var(--bad); }
+.dc-k span { margin-left: auto; color: var(--muted); letter-spacing: .12em; }
+.dc-main { display: grid; grid-template-columns: 23.4rem minmax(0, 1fr); gap: 2.4rem; min-height: 0; }
+.dc-foto { position: relative; align-self: stretch; min-height: 0; border-radius: .8rem; overflow: hidden; border: .17rem solid var(--accent); background: var(--surface); display: flex; flex-wrap: wrap; box-shadow: 0 .8rem 2rem rgba(0,0,0,.5); }
+.dc-foto .f { width: 100%; height: 100%; }
+.dc-foto.n2 { align-content: flex-start; }
+.dc-foto.n2 .f { width: 50%; height: 11.4rem; }
+.dc-foto.n2 .f + .f { border-left: .17rem solid var(--accent); }
+.dc-foto .f img { width: 100%; height: 100%; object-fit: cover; }
+.dc-foto .f.stemma { display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 40%, #1b2c52, #0a111f 75%); }
+.dc-foto .f.stemma img { width: 60%; height: auto; border-radius: 50%; }
+.dc-lt { position: absolute; left: 0; right: 0; bottom: 0; padding: 1rem 1.2rem; background: linear-gradient(rgba(6,20,46,0), rgba(6,20,46,.92) 45%); }
+.dc-foto.n2 .dc-lt { top: 11.4rem; background: #06142e; display: flex; flex-direction: column; justify-content: center; }
+.dc-lt small { align-self: flex-start; display: inline-block; background: var(--bad); color: #fff; font: 700 .85rem/1.3 var(--f-display); letter-spacing: .14em; text-transform: uppercase; padding: .1rem .5rem; }
+.dc-lt b { display: block; margin-top: .35rem; font: 700 1.6rem/1.05 var(--f-display); text-transform: uppercase; }
+.dc-lt em { font: 500 1.05rem/1.2 var(--f-display); font-style: normal; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.dc-txt { display: flex; flex-direction: column; min-height: 0; gap: .6rem; }
+.dc-tit { font: 700 2.1rem/1.1 var(--f-display); text-transform: uppercase; letter-spacing: .01em; color: #ffb03a; padding-left: 1.6rem; }
+.dc-body { flex: 1; min-height: 0; overflow: hidden; background: var(--surface); border-left: .5rem solid var(--accent); border-radius: 0 .7rem .7rem 0; padding: 1rem 1.5rem; font: 600 2.3rem/1.3 var(--f-body); color: #fff; box-shadow: 0 .6rem 1.7rem rgba(0,0,0,.4); }
+.dc-ris { display: flex; align-items: center; gap: 1.4rem; padding: .6rem 1.1rem; background: var(--surface); border: 1px solid var(--line); border-radius: .6rem; }
+.dc-ris .es { font: 700 1.4rem/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; color: #06142e; padding: .35rem .9rem; border-radius: .35rem; }
+.dc-ris .m { flex: 1; min-width: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; gap: .8rem; white-space: nowrap; font: 600 1.25rem/1 var(--f-display); text-transform: uppercase; color: #c3cfe6; }
+.dc-ris .m img { display: inline-block; width: 2.2rem; height: 2.2rem; border-radius: 50%; margin: 0 .4rem 0 0; vertical-align: middle; }
+.dc-ris .m .w { color: #fff; }
+.dc-ris .m b { font: 700 3.1rem/1 var(--f-display); letter-spacing: .04em; color: var(--fg); }
+.dc-ris .pt { flex: none; font: 600 1.1rem/1.2 var(--f-display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); text-align: right; }
+
 /* striscia */
 .ticker { position: relative; z-index: 2; display: flex; align-items: stretch; background: #060b16; border-top: 2px solid var(--accent); height: 3.6rem; }
 .ticker .lab { flex: none; display: flex; align-items: center; padding: 0 1.4rem; background: var(--accent); color: var(--accent-ink); font: 700 1.5rem/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; }
@@ -154,7 +184,7 @@ td .sq > * + * { margin-left: 1rem; }
 </div>
 
 <script>
-/* Parametri nell'indirizzo:  ?durata=10  secondi per diapositiva  ·  ?sa=7  forza la giornata di Serie A  ·  ?striscia=0  nasconde la striscia  ·  ?stats=0  toglie le diapositive di statistiche
+/* Parametri nell'indirizzo:  ?durata=10  secondi per diapositiva  ·  ?sa=7  forza la giornata di Serie A  ·  ?striscia=0  nasconde la striscia  ·  ?stats=0  toglie le diapositive di statistiche  ·  ?dich=0  toglie le pagine delle dichiarazioni (default: le ultime 8)
    Tasti: ← → cambiano diapositiva · spazio ferma/riprende · F schermo intero */
 const P = new URLSearchParams(location.search);
 const DURATA = Math.max(3, +P.get('durata') || 10) * 1000;
@@ -398,12 +428,71 @@ function slideProtagonisti() {
   return '<h2>Protagonisti e <span class="accent">record</span></h2><div class="sub">Campionato e Coppa</div><div class="tre">' + sc.map(x => bd(x[0], x[1])).join('') + '</div>' + rec;
 }
 
+/* --- dichiarazioni: una pagina per ognuna (due se il testo e' lungo) --- */
+const MAX_PAGINA = 850, MAX_DICH = Math.max(0, P.has('dich') ? +P.get('dich') : 8);
+let DICH = [];
+function finestre() {
+  const gs = D.giornate.filter(g => g.comp === 'campionato' && g.data).sort((a, b) => a.n - b.n);
+  const ore = D.lega && D.lega.oreChiusura != null ? D.lega.oreChiusura : 96, h = ore * 3600000;
+  const g0 = x => { const a = x.split('-').map(Number); return Date.UTC(a[0], a[1] - 1, a[2]); };
+  const w = gs.map((g, i) => ({ g: g, fine: Math.min(g0(g.data) + 86400000 + h, i + 1 < gs.length ? g0(gs[i + 1].data) : Infinity) }));
+  return w.map((x, i) => ({ g: x.g, fine: x.fine, inizio: i ? w[i - 1].fine : -Infinity }));
+}
+function giornataDi(ts, fin) { return (fin.find(w => ts >= w.inizio && ts < w.fine) || fin[fin.length - 1]).g; }
+function dividiTesto(t) {
+  if (t.length <= MAX_PAGINA) return [t];
+  const fr = t.match(/[^.!?\u2026]+[.!?\u2026]*\s*/g) || [t], out = [''];
+  fr.forEach(f => { if (out[out.length - 1].length + f.length > MAX_PAGINA && out[out.length - 1]) out.push(''); out[out.length - 1] += f; });
+  return out.map(x => x.trim()).filter(Boolean);
+}
+function slideDichiarazione(x, g, m, pag, tot) {
+  const t = T[x.sq], foto = (t.foto || []).slice(0, 2);
+  const f = foto.length ? foto.map(u => `<div class="f"><img src="${esc(u)}" alt=""></div>`).join('') : `<div class="f stemma"><img src="${logo(t.id)}" alt=""></div>`;
+  let ris = '';
+  if (m) {
+    const c = T[m.casa], fu = T[m.fuori], gi = giocata(m);
+    const mio = m.casa === x.sq ? m.gc : m.gf, suo = m.casa === x.sq ? m.gf : m.gc;
+    const es = !gi ? ['Da giocare', 'var(--accent)'] : mio > suo ? ['Vittoria', 'var(--good)'] : mio < suo ? ['Sconfitta', 'var(--bad)'] : ['Pareggio', 'var(--warm)'];
+    ris = `<div class="dc-ris"><div class="es" style="background:${es[1]}">${es[0]}</div>
+      <div class="m"><span class="${gi && m.gc >= m.gf ? 'w' : ''}"><img src="${logo(c.id)}" alt="">${esc(c.nome)}</span><b>${gi ? m.gc + ' – ' + m.gf : 'VS'}</b><span class="${gi && m.gf >= m.gc ? 'w' : ''}"><img src="${logo(fu.id)}" alt="">${esc(fu.nome)}</span></div>
+      <div class="pt">${m.pc != null && m.pf != null ? 'Fantapunti<br>' + num(m.pc) + ' – ' + num(m.pf) : ''}</div></div>`;
+  }
+  const tit = pulito(x.titolo);
+  return `<div class="dc"><div class="dc-k"><i></i>Conferenza stampa \u00b7 ${g.n}\u00aa di Lega${tot > 1 ? `<span>${pag}/${tot}</span>` : ''}</div>
+    <div class="dc-main"><div class="dc-foto n${foto.length > 1 ? 2 : 1}">${f}<div class="dc-lt"><small>L'allenatore parla</small><b>${esc(t.nome)}</b><em>${esc(t.partecipanti || '')}</em></div></div>
+    <div class="dc-txt">${tit ? `<h3 class="dc-tit">${esc(tit)}</h3>` : ''}<div class="dc-body"><div class="in">${esc(x.testo)}</div></div></div></div>${ris}</div>`;
+}
+function slidesDichiarazioni(t) {
+  if (!MAX_DICH || !DICH.length) return [];
+  const g = t.gs.find(x => x.comp === 'campionato');
+  if (!g) return [];
+  const mie = DICH.filter(x => x.n === g.n).sort((a, b) => a.ts - b.ts).slice(-MAX_DICH);
+  const out = [];
+  mie.forEach(x => {
+    const m = g.partite.find(p => p.casa === x.sq || p.fuori === x.sq);
+    const pezzi = dividiTesto(pulito2(x.testo));
+    pezzi.forEach((pz, i) => out.push(slideDichiarazione({ sq: x.sq, titolo: x.titolo, testo: pz }, g, m, i + 1, pezzi.length)));
+  });
+  return out;
+}
+const pulito2 = s => s.replace(/\[([^\]]+)\]\(https?:[^)]*\)/g, '$1').replace(/\*\*?/g, '').replace(/[ \t]+/g, ' ').replace(/\s*\n\s*/g, ' ').trim();
+/* adatta il carattere al riquadro: parte grande e scende finche' il testo ci sta */
+function adattaTesti() {
+  document.querySelectorAll('.dc-body').forEach(el => {
+    const inn = el.firstChild, cs = getComputedStyle(el);
+    const spazio = el.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - 2;
+    let fs = 2.3; el.style.fontSize = fs + 'rem';
+    while (fs > 1.35 && inn.offsetHeight > spazio) { fs -= 0.06; el.style.fontSize = fs + 'rem'; }
+  });
+}
+
 function costruisci() {
   const ts = turni();
   const t = sceltaTurno(ts);
   const lista = [];
   const giocato = haRisultati(t);
   lista.push(slideRisultati(t, giocato ? 'Risultati della <span class="accent">giornata</span>' : 'Prossima <span class="accent">giornata</span>'));
+  if (giocato) slidesDichiarazioni(t).forEach(h => lista.push(h));
   lista.push(slideClassificaCamp());
   if (partiteDi('coppa').some(giocata) || t.gs.some(g => g.comp === 'coppa')) lista.push(slideClassificaCoppa());
   const conStats = P.get('stats') !== '0' && giornateGiocate('campionato').length > 0;
@@ -429,6 +518,7 @@ function disegna() {
   slides = costruisci();
   document.getElementById('stage').innerHTML = slides.map(h => `<section class="slide">${h}</section>`).join('');
   document.getElementById('dots').innerHTML = slides.map(() => '<i></i>').join('');
+  adattaTesti();
   mostra(Math.min(idx, slides.length - 1));
 }
 /* Striscia: invece di una fascia lunghissima animata dal CSS (decine di migliaia di pixel, pesante per il browser del TV)
@@ -474,8 +564,10 @@ async function carica(primo) {
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const d = await r.json();
     const dich = await caricaDichiarazioni(d.squadre);
-    const sig = JSON.stringify(d);
     D = d; T = Object.fromEntries(D.squadre.map(s => [s.id, s]));
+    const fin = finestre();
+    DICH = fin.length ? dich.map(x => Object.assign({}, x, { n: giornataDi(x.ts, fin).n })) : [];
+    const sig = JSON.stringify(d) + JSON.stringify(DICH);
     if (sig !== sigDati) { sigDati = sig; disegna(); } // le diapositive si rifanno solo se i dati sono cambiati
     striscia(dich);
     if (primo) riavvia();
@@ -491,6 +583,8 @@ document.addEventListener('keydown', e => {
 });
 let nascondi; document.addEventListener('mousemove', () => { document.body.style.cursor = 'default'; clearTimeout(nascondi); nascondi = setTimeout(() => document.body.style.cursor = 'none', 2500); });
 orologio(); setInterval(orologio, 15000);
+window.addEventListener('load', () => { adattaTesti(); setTimeout(adattaTesti, 1500); });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(adattaTesti); // dopo il caricamento dei caratteri rimisura i testi
 /* Aggiornamento automatico della pagina: se la versione pubblicata cambia, si ricarica da sola (così il TV non resta con codice vecchio) */
 (function () {
   let base = null;
