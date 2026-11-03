@@ -439,6 +439,7 @@ function finestre() {
   return w.map((x, i) => ({ g: x.g, fine: x.fine, inizio: i ? w[i - 1].fine : -Infinity }));
 }
 function giornataDi(ts, fin) { return (fin.find(w => ts >= w.inizio && ts < w.fine) || fin[fin.length - 1]).g; }
+function giornataCorrente(fin) { const o = new Date(); return giornataDi(Date.UTC(o.getFullYear(), o.getMonth(), o.getDate(), o.getHours(), o.getMinutes()), fin); }
 function dividiTesto(t) {
   if (t.length <= MAX_PAGINA) return [t];
   const fr = t.match(/[^.!?\u2026]+[.!?\u2026]*\s*/g) || [t], out = [''];
@@ -569,7 +570,7 @@ async function carica(primo) {
     DICH = fin.length ? dich.map(x => Object.assign({}, x, { n: giornataDi(x.ts, fin).n })) : [];
     const sig = JSON.stringify(d) + JSON.stringify(DICH);
     if (sig !== sigDati) { sigDati = sig; disegna(); } // le diapositive si rifanno solo se i dati sono cambiati
-    striscia(dich);
+    striscia(fin.length ? DICH.filter(x => x.n === giornataCorrente(fin).n) : []); // la striscia mostra solo la giornata in corso
     if (primo) riavvia();
   } catch (e) {
     if (primo) document.getElementById('stage').innerHTML = '<div class="avviso">Dati non disponibili.<br>Apri la pagina dal sito pubblicato.</div>';
