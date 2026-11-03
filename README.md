@@ -78,6 +78,9 @@ Dati e figurine provengono dall'app di fantacalcio.it.
 - Il testo si rimpicciolisce da solo per starci; sopra gli 850 caratteri si divide in due pagine. Si mostrano al massimo le ultime 8 dichiarazioni (`?dich=8`); `?dich=0` le toglie.
 - Una dichiarazione compare solo quando la sua giornata ha dei risultati; il risultato mostrato è quello della squadra in Campionato.
 
+### Condividere una dichiarazione sui social
+Accanto a ogni dichiarazione della conferenza stampa c'è il pulsante «Condividi»: genera un'immagine con la stessa costruzione della TV (foto fumetto, logo, titolo, testo, risultato) in formato Storia 9:16 o Post 4:5, buona per Instagram e Facebook. Da telefono apre il menu di condivisione del sistema; da computer scarica il file. Se il testo supera gli 850 caratteri crea più immagini (1/2, 2/2) da pubblicare come carosello. Instagram e Facebook non permettono la pubblicazione diretta dal sito: l'ultimo passo lo fa chi condivide.
+
 ## Statistiche
 La pagina `#stats` (sottomenu della Classifica) si calcola da sola dai risultati e dagli eventi già presenti: andamento della classifica (posizione e punti per giornata), «fortuna» (punti reali meno punti attesi, confrontando i gol di ogni giornata con quelli di tutte le altre squadre), record, classifiche per evento (marcatori, assist, ammoniti...) e gol per reparto. Non servono dati in più. I voti dei singoli giocatori (file di fantacalcio.it) sono per uso personale e non vanno pubblicati nel sito né nel repository.
 

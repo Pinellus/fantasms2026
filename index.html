@@ -282,6 +282,14 @@ footer { border-top: 1px solid var(--line); padding-block: 18px 28px; color: var
 .dich { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; }
 .dich-h { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
 .dich-h img { flex: none; }
+.dich-h { position: relative; }
+.dich-h .dsh-btn.share.bordo { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font: 600 13px/1 inherit; color: var(--fg); opacity: 1; margin-top: 0; }
+.dsh-btn svg { width: 15px; height: 15px; }
+.dsh-menu { position: absolute; right: 0; top: calc(100% + 4px); z-index: 6; width: 250px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 6px; box-shadow: 0 10px 30px rgba(10,20,40,.28); }
+.dsh-menu button { display: block; width: 100%; text-align: left; background: none; border: 0; padding: 9px 12px; border-radius: 8px; color: var(--fg); font: inherit; font-weight: 600; cursor: pointer; }
+.dsh-menu button:hover { background: var(--surface2, rgba(120,140,180,.14)); }
+.dsh-menu small { display: block; color: var(--muted); font-weight: 400; font-size: 12.5px; margin-top: 1px; }
+
 .dich-h b { display: block; line-height: 1.2; }
 .dich-h small { color: var(--muted); font-size: 12.5px; }
 .dich p { margin: 0 0 .7em; line-height: 1.5; overflow-wrap: anywhere; }
@@ -485,10 +493,12 @@ async function caricaDichiarazioni(squadre) {
   }));
   return tutte.flat().sort((a, b) => b.ts - a.ts);
 }
+const ICONA_SHARE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg>';
 function dichHtml(x) {
   const t = new Date(x.ts), quando = t.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', timeZone: 'UTC' }) + ' · ' + t.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' });
   const yt = /^https:\/\//.test(x.video) ? ytId(x.video) : '';
-  return `<article class="dich"><div class="dich-h"><img src="${logo(x.sq)}" alt="" width="36" height="36"><div><b>${esc(T[x.sq].nome)}</b><small>${esc(quando)}</small></div></div>
+  return `<article class="dich"><div class="dich-h"><img src="${logo(x.sq)}" alt="" width="36" height="36"><div><b>${esc(T[x.sq].nome)}</b><small>${esc(quando)}</small></div>
+    <button class="share bordo dsh-btn" data-dsh="${esc(x.sq)}|${x.ts}" aria-haspopup="true" aria-label="Condividi questa dichiarazione">${ICONA_SHARE}<span>Condividi</span></button></div>
     ${x.titolo ? `<h4>${esc(x.titolo)}</h4>` : ''}
     ${x.testo.split(/\n{2,}/).filter(v => v.trim()).map(v => `<p>${inline(v.trim()).replace(/\n/g, '<br>')}</p>`).join('')}
     ${yt && incorpora() ? `<div class="yt"><iframe src="https://www.youtube-nocookie.com/embed/${yt}" title="Video ${esc(T[x.sq].nome)}" loading="lazy" allowfullscreen></iframe></div>` : ''}
@@ -1074,6 +1084,139 @@ async function condividi(btn) {
   } catch (e) { avviso('Non sono riuscito a creare l\'immagine.'); }
   btn.disabled = false;
 }
+/* --- Condividi una dichiarazione (stesse costruzioni della TV, per Instagram e Facebook) --- */
+const DSH = (() => {
+  const FD = '"Saira Condensed","Arial Narrow",Arial,sans-serif', FB = '"IBM Plex Sans",Arial,sans-serif';
+  const FORMATI = { story: { W: 1080, H: 1920, pt: 150, pb: 230, foto: 470, tit: 70, lt: 44, lg: 55 }, post: { W: 1080, H: 1350, pt: 48, pb: 48, foto: 330, tit: 56, lt: 36, lg: 42 } };
+  const MAX_PAGINA = 850;
+  const pulito = t => String(t).replace(/\[([^\]]+)\]\(https?:[^)]*\)/g, '$1').replace(/\*\*?/g, '').replace(/[ \t]+/g, ' ').replace(/\s*\n\s*/g, ' ').trim();
+  function dividi(t) {
+    if (t.length <= MAX_PAGINA) return [t];
+    const fr = t.match(/[^.!?…]+[.!?…]*\s*/g) || [t], out = [''];
+    fr.forEach(f => { if (out[out.length - 1].length + f.length > MAX_PAGINA && out[out.length - 1]) out.push(''); out[out.length - 1] += f; });
+    return out.map(x => x.trim()).filter(Boolean);
+  }
+  function righe(c, testo, maxW) {
+    const out = []; let r = '';
+    testo.split(/\s+/).forEach(w => { const p = r ? r + ' ' + w : w; if (c.measureText(p).width > maxW && r) { out.push(r); r = w; } else r = p; });
+    if (r) out.push(r); return out;
+  }
+  function cover(c, img, x, y, w, h, py) {
+    if (!img || !img.naturalWidth) return;
+    const k = Math.max(w / img.naturalWidth, h / img.naturalHeight), sw = w / k, sh = h / k;
+    c.drawImage(img, (img.naturalWidth - sw) / 2, (img.naturalHeight - sh) * py, sw, sh, x, y, w, h);
+  }
+  function tondo(c, img, cx, cy, r, anello) {
+    c.save(); c.beginPath(); c.arc(cx, cy, r, 0, 7); c.clip(); if (img && img.naturalWidth) c.drawImage(img, cx - r, cy - r, 2 * r, 2 * r); c.restore();
+    if (anello) { c.lineWidth = 3; c.strokeStyle = 'rgba(255,255,255,.85)'; c.beginPath(); c.arc(cx, cy, r, 0, 7); c.stroke(); }
+  }
+  const rr = (c, x, y, w, h, r) => { c.beginPath(); c.roundRect(x, y, w, h, r); };
+  const adatta = (c, testo, font, w, max, min) => { let f = max; do { c.font = font(f); if (c.measureText(testo).width <= w) break; f -= 2; } while (f > min); return f; };
+
+  /* o = { fmt, nome, partecipanti, foto: [Image], logo: Image, lega: Image, n, titolo, testo, pag, tot, m: {casa, fuori, gc, gf, pc, pf}|null, T, logoDi, sq } */
+  function disegna(o) {
+    const F = FORMATI[o.fmt], W = F.W, H = F.H, P = 48, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+    const c = cv.getContext('2d'); try { c.letterSpacing = '0px'; } catch (e) {}
+    const g = c.createRadialGradient(W * .2, 0, 0, W * .2, 0, W * 1.1); g.addColorStop(0, '#14234a'); g.addColorStop(.55, '#0a111f'); g.addColorStop(1, '#0a111f');
+    c.fillStyle = g; c.fillRect(0, 0, W, H);
+    let y = F.pt;
+    // testata
+    rr(c, P, y, 76, 76, 12); c.save(); c.clip(); if (o.lega && o.lega.naturalWidth) c.drawImage(o.lega, P, y, 76, 76); c.restore();
+    c.fillStyle = '#e9f0fc'; c.textBaseline = 'middle'; c.textAlign = 'left'; c.font = `700 36px ${FD}`; c.fillText('FANTA SMS', P + 96, y + 24); c.fillText('ENGINEERING', P + 96, y + 56);
+    c.textAlign = 'right'; c.fillStyle = '#ffb03a'; c.font = `600 24px ${FD}`; try { c.letterSpacing = '3px'; } catch (e) {}
+    c.fillText(`CONFERENZA STAMPA · ${o.n}ª DI LEGA${o.tot > 1 ? ' · ' + o.pag + '/' + o.tot : ''}`, W - P, y + 38); try { c.letterSpacing = '0px'; } catch (e) {}
+    y += 76 + 28;
+    // foto
+    const fh = F.foto, fw = W - 2 * P;
+    c.save(); rr(c, P, y, fw, fh, 18); c.clip(); c.fillStyle = '#06142e'; c.fillRect(P, y, fw, fh);
+    if (o.foto.length) o.foto.forEach((im, i) => { const w = fw / o.foto.length; cover(c, im, P + i * w, y, w, fh, .15); if (i) { c.fillStyle = '#4b93ff'; c.fillRect(P + i * w - 2, y, 4, fh); } });
+    else { c.fillStyle = '#17223a'; c.fillRect(P, y, fw, fh); tondo(c, o.logo, W / 2, y + fh / 2 - 20, fh * .3, false); }
+    const gl = c.createLinearGradient(0, y + fh - 150, 0, y + fh); gl.addColorStop(0, 'rgba(6,20,46,0)'); gl.addColorStop(.55, 'rgba(6,20,46,.95)'); gl.addColorStop(1, 'rgba(6,20,46,.95)'); c.fillStyle = gl; c.fillRect(P, y + fh - 150, fw, 150);
+    c.restore();
+    c.lineWidth = 4; c.strokeStyle = '#4b93ff'; rr(c, P, y, fw, fh, 18); c.stroke();
+    const lx = P + 26, ly = y + fh;
+    c.textAlign = 'left'; c.textBaseline = 'alphabetic';
+    c.font = `700 ${Math.round(F.lt * .5)}px ${FD}`; const et = "L'ALLENATORE PARLA", ew = c.measureText(et).width + 24;
+    c.fillStyle = '#ff5d6c'; c.fillRect(lx, ly - 26 - F.lt - 40, ew, 30); c.fillStyle = '#fff'; c.fillText(et, lx + 12, ly - 26 - F.lt - 16);
+    c.fillStyle = '#e9f0fc'; c.font = `700 ${F.lt}px ${FD}`; c.fillText(o.nome.toUpperCase(), lx, ly - 36);
+    c.fillStyle = '#92a3c1'; c.font = `500 ${Math.round(F.lt * .55)}px ${FD}`; c.fillText((o.partecipanti || '').toUpperCase(), lx, ly - 12);
+    tondo(c, o.logo, P + fw - 20 - F.lg, ly - 16 - F.lg, F.lg, true);
+    y += fh + 30;
+    // altezza fissa di titolo, risultato, piede
+    const resH = o.m ? 170 : 0, piede = 34, gap = 28, fondo = H - F.pb - piede - (resH ? resH + gap : 0) - gap;
+    // titolo
+    let titoloH = 0;
+    if (o.titolo) {
+      c.font = `700 ${F.tit}px ${FD}`; c.fillStyle = '#ffb03a';
+      const rt = righe(c, o.titolo.toUpperCase(), fw - 40).slice(0, 2);
+      rt.forEach((r, i) => c.fillText(r, P + 26, y + F.tit * (i + .85))); titoloH = F.tit * 1.08 * rt.length + 14; y += titoloH;
+    }
+    // testo
+    const bh = fondo - y; rr(c, P, y, fw, bh, 14); c.fillStyle = '#111a2d'; c.fill(); c.fillStyle = '#4b93ff'; c.fillRect(P, y, 10, bh);
+    const tw = fw - 10 - 60, th = bh - 52; let fs = 54, rg;
+    for (; fs >= 22; fs -= 1) { c.font = `600 ${fs}px ${FB}`; rg = righe(c, o.testo, tw); if (rg.length * fs * 1.32 <= th) break; }
+    c.fillStyle = '#fff'; const alt = rg.length * fs * 1.32, y0 = y + 26 + Math.max(0, (th - alt) / 2);
+    rg.forEach((r, i) => c.fillText(r, P + 40, y0 + fs * 1.0 + i * fs * 1.32));
+    y += bh + gap;
+    // risultato
+    if (o.m) {
+      const m = o.m, mio = m.casa === o.sq ? m.gc : m.gf, suo = m.casa === o.sq ? m.gf : m.gc, gi = m.gc != null && m.gf != null;
+      rr(c, P, y, fw, resH, 14); c.fillStyle = '#111a2d'; c.fill(); c.lineWidth = 1; c.strokeStyle = '#233352'; c.stroke();
+      const es = !gi ? ['DA GIOCARE', '#4b93ff'] : mio > suo ? ['VITTORIA', '#3fd08a'] : mio < suo ? ['SCONFITTA', '#ff5d6c'] : ['PAREGGIO', '#ffb03a'];
+      c.font = `700 28px ${FD}`; const bw = c.measureText(es[0]).width + 40; rr(c, P + 22, y + 16, bw, 48, 8); c.fillStyle = es[1]; c.fill();
+      c.fillStyle = '#06142e'; c.textBaseline = 'middle'; c.fillText(es[0], P + 42, y + 41);
+      if (m.pc != null && m.pf != null) { c.textAlign = 'right'; c.fillStyle = '#92a3c1'; c.font = `600 24px ${FD}`; c.fillText(`FANTAPUNTI ${Number(m.pc).toLocaleString('it-IT')} – ${Number(m.pf).toLocaleString('it-IT')}`, P + fw - 24, y + 41); }
+      // riga squadre
+      const cy = y + resH - 56, ca = o.T[m.casa], fu = o.T[m.fuori], sc = gi ? `${m.gc} – ${m.gf}` : 'VS';
+      c.font = `700 64px ${FD}`; const sw = c.measureText(sc).width, disp = fw - 2 * 24 - sw - 2 * (50 + 12) - 2 * 24;
+      const fz = Math.min(adatta(c, ca.nome.toUpperCase(), f => `600 ${f}px ${FD}`, disp / 2, 32, 18), adatta(c, fu.nome.toUpperCase(), f => `600 ${f}px ${FD}`, disp / 2, 32, 18));
+      c.font = `600 ${fz}px ${FD}`; const wc = c.measureText(ca.nome.toUpperCase()).width, wf = c.measureText(fu.nome.toUpperCase()).width;
+      const tot = 62 + wc + 24 + sw + 24 + 62 + wf; let x = P + (fw - tot) / 2;
+      tondo(c, o.logoDi(m.casa), x + 25, cy, 25, false); c.textAlign = 'left'; c.fillStyle = gi && m.gc >= m.gf ? '#fff' : '#c3cfe6'; c.fillText(ca.nome.toUpperCase(), x + 62, cy + 2); x += 62 + wc + 24;
+      c.font = `700 64px ${FD}`; c.fillStyle = '#e9f0fc'; c.fillText(sc, x, cy + 2); x += sw + 24;
+      tondo(c, o.logoDi(m.fuori), x + 25, cy, 25, false); c.font = `600 ${fz}px ${FD}`; c.fillStyle = gi && m.gf >= m.gc ? '#fff' : '#c3cfe6'; c.fillText(fu.nome.toUpperCase(), x + 62, cy + 2);
+      y += resH + gap;
+    }
+    c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = '#6f81a3'; c.font = `500 22px ${FB}`; c.fillText('pinellus.github.io/fantasms2026', W / 2, H - F.pb - piede / 2 + 4);
+    return cv;
+  }
+
+  async function crea(chiave, fmt) {
+    const [sq, ts] = [chiave.slice(0, chiave.lastIndexOf('|')), +chiave.slice(chiave.lastIndexOf('|') + 1)];
+    const x = (D.dichiarazioni || []).find(d => d.sq === sq && d.ts === ts); if (!x) throw new Error('dichiarazione non trovata');
+    try { await Promise.all([`700 36px ${FD}`, `600 28px ${FD}`, `600 40px ${FB}`].map(f => document.fonts.load(f))); } catch (e) {}
+    const t = T[sq], imgs = {}; await Promise.all(D.squadre.map(async s => { imgs[s.id] = await caricaImg(logo(s.id)); }));
+    const foto = await Promise.all((t.foto || []).slice(0, 2).map(caricaImg)), lega = await caricaImg('img/lega.webp');
+    const g = D.giornate.find(q => q.comp === 'campionato' && q.n === x.n), m = g ? g.partite.find(p => p.casa === sq || p.fuori === sq) : null;
+    const pezzi = dividi(pulito(x.testo)), tit = pulito(x.titolo || '');
+    return pezzi.map((pz, i) => {
+      const cv = disegna({ fmt, nome: t.nome, partecipanti: t.partecipanti, foto: foto.filter(f => f.naturalWidth), logo: imgs[sq], lega, n: x.n, titolo: i === 0 ? tit : '', testo: pz, pag: i + 1, tot: pezzi.length, m: m && m.gc != null && m.gf != null ? m : null, T, logoDi: id => imgs[id], sq });
+      return { cv, nome: `fanta-sms-${sq}-g${x.n}-${fmt}${pezzi.length > 1 ? '-' + (i + 1) : ''}.png`, titolo: `${t.nome} · conferenza stampa ${x.n}ª di Lega` };
+    });
+  }
+  return { crea };
+})();
+function chiudiMenuDich() { document.querySelectorAll('.dsh-menu').forEach(m => m.remove()); }
+document.addEventListener('click', async e => {
+  const b = e.target.closest('[data-dsh]'), v = e.target.closest('[data-dfmt]');
+  if (!b && !v) { if (!e.target.closest('.dsh-menu')) chiudiMenuDich(); return; }
+  if (b) {
+    const aperto = b.parentElement.querySelector('.dsh-menu'); chiudiMenuDich(); if (aperto) return;
+    b.insertAdjacentHTML('afterend', `<div class="dsh-menu" role="menu" data-k="${esc(b.dataset.dsh)}"><button role="menuitem" data-dfmt="story">Storia<small>Instagram e Facebook · 9:16</small></button><button role="menuitem" data-dfmt="post">Post<small>Instagram e Facebook · 4:5</small></button><button role="menuitem" data-dfmt="salva">Salva l'immagine<small>Scarica il file (formato post)</small></button></div>`);
+    return;
+  }
+  const k = v.closest('.dsh-menu').dataset.k, f = v.dataset.dfmt; chiudiMenuDich(); avviso('Preparo l\'immagine…');
+  try {
+    const out = await DSH.crea(k, f === 'story' ? 'story' : 'post');
+    const files = await Promise.all(out.map(async o => new File([await new Promise(r => o.cv.toBlob(r, 'image/png'))], o.nome, { type: 'image/png' })));
+    if (f !== 'salva' && navigator.canShare && navigator.canShare({ files })) {
+      try { await navigator.share({ files, title: out[0].titolo }); } catch (er) { if (er.name !== 'AbortError') throw er; }
+    } else {
+      files.forEach((fl, i) => setTimeout(() => { const a = document.createElement('a'); a.href = URL.createObjectURL(fl); a.download = fl.name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); }, i * 400));
+      avviso(files.length > 1 ? 'Immagini scaricate: pubblicale insieme come carosello.' : 'Immagine scaricata: puoi pubblicarla.');
+    }
+  } catch (er) { avviso('Non sono riuscito a creare l\'immagine.'); }
+});
 document.addEventListener('click', e => { const b = e.target.closest('[data-share]'); if (b) condividi(b); });
 document.addEventListener('change', e => { if (e.target.id === 'sa') { S.sa = +e.target.value; render(); } });
 document.addEventListener('change', e => { if (e.target.id === 'gio') { S.gio = +e.target.value; render(); } });
