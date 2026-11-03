@@ -135,6 +135,10 @@ tr:first-child td.pos { color: var(--warm); }
 .dc-foto .f.stemma img { width: 60%; height: auto; border-radius: 50%; }
 .dc-lt { position: absolute; left: 0; right: 0; bottom: 0; padding: 1rem 1.2rem; background: linear-gradient(rgba(6,20,46,0), rgba(6,20,46,.92) 45%); }
 .dc-foto.n2 .dc-lt { top: 11.4rem; background: #06142e; display: flex; flex-direction: column; justify-content: center; }
+.dc-lg { display: block; border-radius: 50%; }
+.dc-foto.n2 .dc-lg { width: 6.2rem; height: 6.2rem; margin-top: .8rem; }
+.dc-foto.n1 .dc-lg { position: absolute; right: 1rem; bottom: 1rem; width: 4.6rem; height: 4.6rem; box-shadow: 0 0 0 .15rem rgba(255,255,255,.85); }
+.dc-foto.n1 .dc-lt { padding-right: 6.4rem; }
 .dc-lt small { align-self: flex-start; display: inline-block; background: var(--bad); color: #fff; font: 700 .85rem/1.3 var(--f-display); letter-spacing: .14em; text-transform: uppercase; padding: .1rem .5rem; }
 .dc-lt b { display: block; margin-top: .35rem; font: 700 1.6rem/1.05 var(--f-display); text-transform: uppercase; }
 .dc-lt em { font: 500 1.05rem/1.2 var(--f-display); font-style: normal; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
@@ -460,7 +464,7 @@ function slideDichiarazione(x, g, m, pag, tot) {
   }
   const tit = pulito(x.titolo);
   return `<div class="dc"><div class="dc-k"><i></i>Conferenza stampa \u00b7 ${g.n}\u00aa di Lega${tot > 1 ? `<span>${pag}/${tot}</span>` : ''}</div>
-    <div class="dc-main"><div class="dc-foto n${foto.length > 1 ? 2 : 1}">${f}<div class="dc-lt"><small>L'allenatore parla</small><b>${esc(t.nome)}</b><em>${esc(t.partecipanti || '')}</em></div></div>
+    <div class="dc-main"><div class="dc-foto n${foto.length > 1 ? 2 : 1}">${f}<div class="dc-lt"><small>L'allenatore parla</small><b>${esc(t.nome)}</b><em>${esc(t.partecipanti || '')}</em><img class="dc-lg" src="${logo(t.id)}" alt=""></div></div>
     <div class="dc-txt">${tit ? `<h3 class="dc-tit">${esc(tit)}</h3>` : ''}<div class="dc-body"><div class="in">${esc(x.testo)}</div></div></div></div>${ris}</div>`;
 }
 function slidesDichiarazioni(t) {
