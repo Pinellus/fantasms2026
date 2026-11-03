@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-10-30",
+ "aggiornato": "2026-11-03",
  "lega": {
   "nome": "Fanta SMS Engineering",
   "stagione": "2026/27",
@@ -2830,34 +2830,242 @@
     {
      "casa": "vesuviani",
      "fuori": "orsonaldo",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 1,
+     "gf": 1,
+     "pc": 69.5,
+     "pf": 67,
+     "ev": [
+      [
+       "c",
+       "gol",
+       "Moreira"
+      ],
+      [
+       "c",
+       "esp",
+       "Obert"
+      ],
+      [
+       "c",
+       "ass",
+       "Miranda J."
+      ],
+      [
+       "c",
+       "ass",
+       "Moreira"
+      ],
+      [
+       "c",
+       "ass",
+       "Moreira"
+      ],
+      [
+       "c",
+       "amm",
+       "Moreira"
+      ],
+      [
+       "c",
+       "pm",
+       "Moreira"
+      ],
+      [
+       "f",
+       "cs",
+       "Butez"
+      ],
+      [
+       "f",
+       "ass",
+       "Kvernadze"
+      ],
+      [
+       "f",
+       "amm",
+       "Mangas"
+      ],
+      [
+       "f",
+       "amm",
+       "Zortea"
+      ]
+     ]
     },
     {
      "casa": "veeam",
      "fuori": "scarsenal",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 2,
+     "gf": 2,
+     "pc": 72.5,
+     "pf": 73,
+     "ev": [
+      [
+       "c",
+       "gol",
+       "Zaniolo"
+      ],
+      [
+       "c",
+       "ag",
+       "Zappacosta"
+      ],
+      [
+       "c",
+       "ass",
+       "Esposito Se."
+      ],
+      [
+       "f",
+       "gol",
+       "Mastantuono"
+      ],
+      [
+       "f",
+       "gol",
+       "Rabiot"
+      ],
+      [
+       "f",
+       "ass",
+       "Soulè"
+      ],
+      [
+       "f",
+       "ass",
+       "Soulè"
+      ],
+      [
+       "f",
+       "amm",
+       "Carlos Augusto"
+      ]
+     ]
     },
     {
      "casa": "dns",
      "fuori": "zonaflegrea",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 2,
+     "gf": 2,
+     "pc": 72.5,
+     "pf": 76.5,
+     "ev": [
+      [
+       "c",
+       "gol",
+       "Pulisic"
+      ],
+      [
+       "c",
+       "gol",
+       "Pinamonti"
+      ],
+      [
+       "c",
+       "cs",
+       "Vicario"
+      ],
+      [
+       "c",
+       "ass",
+       "Wesley"
+      ],
+      [
+       "c",
+       "amm",
+       "Marin R."
+      ],
+      [
+       "c",
+       "amm",
+       "Pinamonti"
+      ],
+      [
+       "f",
+       "gol",
+       "Isaksen"
+      ],
+      [
+       "f",
+       "gol",
+       "Ghedjemis"
+      ],
+      [
+       "f",
+       "pm",
+       "Isaksen"
+      ],
+      [
+       "f",
+       "pm",
+       "Ghedjemis"
+      ],
+      [
+       "f",
+       "amm",
+       "Kaiki"
+      ]
+     ]
     },
     {
      "casa": "backend",
      "fuori": "futuro",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 1,
+     "gf": 3,
+     "pc": 71.5,
+     "pf": 79.5,
+     "ev": [
+      [
+       "c",
+       "gol",
+       "Calò"
+      ],
+      [
+       "c",
+       "ass",
+       "Noslin"
+      ],
+      [
+       "f",
+       "gol",
+       "Laurientè"
+      ],
+      [
+       "f",
+       "gol",
+       "Laurientè"
+      ],
+      [
+       "f",
+       "gol",
+       "Njie"
+      ],
+      [
+       "f",
+       "ass",
+       "Akanji"
+      ],
+      [
+       "f",
+       "ass",
+       "Njie"
+      ],
+      [
+       "f",
+       "pm",
+       "Njie"
+      ],
+      [
+       "f",
+       "amm",
+       "Njie"
+      ],
+      [
+       "f",
+       "amm",
+       "Siebert"
+      ]
+     ]
     }
    ],
    "data": "2026-11-01"
@@ -4906,43 +5114,63 @@
    "partite": [
     [
      "Atalanta",
-     "Parma"
+     "Parma",
+     0,
+     3
     ],
     [
      "Bologna",
-     "Monza"
+     "Monza",
+     2,
+     1
     ],
     [
      "Como",
-     "Venezia"
+     "Venezia",
+     1,
+     0
     ],
     [
      "Frosinone",
-     "Torino"
+     "Torino",
+     2,
+     0
     ],
     [
      "Juventus",
-     "Napoli"
+     "Napoli",
+     2,
+     0
     ],
     [
      "Lazio",
-     "Cagliari"
+     "Cagliari",
+     2,
+     1
     ],
     [
      "Lecce",
-     "Genoa"
+     "Genoa",
+     1,
+     2
     ],
     [
      "Milan",
-     "Inter"
+     "Inter",
+     3,
+     1
     ],
     [
      "Sassuolo",
-     "Fiorentina"
+     "Fiorentina",
+     2,
+     4
     ],
     [
      "Udinese",
-     "Roma"
+     "Roma",
+     2,
+     5
     ]
    ]
   },
