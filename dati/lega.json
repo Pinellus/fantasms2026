@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-03",
+ "aggiornato": "2026-11-09",
  "lega": {
   "nome": "Fanta SMS Engineering",
   "stagione": "2026/27",
@@ -3109,34 +3109,172 @@
     {
      "casa": "futuro",
      "fuori": "vesuviani",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 0,
+     "gf": 1,
+     "pc": 63,
+     "pf": 69,
+     "ev": [
+      [
+       "f",
+       "gol",
+       "Mora"
+      ]
+     ]
     },
     {
      "casa": "scarsenal",
      "fuori": "backend",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 2,
+     "gf": 2,
+     "pc": 73.5,
+     "pf": 75.5,
+     "ev": [
+      [
+       "c",
+       "gol",
+       "Woltemade"
+      ],
+      [
+       "c",
+       "ass",
+       "Rabiot"
+      ],
+      [
+       "c",
+       "amm",
+       "Gila"
+      ],
+      [
+       "c",
+       "amm",
+       "Rabiot"
+      ],
+      [
+       "c",
+       "pm",
+       "Mandas"
+      ],
+      [
+       "f",
+       "gol",
+       "Bremer"
+      ],
+      [
+       "f",
+       "gol",
+       "Thuram"
+      ],
+      [
+       "f",
+       "ass",
+       "Noslin"
+      ],
+      [
+       "f",
+       "amm",
+       "Bremer"
+      ],
+      [
+       "f",
+       "pm",
+       "Thuram"
+      ]
+     ]
     },
     {
      "casa": "dns",
      "fuori": "orsonaldo",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 2,
+     "gf": 2,
+     "pc": 74.5,
+     "pf": 72.5,
+     "ev": [
+      [
+       "c",
+       "gol",
+       "Pulisic"
+      ],
+      [
+       "c",
+       "gol",
+       "Krstovic"
+      ],
+      [
+       "c",
+       "amm",
+       "Pulisic"
+      ],
+      [
+       "c",
+       "pm",
+       "Pulisic"
+      ],
+      [
+       "f",
+       "gol",
+       "Hermoso"
+      ],
+      [
+       "f",
+       "gol",
+       "Orsolini"
+      ],
+      [
+       "f",
+       "amm",
+       "De Ketelaere"
+      ],
+      [
+       "f",
+       "pm",
+       "Hermoso"
+      ]
+     ]
     },
     {
      "casa": "zonaflegrea",
      "fuori": "veeam",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 2,
+     "gf": 1,
+     "pc": 76,
+     "pf": 69,
+     "ev": [
+      [
+       "c",
+       "ass",
+       "Spence"
+      ],
+      [
+       "c",
+       "ass",
+       "Ramos G."
+      ],
+      [
+       "c",
+       "ass",
+       "Malen"
+      ],
+      [
+       "f",
+       "gol",
+       "Esposito F.P."
+      ],
+      [
+       "f",
+       "ass",
+       "Kolo Muani"
+      ],
+      [
+       "f",
+       "amm",
+       "Kolo Muani"
+      ],
+      [
+       "f",
+       "amm",
+       "Esposito F.P."
+      ]
+     ]
     }
    ],
    "data": "2026-11-08"
@@ -5210,43 +5348,63 @@
    "partite": [
     [
      "Cagliari",
-     "Frosinone"
+     "Frosinone",
+     1,
+     0
     ],
     [
      "Fiorentina",
-     "Juventus"
+     "Juventus",
+     2,
+     2
     ],
     [
      "Genoa",
-     "Milan"
+     "Milan",
+     1,
+     2
     ],
     [
      "Inter",
-     "Como"
+     "Como",
+     2,
+     0
     ],
     [
      "Monza",
-     "Atalanta"
+     "Atalanta",
+     0,
+     1
     ],
     [
      "Napoli",
-     "Lazio"
+     "Lazio",
+     1,
+     1
     ],
     [
      "Parma",
-     "Bologna"
+     "Bologna",
+     1,
+     2
     ],
     [
      "Roma",
-     "Sassuolo"
+     "Sassuolo",
+     3,
+     0
     ],
     [
      "Torino",
-     "Lecce"
+     "Lecce",
+     1,
+     1
     ],
     [
      "Venezia",
-     "Udinese"
+     "Udinese",
+     2,
+     1
     ]
    ]
   },
