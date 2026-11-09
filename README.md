@@ -76,6 +76,7 @@ Dati e figurine provengono dall'app di fantacalcio.it.
 `tv.html` mostra le dichiarazioni della giornata in corso come pagine a tutto schermo (stile TG): titolo, testo grande, foto fumetto degli allenatori e il risultato commentato. Si appoggiano agli stessi fogli della conferenza stampa, quindi non c'è nulla da aggiornare a mano.
 - Foto: in `img/coach/` (512 px, webp). A ogni squadra si associano con il campo `foto` in `dati/lega.json` (una o due immagini). Senza foto compare lo stemma.
 - Il testo si rimpicciolisce da solo per starci; se anche al carattere minimo non ci sta (circa 1.000 caratteri) viene accorciato con [...]: ogni dichiarazione occupa sempre una sola pagina. Si mostrano al massimo le ultime 8 dichiarazioni (`?dich=8`); `?dich=0` le toglie.
+- Se una squadra invia più dichiarazioni nella stessa giornata, la TV (pagine e striscia) mostra solo l'ultima; il sito le mostra tutte.
 - Una dichiarazione compare solo quando la sua giornata ha dei risultati; il risultato mostrato è quello della squadra in Campionato.
 
 ### Condividere una dichiarazione sui social

@@ -590,6 +590,7 @@ async function carica(primo) {
     D = d; T = Object.fromEntries(D.squadre.map(s => [s.id, s]));
     const fin = finestre();
     DICH = fin.length ? dich.map(x => Object.assign({}, x, { n: giornataDi(x.ts, fin).n })) : [];
+    { const ult = {}; DICH.forEach(x => { const k = x.sq + '|' + x.n; if (!ult[k] || x.ts > ult[k].ts) ult[k] = x; }); DICH = DICH.filter(x => ult[x.sq + '|' + x.n] === x); } // una squadra, una dichiarazione per giornata: vale l'ultima
     const sig = JSON.stringify(d) + JSON.stringify(DICH);
     if (sig !== sigDati) { sigDati = sig; disegna(); } // le diapositive si rifanno solo se i dati sono cambiati
     striscia(fin.length ? DICH.filter(x => x.n === giornataCorrente(fin).n) : []); // la striscia mostra solo la giornata in corso
