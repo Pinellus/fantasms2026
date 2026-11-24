@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-09",
+ "aggiornato": "2026-11-24",
  "lega": {
   "nome": "Fanta SMS Engineering",
   "stagione": "2026/27",
@@ -3216,7 +3216,7 @@
       ],
       [
        "f",
-       "gol",
+       "rig",
        "Orsolini"
       ],
       [
@@ -3288,34 +3288,307 @@
     {
      "casa": "vesuviani",
      "fuori": "scarsenal",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 2,
+     "gf": 3,
+     "pc": 77.5,
+     "pf": 78,
+     "ev": [
+      [
+       "c",
+       "gol",
+       "Elmas"
+      ],
+      [
+       "c",
+       "gol",
+       "Mora"
+      ],
+      [
+       "c",
+       "ass",
+       "Moreira"
+      ],
+      [
+       "c",
+       "ass",
+       "Lang"
+      ],
+      [
+       "f",
+       "gol",
+       "Woltemade"
+      ],
+      [
+       "f",
+       "ag",
+       "Calvani"
+      ],
+      [
+       "f",
+       "ass",
+       "Woltemade"
+      ],
+      [
+       "f",
+       "ass",
+       "Rabiot"
+      ],
+      [
+       "f",
+       "ass",
+       "Rabiot"
+      ],
+      [
+       "f",
+       "amm",
+       "Zappacosta"
+      ],
+      [
+       "f",
+       "pm",
+       "Rabiot"
+      ],
+      [
+       "f",
+       "pm",
+       "Woltemade"
+      ],
+      [
+       "f",
+       "cs",
+       "Mandas"
+      ]
+     ]
     },
     {
      "casa": "veeam",
      "fuori": "dns",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 5,
+     "gf": 2,
+     "pc": 95.5,
+     "pf": 77,
+     "ev": [
+      [
+       "c",
+       "gol",
+       "Da Cunha"
+      ],
+      [
+       "c",
+       "gol",
+       "McTominay"
+      ],
+      [
+       "c",
+       "gol",
+       "Esposito F.P."
+      ],
+      [
+       "c",
+       "gol",
+       "Esposito F.P."
+      ],
+      [
+       "c",
+       "gol",
+       "Esposito F.P."
+      ],
+      [
+       "c",
+       "ass",
+       "Dimarco"
+      ],
+      [
+       "c",
+       "ass",
+       "Taylor K."
+      ],
+      [
+       "c",
+       "cs",
+       "Milinkovic-Savic V."
+      ],
+      [
+       "c",
+       "pm",
+       "McTominay"
+      ],
+      [
+       "f",
+       "gol",
+       "Pulisic"
+      ],
+      [
+       "f",
+       "ass",
+       "Wesley"
+      ],
+      [
+       "f",
+       "ass",
+       "Wesley"
+      ],
+      [
+       "f",
+       "ass",
+       "Wesley"
+      ],
+      [
+       "f",
+       "cs",
+       "Vicario"
+      ]
+     ]
     },
     {
      "casa": "backend",
      "fuori": "zonaflegrea",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 3,
+     "gf": 5,
+     "pc": 82,
+     "pf": 92,
+     "ev": [
+      [
+       "c",
+       "gol",
+       "Frattesi"
+      ],
+      [
+       "c",
+       "gol",
+       "Noslin"
+      ],
+      [
+       "c",
+       "gol",
+       "Noslin"
+      ],
+      [
+       "c",
+       "ass",
+       "Couto"
+      ],
+      [
+       "c",
+       "ass",
+       "Couto"
+      ],
+      [
+       "c",
+       "ass",
+       "Thuram"
+      ],
+      [
+       "c",
+       "amm",
+       "Calò"
+      ],
+      [
+       "c",
+       "pm",
+       "Noslin"
+      ],
+      [
+       "f",
+       "gol",
+       "Ramos G."
+      ],
+      [
+       "f",
+       "gol",
+       "Malen"
+      ],
+      [
+       "f",
+       "gol",
+       "Malen"
+      ],
+      [
+       "f",
+       "gol",
+       "Malen"
+      ],
+      [
+       "f",
+       "gol",
+       "Malen"
+      ],
+      [
+       "f",
+       "ass",
+       "Isaksen"
+      ],
+      [
+       "f",
+       "amm",
+       "Bernardeschi"
+      ],
+      [
+       "f",
+       "pm",
+       "Malen"
+      ],
+      [
+       "f",
+       "pm",
+       "Osmajic"
+      ]
+     ]
     },
     {
      "casa": "orsonaldo",
      "fuori": "futuro",
-     "gc": null,
-     "gf": null,
-     "pc": null,
-     "pf": null
+     "gc": 3,
+     "gf": 2,
+     "pc": 80.5,
+     "pf": 77,
+     "ev": [
+      [
+       "c",
+       "gol",
+       "Zortea"
+      ],
+      [
+       "c",
+       "gol",
+       "Ramon"
+      ],
+      [
+       "c",
+       "ass",
+       "Zhegrova"
+      ],
+      [
+       "c",
+       "cs",
+       "Butez"
+      ],
+      [
+       "c",
+       "pm",
+       "Ramon"
+      ],
+      [
+       "f",
+       "gol",
+       "Cissè A."
+      ],
+      [
+       "f",
+       "gol",
+       "Varela G."
+      ],
+      [
+       "f",
+       "amm",
+       "Cissè A."
+      ],
+      [
+       "f",
+       "pm",
+       "Varela G."
+      ]
+     ]
     }
    ],
    "data": "2026-11-22"
@@ -5414,43 +5687,63 @@
    "partite": [
     [
      "Atalanta",
-     "Inter"
+     "Inter",
+     4,
+     4
     ],
     [
      "Bologna",
-     "Udinese"
+     "Udinese",
+     1,
+     1
     ],
     [
      "Como",
-     "Cagliari"
+     "Cagliari",
+     2,
+     0
     ],
     [
      "Juventus",
-     "Venezia"
+     "Venezia",
+     4,
+     0
     ],
     [
      "Lazio",
-     "Lecce"
+     "Lecce",
+     3,
+     0
     ],
     [
      "Milan",
-     "Frosinone"
+     "Frosinone",
+     5,
+     1
     ],
     [
      "Monza",
-     "Fiorentina"
+     "Fiorentina",
+     3,
+     0
     ],
     [
      "Napoli",
-     "Torino"
+     "Torino",
+     1,
+     0
     ],
     [
      "Parma",
-     "Roma"
+     "Roma",
+     1,
+     5
     ],
     [
      "Sassuolo",
-     "Genoa"
+     "Genoa",
+     0,
+     2
     ]
    ]
   },
